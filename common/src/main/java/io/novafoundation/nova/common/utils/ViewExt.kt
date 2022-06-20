@@ -3,6 +3,8 @@ package io.novafoundation.nova.common.utils
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
@@ -32,6 +34,19 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import dev.chrisbanes.insetter.applyInsetter
 import io.novafoundation.nova.common.utils.input.Input
 import io.novafoundation.nova.common.utils.input.valueOrNull
+
+
+fun View.capture(): Bitmap {
+    val bitmap = Bitmap.createBitmap(
+        this.width,
+        this.height,
+        Bitmap.Config.ARGB_8888
+    )
+    val c = Canvas(bitmap)
+    this.draw(c)
+    return bitmap
+}
+
 
 fun View.updatePadding(
     top: Int = paddingTop,

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeRetries
 import io.novafoundation.nova.common.presentation.LoadingState
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_payouts_list.payoutsListContainer
 import kotlinx.android.synthetic.main.fragment_payouts_list.payoutsListProgress
 import kotlinx.android.synthetic.main.fragment_payouts_list.payoutsListToolbar
 
-class PayoutsListFragment : BaseFragment<PayoutsListViewModel>(), PayoutAdapter.ItemHandler {
+class PayoutsListFragment : BaseFragmentOld<PayoutsListViewModel>(), PayoutAdapter.ItemHandler {
 
     lateinit var adapter: PayoutAdapter
 

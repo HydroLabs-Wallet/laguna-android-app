@@ -27,6 +27,10 @@ class ResourceManagerImpl(
         return contextManager.getContext().getString(res)
     }
 
+    override fun getStringArray(res: Int): Array<String> {
+        return contextManager.getContext().resources.getStringArray(res)
+    }
+
     override fun getString(res: Int, vararg arguments: Any): String {
         return contextManager.getContext().getString(res, *arguments)
     }

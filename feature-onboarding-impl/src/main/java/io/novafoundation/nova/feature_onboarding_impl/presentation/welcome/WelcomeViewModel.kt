@@ -33,11 +33,11 @@ class WelcomeViewModel(
     }
 
     fun importAccountClicked() {
-        val payload = ImportTypeChooserMixin.Payload(
-            onChosen = { router.openImportAccountScreen(ImportAccountPayload(it, addAccountPayload)) }
-        )
-
-        importTypeChooserMixin.showChooser(payload)
+//        val payload = ImportTypeChooserMixin.Payload(
+//            onChosen = { router.openImportAccountScreen(ImportAccountPayload(it, addAccountPayload)) }
+//        )
+//
+//        importTypeChooserMixin.showChooser(payload)
     }
 
     fun termsClicked() {

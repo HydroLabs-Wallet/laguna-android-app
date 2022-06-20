@@ -2,32 +2,47 @@ package io.novafoundation.nova.app.root.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.Fragment
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.di.RootApi
 import io.novafoundation.nova.app.root.di.RootComponent
-import io.novafoundation.nova.app.root.navigation.NavigationHolder
-import io.novafoundation.nova.common.base.BaseActivity
 import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.EventObserver
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.showToast
-import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
-import io.novafoundation.nova.common.utils.updatePadding
 import io.novafoundation.nova.splash.presentation.SplashBackgroundHolder
-import kotlinx.android.synthetic.main.activity_root.mainView
-import kotlinx.android.synthetic.main.activity_root.rootNetworkBar
+import kotlinx.android.synthetic.main.activity_root.*
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class RootActivity : BaseActivity<RootViewModel>(), SplashBackgroundHolder {
+class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder, RootView {
 
     @Inject
-    lateinit var navigationHolder: NavigationHolder
-    @Inject
-    lateinit var systemCallExecutor: SystemCallExecutor
+    lateinit var navigatorHolder: NavigatorHolder
 
-    override fun inject() {
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: RootPresenter
+
+    @ProvidePresenter
+    fun createPresenter() = presenter
+
+    private val navigator: Navigator = AppNavigator(this, R.id.main_container)
+    override val chain = ArrayList<WeakReference<Fragment>>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        inject()
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_root)
+        subscribe()
+    }
+
+    fun inject() {
         FeatureUtils.getFeature<RootComponent>(this, RootApi::class.java)
             .mainActivityComponentFactory()
             .create(this)
@@ -39,83 +54,50 @@ class RootActivity : BaseActivity<RootViewModel>(), SplashBackgroundHolder {
 
         removeSplashBackground()
 
-        viewModel.restoredAfterConfigChange()
+        presenter.restoredAfterConfigChange()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!systemCallExecutor.onActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder.setNavigator(navigator)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        systemCallExecutor.attachActivity(this)
-        navigationHolder.attach(navController, this)
-
-        rootNetworkBar.setOnApplyWindowInsetsListener { view, insets ->
-            view.updatePadding(top = insets.systemWindowInsetTop)
-
-            insets
-        }
-
-        intent?.let(::processIntent)
-
-//        processJsonOpenIntent()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        systemCallExecutor.detachActivity()
-        navigationHolder.detach()
-    }
-
-    override fun layoutResource(): Int {
-        return R.layout.activity_root
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-
-        processIntent(intent)
-    }
-
-    override fun initViews() {
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onStop() {
         super.onStop()
 
-        viewModel.noticeInBackground()
+        presenter.noticeInBackground()
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewModel.noticeInForeground()
+        presenter.noticeInForeground()
     }
 
-    override fun subscribe(viewModel: RootViewModel) {
-        viewModel.showConnectingBarLiveData.observe(this) { show ->
+    fun subscribe() {
+        presenter.showConnectingBarLiveData.observe(this) { show ->
             rootNetworkBar.setVisible(show)
         }
 
-        viewModel.messageLiveData.observe(
-            this,
-            EventObserver {
-                showToast(it)
-            }
-        )
+
+    }
+
+    override fun showMessage(text: String) {
+        showToast(text)
     }
 
     override fun removeSplashBackground() {
         mainView.setBackgroundResource(R.color.black)
     }
 
-    override fun changeLanguage() {
-        viewModel.noticeLanguageLanguage()
+    fun changeLanguage() {
+        presenter.noticeLanguageLanguage()
 
         recreate()
     }
@@ -123,23 +105,7 @@ class RootActivity : BaseActivity<RootViewModel>(), SplashBackgroundHolder {
     private fun processIntent(intent: Intent) {
         val uri = intent.data?.toString()
 
-        uri?.let { viewModel.externalUrlOpened(uri) }
+        uri?.let { presenter.externalUrlOpened(uri) }
     }
 
-//    private fun processJsonOpenIntent() {
-//        if (Intent.ACTION_VIEW == intent.action && intent.type != null) {
-//            if ("application/json" == intent.type) {
-//                val file = this.contentResolver.openInputStream(intent.data!!)
-//                val content = file?.reader(Charsets.UTF_8)?.readText()
-//                viewModel.jsonFileOpened(content)
-//            }
-//        }
-//    }
-
-    private val navController: NavController by lazy {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
-
-        navHostFragment.navController
-    }
 }

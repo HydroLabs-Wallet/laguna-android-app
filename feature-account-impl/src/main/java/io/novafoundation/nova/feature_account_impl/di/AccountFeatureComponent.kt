@@ -9,22 +9,19 @@ import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.AdvancedEncryptionCommunicator
 import io.novafoundation.nova.feature_account_impl.presentation.account.advancedEncryption.di.AdvancedEncryptionComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account.create.di.CreateAccountComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account.details.di.AccountDetailsComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account.edit.di.AccountEditComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account.list.di.AccountListComponent
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.confirm.ShareCompletedReceiver
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.confirm.di.ExportJsonConfirmComponent
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.password.di.ExportJsonPasswordComponent
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.seed.di.ExportSeedComponent
-import io.novafoundation.nova.feature_account_impl.presentation.importing.di.ImportAccountComponent
+import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.di.AccountImportComponent
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.di.AccountImportInfoComponent
 import io.novafoundation.nova.feature_account_impl.presentation.language.di.LanguagesComponent
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.backup.di.BackupMnemonicComponent
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.di.ConfirmMnemonicComponent
-import io.novafoundation.nova.feature_account_impl.presentation.node.add.di.AddNodeComponent
-import io.novafoundation.nova.feature_account_impl.presentation.node.details.di.NodeDetailsComponent
-import io.novafoundation.nova.feature_account_impl.presentation.node.list.di.NodesComponent
-import io.novafoundation.nova.feature_account_impl.presentation.pincode.di.PinCodeComponent
+import io.novafoundation.nova.feature_account_impl.presentation.login.di.LoginComponent
+import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.di.SeedConfirmComponent
+import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.di.SeedCreateComponent
+import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.di.SeedPromptComponent
+import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.info.di.SeedPromptInfoComponent
+import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.warning.di.SeedPromptWarningComponent
+import io.novafoundation.nova.feature_account_impl.presentation.onboarding_complete.di.AccountCreatedComponent
+import io.novafoundation.nova.feature_account_impl.presentation.password.di.CreatePasswordComponent
+import io.novafoundation.nova.feature_account_impl.presentation.select_account.di.SelectAccountComponent
 import io.novafoundation.nova.feature_account_impl.presentation.settings.di.SettingsComponent
 import io.novafoundation.nova.runtime.di.RuntimeApi
 
@@ -40,41 +37,25 @@ import io.novafoundation.nova.runtime.di.RuntimeApi
 @FeatureScope
 interface AccountFeatureComponent : AccountFeatureApi {
 
-    fun createAccountComponentFactory(): CreateAccountComponent.Factory
-
-    fun advancedEncryptionComponentFactory(): AdvancedEncryptionComponent.Factory
-
-    fun importAccountComponentFactory(): ImportAccountComponent.Factory
-
-    fun backupMnemonicComponentFactory(): BackupMnemonicComponent.Factory
+    fun seedPromptComponentFactory(): SeedPromptComponent.Factory
+    fun seedPromptInfoComponentFactory(): SeedPromptInfoComponent.Factory
+    fun seedPromptWarningComponentFactory(): SeedPromptWarningComponent.Factory
+    fun seedCreateComponentFactory(): SeedCreateComponent.Factory
+    fun seedConfirmComponentFactory(): SeedConfirmComponent.Factory
+    fun createPasswordComponentFactory(): CreatePasswordComponent.Factory
+    fun accountCreatedComponentFactory(): AccountCreatedComponent.Factory
+    fun accountImportInfoComponent(): AccountImportInfoComponent.Factory
+    fun accountImportComponent(): AccountImportComponent.Factory
+    fun loginComponent(): LoginComponent.Factory
 
     fun profileComponentFactory(): SettingsComponent.Factory
 
-    fun pincodeComponentFactory(): PinCodeComponent.Factory
-
-    fun confirmMnemonicComponentFactory(): ConfirmMnemonicComponent.Factory
-
-    fun accountsComponentFactory(): AccountListComponent.Factory
-
-    fun editAccountsComponentFactory(): AccountEditComponent.Factory
-
-    fun accountDetailsComponentFactory(): AccountDetailsComponent.Factory
-
-    fun connectionsComponentFactory(): NodesComponent.Factory
-
-    fun nodeDetailsComponentFactory(): NodeDetailsComponent.Factory
 
     fun languagesComponentFactory(): LanguagesComponent.Factory
 
-    fun addNodeComponentFactory(): AddNodeComponent.Factory
-
-    fun exportSeedFactory(): ExportSeedComponent.Factory
-
-    fun exportJsonPasswordFactory(): ExportJsonPasswordComponent.Factory
-
-    fun exportJsonConfirmFactory(): ExportJsonConfirmComponent.Factory
-
-    fun inject(receiver: ShareCompletedReceiver)
+    fun advancedEncryptionComponentFactory(): AdvancedEncryptionComponent.Factory
+    fun accountsComponentFactory(): AccountListComponent.Factory
+    fun selectAccountComponentFactory(): SelectAccountComponent.Factory
 
     @Component.Factory
     interface Factory {

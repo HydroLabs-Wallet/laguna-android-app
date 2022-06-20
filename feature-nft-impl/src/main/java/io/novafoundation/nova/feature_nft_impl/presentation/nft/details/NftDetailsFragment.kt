@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import coil.ImageLoader
 import coil.load
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.utils.makeGone
@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.fragment_nft_details.nftDetailsTitle
 import kotlinx.android.synthetic.main.fragment_nft_details.nftDetailsToolbar
 import javax.inject.Inject
 
-class NftDetailsFragment : BaseFragment<NftDetailsViewModel>() {
+class NftDetailsFragment : BaseFragmentOld<NftDetailsViewModel>() {
 
     companion object {
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/holder"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_rounded_4_black_selected"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/white"
+            app:trackThickness="2dp"
+
+            />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imStart"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="7dp"
+            tools:src="@drawable/ic_size_24_arrow_right" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextBodyBoldMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            tools:text="Button" />
+
+        <Space
+            android:id="@+id/center_space"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imEnd"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="7dp"
+            tools:src="@drawable/ic_size_24_arrow_right" />
+    </LinearLayout>
+</layout>

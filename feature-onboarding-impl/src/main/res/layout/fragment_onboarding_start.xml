@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/bg_brand_2">
+
+        <ImageView
+            android:layout_width="644dp"
+            android:layout_height="644dp"
+            android:src="@drawable/circle_border_opaque"
+            app:layout_constraintBottom_toBottomOf="@id/bgBlack"
+            app:layout_constraintEnd_toEndOf="@id/bgBlack"
+            app:layout_constraintStart_toStartOf="@id/bgBlack"
+            app:layout_constraintTop_toTopOf="@id/bgBlack"
+            app:layout_constraintVertical_bias="0.502" />
+
+        <ImageView
+            android:layout_width="492dp"
+            android:layout_height="492dp"
+            android:src="@drawable/circle_border_opaque"
+            app:layout_constraintBottom_toBottomOf="@id/bgBlack"
+            app:layout_constraintEnd_toEndOf="@id/bgBlack"
+            app:layout_constraintStart_toStartOf="@id/bgBlack"
+            app:layout_constraintTop_toTopOf="@id/bgBlack" />
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="370dp"
+            android:src="@drawable/circle_border_opaque"
+            app:layout_constraintBottom_toBottomOf="@id/bgBlack"
+            app:layout_constraintEnd_toEndOf="@id/bgBlack"
+            app:layout_constraintStart_toStartOf="@id/bgBlack"
+            app:layout_constraintTop_toTopOf="@id/bgBlack" />
+
+        <ImageView
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:src="@drawable/circle_border_opaque"
+            app:layout_constraintBottom_toBottomOf="@id/bgBlack"
+            app:layout_constraintEnd_toEndOf="@id/bgBlack"
+            app:layout_constraintStart_toStartOf="@id/bgBlack"
+            app:layout_constraintTop_toTopOf="@id/bgBlack" />
+
+        <ImageView
+            android:id="@+id/bgBlack"
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:src="@drawable/circle_black"
+            app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/im_logo"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_marginEnd="9dp"
+            android:src="@drawable/ic_laguna_symb_white"
+            app:layout_constraintBottom_toBottomOf="@id/bgBlack"
+            app:layout_constraintEnd_toEndOf="@id/bgBlack"
+            app:layout_constraintStart_toStartOf="@id/bgBlack"
+            app:layout_constraintTop_toTopOf="@id/bgBlack" />
+
+        <TextView
+            android:id="@+id/tvLogo"
+            style="@style/TextHeadingsH2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="26dp"
+            android:text="@string/welcome_to_laguna"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/im_logo"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            style="@style/TextBodyRegularLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="46dp"
+            android:layout_marginEnd="46dp"
+            android:gravity="center"
+            android:text="@string/welcome_to_laguna_hint"
+            android:textColor="@color/contentSecondary"
+            app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLogo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/circle_black"
+                app:tint="@color/gray600" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/circle_black"
+                app:tint="@color/gray200" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/circle_black"
+                app:tint="@color/gray200" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/circle_black"
+                app:tint="@color/gray200" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/circle_black"
+                app:tint="@color/gray200" />
+
+        </LinearLayout>
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnImport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rect_button_text="@string/create_new_wallet" />
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnImport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rect_button_text="@string/i_have_wallet"
+            app:rect_button_type="tertiary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

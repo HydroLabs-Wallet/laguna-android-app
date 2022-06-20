@@ -6,7 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.utils.createSpannable
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_welcome.createAccountBtn
 import kotlinx.android.synthetic.main.fragment_welcome.importAccountBtn
 import kotlinx.android.synthetic.main.fragment_welcome.termsTv
 
-class WelcomeFragment : BaseFragment<WelcomeViewModel>() {
+class WelcomeFragment : BaseFragmentOld<WelcomeViewModel>() {
 
     companion object {
         private const val KEY_DISPLAY_BACK = "display_back"
@@ -76,14 +76,13 @@ class WelcomeFragment : BaseFragment<WelcomeViewModel>() {
     }
 
     override fun inject() {
-        FeatureUtils.getFeature<OnboardingFeatureComponent>(context!!, OnboardingFeatureApi::class.java)
-            .welcomeComponentFactory()
-            .create(
-                fragment = this,
-                shouldShowBack = argument(KEY_DISPLAY_BACK),
-                addAccountPayload = argument(KEY_ADD_ACCOUNT_PAYLOAD)
-            )
-            .inject(this)
+//        FeatureUtils.getFeature<OnboardingFeatureComponent>(context!!, OnboardingFeatureApi::class.java)
+//            .welcomeComponentFactory()
+//            .create(
+//                fragment = this,
+//                isAuth = argument(KEY_DISPLAY_BACK),
+//            )
+//            .inject(this)
     }
 
     override fun subscribe(viewModel: WelcomeViewModel) {

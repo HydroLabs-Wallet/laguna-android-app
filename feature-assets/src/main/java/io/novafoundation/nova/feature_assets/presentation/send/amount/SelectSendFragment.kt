@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_select_send.selectSendToolbar
 private const val KEY_ADDRESS = "KEY_ADDRESS"
 private const val KEY_ASSET_PAYLOAD = "KEY_ASSET_PAYLOAD"
 
-class SelectSendFragment : BaseFragment<SelectSendViewModel>() {
+class SelectSendFragment : BaseFragmentOld<SelectSendViewModel>() {
 
     companion object {
 

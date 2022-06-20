@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.RegisterIndicatorView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pi_progress="1" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextHeadingsH3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:gravity="center"
+            android:text="@string/write_down_your_seed"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/progress" />
+
+        <TextView
+            android:id="@+id/tvSubTitle"
+            style="@style/TextBodyRegularMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:singleLine="false"
+            android:text="@string/seed_create_hint"
+            android:textColor="@color/contentSecondary"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.SeedListView
+            android:id="@+id/seedView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/margin_26"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
+
+        <io.novafoundation.nova.common.view.PillButtonView
+            android:id="@+id/btnCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/btnNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:pill_button_ic_start="@drawable/ic_size_24_duplicate"
+            app:pill_button_size="small"
+            app:pill_button_text="@string/copy"
+            app:pill_button_type="secondary" />
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:rect_button_text="@string/text_continue" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

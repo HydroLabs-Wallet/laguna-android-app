@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.scrollToTopWhenItemsShuffled
 import io.novafoundation.nova.common.view.ButtonState
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_select_custom_validators.selectCu
 import kotlinx.android.synthetic.main.fragment_select_custom_validators.selectCustomValidatorsSorting
 import kotlinx.android.synthetic.main.fragment_select_custom_validators.selectCustomValidatorsToolbar
 
-class SelectCustomValidatorsFragment : BaseFragment<SelectCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
+class SelectCustomValidatorsFragment : BaseFragmentOld<SelectCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
 
     lateinit var adapter: ValidatorsAdapter
 

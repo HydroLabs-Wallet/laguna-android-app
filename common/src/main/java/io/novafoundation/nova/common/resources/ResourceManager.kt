@@ -10,7 +10,7 @@ interface ResourceManager {
     fun loadRawString(@RawRes res: Int): String
 
     fun getString(res: Int): String
-
+    fun getStringArray(res: Int): Array<String>
     fun getString(res: Int, vararg arguments: Any): String
 
     fun getColor(res: Int): Int

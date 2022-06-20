@@ -16,7 +16,6 @@ interface AccountInteractor {
     suspend fun generateMnemonic(): Mnemonic
 
     fun getCryptoTypes(): List<CryptoType>
-
     suspend fun getPreferredCryptoType(chainId: ChainId? = null): PreferredCryptoType
 
     suspend fun isCodeSet(): Boolean

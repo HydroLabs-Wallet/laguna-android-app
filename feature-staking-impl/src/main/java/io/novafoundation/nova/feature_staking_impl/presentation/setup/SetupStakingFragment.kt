@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.mixin.impl.observeRetries
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_setup_staking.setupStakingNext
 import kotlinx.android.synthetic.main.fragment_setup_staking.setupStakingRewardDestinationChooser
 import kotlinx.android.synthetic.main.fragment_setup_staking.setupStakingToolbar
 
-class SetupStakingFragment : BaseFragment<SetupStakingViewModel>() {
+class SetupStakingFragment : BaseFragmentOld<SetupStakingViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

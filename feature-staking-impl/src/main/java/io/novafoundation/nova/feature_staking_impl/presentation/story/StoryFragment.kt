@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.feature_staking_api.di.StakingFeatureApi
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_story.storyCloseIcon
 import kotlinx.android.synthetic.main.fragment_story.storyContainer
 import kotlinx.android.synthetic.main.fragment_story.storyTitle
 
-class StoryFragment : BaseFragment<StoryViewModel>(), StoriesProgressView.StoriesListener {
+class StoryFragment : BaseFragmentOld<StoryViewModel>(), StoriesProgressView.StoriesListener {
 
     companion object {
         private const val KEY_STORY = "story"

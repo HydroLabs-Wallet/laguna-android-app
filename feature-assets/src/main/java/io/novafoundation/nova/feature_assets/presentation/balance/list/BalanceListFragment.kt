@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import coil.ImageLoader
 import dev.chrisbanes.insetter.applyInsetter
 import io.novafoundation.nova.feature_assets.R
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.hideKeyboard
 import io.novafoundation.nova.common.view.shape.addRipple
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_balance_list.walletContainer
 import javax.inject.Inject
 
 class BalanceListFragment :
-    BaseFragment<BalanceListViewModel>(),
+    BaseFragmentOld<BalanceListViewModel>(),
     BalanceListAdapter.ItemAssetHandler,
     AssetsHeaderAdapter.Handler {
 

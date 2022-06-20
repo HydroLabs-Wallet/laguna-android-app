@@ -19,12 +19,12 @@ class SplashViewModel(
         viewModelScope.launch {
             if (repository.isAccountSelected()) {
                 if (repository.isCodeSet()) {
-                    router.openInitialCheckPincode()
+                    router.toLoginScreen()
                 } else {
-                    router.openCreatePincode()
+                    router.toCreatePassword()
                 }
             } else {
-                router.openAddFirstAccount()
+                router.toOnboardingScreen()
             }
         }
     }

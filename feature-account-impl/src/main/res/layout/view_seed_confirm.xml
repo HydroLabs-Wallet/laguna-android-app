@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_rounded_4_grey_unselected"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/tvText"
+            style="@style/TextBodyRegularMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seed_confirm_hint"
+            android:textColor="@color/contentSecondary"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.SeedWordView
+            android:id="@+id/word_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/word_2"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvText" />
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.SeedWordView
+            android:id="@+id/word_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintEnd_toStartOf="@+id/word_3"
+            app:layout_constraintStart_toEndOf="@+id/word_1"
+            app:layout_constraintTop_toTopOf="@+id/word_1" />
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.SeedWordView
+            android:id="@+id/word_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/word_2"
+            app:layout_constraintTop_toTopOf="@+id/word_1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

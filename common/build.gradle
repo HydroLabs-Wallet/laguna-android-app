@@ -29,7 +29,9 @@ android {
 
         buildConfigField "String", "SET_CONTROLLER_LEARN_MORE", "\"https://wiki.polkadot.network/docs/en/maintain-guides-how-to-nominate-polkadot#setting-up-stash-and-controller-keys\""
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         debug {
 
@@ -80,6 +82,12 @@ dependencies {
 
     implementation lifecycleDep
     kapt lifecycleKapt
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
 
     implementation retrofitDep
     implementation gsonConvertedDep

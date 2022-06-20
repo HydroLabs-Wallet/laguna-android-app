@@ -1,5 +1,7 @@
 package io.novafoundation.nova.feature_account_impl.domain
 
+import android.text.SpannableString
+import io.novafoundation.nova.common.view.InputFieldView
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Node
@@ -27,6 +29,7 @@ class AccountInteractorImpl(
     override suspend fun generateMnemonic(): Mnemonic {
         return accountRepository.generateMnemonic()
     }
+
 
     override fun getCryptoTypes(): List<CryptoType> {
         return accountRepository.getEncryptionTypes()

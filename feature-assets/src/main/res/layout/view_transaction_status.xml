@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imStatus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:backgroundTint="@color/yellow100"
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/circle_black"
+            tools:src="@drawable/ic_size_24_arrow_left" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/TextBodyRegularSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintStart_toEndOf="@id/imStatus"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sending" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

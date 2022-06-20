@@ -20,6 +20,7 @@ import io.novafoundation.nova.feature_assets.presentation.transaction.history.mi
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.mixin.TransactionStateMachine.Action
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.mixin.TransactionStateMachine.State
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.DayHeader
+import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.OperationMarker
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TransactionFilter
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
@@ -62,7 +63,7 @@ class TransactionHistoryProvider(
     }
 
     private val historyFiltersProviderAsync by lazyAsync {
-        historyFiltersProviderFactory.get(router.currentStackEntryLifecycle)
+        historyFiltersProviderFactory.get()
     }
 
     override val state = domainState.map(::mapOperationHistoryStateToUi)
@@ -208,7 +209,7 @@ class TransactionHistoryProvider(
         return assetSource.history.availableOperationFilters(chainAssetAsync())
     }
 
-    private suspend fun transformDataToUi(data: List<Operation>): List<Any> {
+    private suspend fun transformDataToUi(data: List<Operation>): List<OperationMarker> {
         val accountIdentifier = addressDisplayUseCase.createIdentifier()
         val chain = chainAsync()
 

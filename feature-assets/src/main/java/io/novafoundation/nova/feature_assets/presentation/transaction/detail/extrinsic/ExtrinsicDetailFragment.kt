@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import coil.ImageLoader
 import coil.load
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.formatDateTime
 import io.novafoundation.nova.common.utils.setTextColorRes
@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 private const val KEY_EXTRINSIC = "KEY_EXTRINSIC"
 
-class ExtrinsicDetailFragment : BaseFragment<ExtrinsicDetailViewModel>() {
+class ExtrinsicDetailFragment : BaseFragmentOld<ExtrinsicDetailViewModel>() {
 
     companion object {
         fun getBundle(operation: OperationParcelizeModel.Extrinsic) = Bundle().apply {

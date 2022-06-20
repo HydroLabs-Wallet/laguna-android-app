@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_active"
+        android:icon="@drawable/menu_icon_active_state"
+        android:title="Active" />
+
+    <item
+        android:id="@+id/nav_action"
+        android:checkable="false"
+        android:enabled="false"
+        android:icon="@drawable/menu_action_button"
+        android:title="Action" />
+
+    <item
+        android:id="@+id/nav_default"
+        android:icon="@drawable/menu_icon_state_default"
+        android:title="Default" />
+
+
+</menu>

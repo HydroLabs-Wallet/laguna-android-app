@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.presentation.LoadingState
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_dapp_main.dappMainIcon
 import kotlinx.android.synthetic.main.fragment_dapp_main.dappMainManage
 import kotlinx.android.synthetic.main.fragment_dapp_main.dappMainSearch
 
-class MainDAppFragment : BaseFragment<MainDAppViewModel>(), DappListAdapter.Handler {
+class MainDAppFragment : BaseFragmentOld<MainDAppViewModel>(), DappListAdapter.Handler {
 
     override fun onCreateView(
         inflater: LayoutInflater,

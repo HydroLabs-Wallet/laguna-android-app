@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.hints.observeHints
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_confirm_rebond.confirmRebondToolb
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 
-class ConfirmRebondFragment : BaseFragment<ConfirmRebondViewModel>() {
+class ConfirmRebondFragment : BaseFragmentOld<ConfirmRebondViewModel>() {
 
     companion object {
 

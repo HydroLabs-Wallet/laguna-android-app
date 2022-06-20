@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.presentation.LoadingState
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.fragment_staking.stakingUserRewards
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
-class StakingFragment : BaseFragment<StakingViewModel>() {
+class StakingFragment : BaseFragmentOld<StakingViewModel>() {
 
     @Inject protected lateinit var imageLoader: ImageLoader
 

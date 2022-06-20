@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/holder"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_btn_pill_primary_active"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/white"
+            app:trackThickness="2dp"
+
+            />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imStart"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="7dp"
+            tools:src="@drawable/ic_size_24_arrow_right" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextBodyBoldMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            tools:text="Button" />
+        <Space
+            android:id="@+id/center_space"
+            android:visibility="gone"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imEnd"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="7dp"
+            tools:src="@drawable/ic_size_24_arrow_right" />
+    </LinearLayout>
+</layout>

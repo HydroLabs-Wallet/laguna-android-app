@@ -19,7 +19,7 @@ class InputField @JvmOverloads constructor(
         get() = editText!!
 
     init {
-        View.inflate(context, R.layout.view_input_field, this)
+        View.inflate(context, R.layout.view_input_field_old, this)
 
         content.background = context.getCornersStateDrawable()
 

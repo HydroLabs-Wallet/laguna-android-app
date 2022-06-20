@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.hints.observeHints
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_select_unbond.unbondHints
 import kotlinx.android.synthetic.main.fragment_select_unbond.unbondToolbar
 import kotlinx.android.synthetic.main.fragment_select_unbond.unbondTransferable
 
-class SelectUnbondFragment : BaseFragment<SelectUnbondViewModel>() {
+class SelectUnbondFragment : BaseFragmentOld<SelectUnbondViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

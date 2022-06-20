@@ -1,17 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Nova.Input.Primary.External"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:parentTag="com.google.android.material.textfield.TextInputLayout">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputField"
-        style="@style/Widget.Nova.Input.Primary.Internal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:includeFontPadding="false"
-        android:inputType="text" />
+        android:layout_height="match_parent">
 
-</merge>
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextBodyBoldSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="New password" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/holder_input"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input_field_normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+            <ImageView
+                android:id="@+id/imStart"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_size_24_search" />
+
+            <EditText
+                android:id="@+id/tvText"
+                style="@style/TextBodyRegularMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:saveEnabled="false"
+                android:singleLine="true"
+                android:textColor="@color/contentPrimary"
+                android:textColorHint="@color/contentTertiary"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imClear"
+                app:layout_constraintStart_toEndOf="@id/imStart"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="Password" />
+
+            <ImageView
+                android:id="@+id/imClear"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:src="@drawable/ic_size_24_solid_x"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imEnd"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imEnd"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_icon_check_error" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvHint"
+            style="@style/TextBodyRegularSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/contentTertiary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/holder_input"
+            tools:text="Must be at least 8 characters" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.hints.observeHints
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_bond_more.bondMoreToolbar
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 
-class SelectBondMoreFragment : BaseFragment<SelectBondMoreViewModel>() {
+class SelectBondMoreFragment : BaseFragmentOld<SelectBondMoreViewModel>() {
 
     companion object {
 

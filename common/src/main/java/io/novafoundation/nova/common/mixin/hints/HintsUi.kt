@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
 import io.novafoundation.nova.common.R
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.utils.WithContextExtensions
 import io.novafoundation.nova.common.utils.setDrawableStart
 import io.novafoundation.nova.common.utils.updatePadding
@@ -36,6 +36,6 @@ class HintsView @JvmOverloads constructor(
     }
 }
 
-fun BaseFragment<*>.observeHints(mixin: HintsMixin, view: HintsView) {
+fun BaseFragmentOld<*>.observeHints(mixin: HintsMixin, view: HintsView) {
     mixin.hintsFlow.observe { view.setHints(it) }
 }

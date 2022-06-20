@@ -3,7 +3,7 @@ package io.novafoundation.nova.feature_assets.presentation.send.confirm
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_confirm_send.confirmSendWallet
 
 private const val KEY_DRAFT = "KEY_DRAFT"
 
-class ConfirmSendFragment : BaseFragment<ConfirmSendViewModel>() {
+class ConfirmSendFragment : BaseFragmentOld<ConfirmSendViewModel>() {
 
     companion object {
 

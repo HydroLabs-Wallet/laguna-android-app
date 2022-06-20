@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.setupCustomDialogDisplayer
 import io.novafoundation.nova.common.presentation.LoadingState
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_crowdloans.crowdloanPlaceholder
 import kotlinx.android.synthetic.main.fragment_crowdloans.crowdloanProgress
 import javax.inject.Inject
 
-class CrowdloanFragment : BaseFragment<CrowdloanViewModel>(), CrowdloanAdapter.Handler {
+class CrowdloanFragment : BaseFragmentOld<CrowdloanViewModel>(), CrowdloanAdapter.Handler {
 
     @Inject protected lateinit var imageLoader: ImageLoader
 

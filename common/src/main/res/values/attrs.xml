@@ -49,7 +49,7 @@
         <attr name="enabled" format="boolean" />
         <attr name="android:singleLine" />
 
-        <attr format="reference" name="messageStyle" />
+        <attr name="messageStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="AccountInfoView">
@@ -95,14 +95,14 @@
     </declare-styleable>
 
     <declare-styleable name="PrimaryButton">
-        <attr format="enum" name="appearance">
+        <attr name="appearance" format="enum">
             <enum name="primary" value="0" />
             <enum name="primaryTransparent" value="1" />
             <enum name="secondary" value="2" />
             <enum name="secondaryTransparent" value="3" />
         </attr>
 
-        <attr format="enum" name="size">
+        <attr name="size" format="enum">
             <enum name="large" value="0" />
             <enum name="small" value="1" />
         </attr>
@@ -119,7 +119,7 @@
         <attr name="sectionContentEndIcon" format="reference|color" />
         <attr name="sectionContentEndIconTint" format="color" />
     </declare-styleable>
-    
+
     <declare-styleable name="SearchView">
         <attr name="android:hint" />
         <attr name="icon" />
@@ -130,7 +130,7 @@
         <attr name="subtitle" />
         <attr name="dividerVisible" />
     </declare-styleable>
-    
+
     <declare-styleable name="AdvertisementCard">
         <attr name="title" />
         <attr name="subtitle" />
@@ -146,5 +146,95 @@
         </attr>
 
         <attr name="android:text" />
+    </declare-styleable>
+
+
+    <!--    LAGUNA RES -->
+    <declare-styleable name="InputFieldView">
+        <attr name="if_title" format="string" />
+        <attr name="if_text" format="string" />
+        <attr name="if_text_hint" format="string" />
+        <attr name="if_label_visible" format="boolean" />
+        <attr name="if_label_hint" format="string" />
+        <attr name="if_multiline" format="boolean" />
+        <attr name="if_show_title" format="boolean" />
+        <attr name="if_show_clear" format="boolean" />
+        <attr name="if_button_ic_start" format="reference" />
+        <attr name="if_button_ic_end" format="reference" />
+        <attr name="if_input_type" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+        <attr name="if_ime_option" format="enum">
+            <enum name="done" value="0" />
+            <enum name="next" value="1" />
+        </attr>
+
+    </declare-styleable>
+    <declare-styleable name="PasswordInputFieldView">
+        <attr name="password_title" format="string" />
+        <attr name="password_text" format="string" />
+        <attr name="password_text_hint" format="string" />
+        <attr name="password_type" format="enum">
+            <enum name="input" value="0" />
+            <enum name="check" value="1" />
+        </attr>
+        <attr name="password_ime_option" format="enum">
+            <enum name="done" value="0" />
+            <enum name="next" value="1" />
+        </attr>
+
+    </declare-styleable>
+    <declare-styleable name="RectButtonView">
+        <attr name="rect_button_type" format="enum">
+            <enum name="primary" value="0" />
+            <enum name="secondary" value="1" />
+            <enum name="tertiary" value="2" />
+        </attr>
+        <attr name="rect_button_size" format="enum">
+            <enum name="large" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="small" value="2" />
+        </attr>
+        <attr name="rect_button_gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="rect_button_text" format="string" />
+        <attr name="rect_button_ic_start" format="reference" />
+        <attr name="rect_button_ic_end" format="reference" />
+        <attr name="rect_button_is_progress" format="boolean" />
+        <attr name="rect_button_enabled" format="boolean" />
+
+    </declare-styleable>
+    <declare-styleable name="PillButtonView">
+        <attr name="pill_button_type" format="enum">
+            <enum name="primary" value="0" />
+            <enum name="secondary" value="1" />
+        </attr>
+        <attr name="pill_button_size" format="enum">
+            <enum name="large" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="small" value="2" />
+        </attr>
+        <attr name="pill_button_gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="pill_button_text" format="string" />
+        <attr name="pill_button_ic_start" format="reference" />
+        <attr name="pill_button_ic_end" format="reference" />
+        <attr name="pill_button_is_progress" format="boolean" />
+        <attr name="pill_button_enabled" format="boolean" />
+
+    </declare-styleable>
+    <declare-styleable name="SocialButtonView">
+        <attr name="social_text" format="string" />
+        <attr name="social_enabled" format="boolean" />
+        <attr name="social_icon" format="reference" />
+
+    </declare-styleable>
+    <declare-styleable name="RegisterIndicatorView">
+        <attr name="pi_progress" format="integer" />
     </declare-styleable>
 </resources>

@@ -1,13 +1,13 @@
 package io.novafoundation.nova.feature_staking_impl.presentation.common.rewardDestination
 
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.feature_account_api.presenatation.account.chooser.AccountChooserBottomSheetDialog
 import io.novafoundation.nova.feature_staking_impl.R
 import io.novafoundation.nova.feature_staking_impl.presentation.view.RewardDestinationChooserView
 
-fun <V> BaseFragment<V>.observeRewardDestinationChooser(
+fun <V> BaseFragmentOld<V>.observeRewardDestinationChooser(
     viewModel: V,
     chooser: RewardDestinationChooserView,
 ) where V : BaseViewModel, V : RewardDestinationMixin {

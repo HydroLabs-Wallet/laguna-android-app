@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_brand_4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_size_24_arrow_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBaseline_toBaselineOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Polkadot activity" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/holder_asset_value"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:background="@drawable/bg_rounded_4_white"
+            android:backgroundTint="@color/white_40"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/imIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_asset_polkadot" />
+
+            <TextView
+                android:id="@+id/tvTokePrice"
+                style="@style/TextBodyRegularMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/tvPriceChange"
+                app:layout_constraintStart_toEndOf="@+id/imIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="$20.22" />
+
+            <TextView
+                android:id="@+id/tvPriceChange"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvTokePrice"
+                app:layout_constraintTop_toBottomOf="@+id/tvTokePrice"
+                tools:text="$1.22" />
+
+            <TextView
+                android:id="@+id/tvPriceDelta"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_rounded_4_white"
+                android:textColor="@color/contentTertiary"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvPriceChange"
+                app:layout_constraintStart_toEndOf="@id/tvPriceChange"
+                app:layout_constraintTop_toTopOf="@+id/tvPriceChange"
+                tools:text="4.5%" />
+
+            <ImageView
+                android:id="@+id/imInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/ic_size_24_solid_information_circle"
+                app:layout_constraintBottom_toTopOf="@+id/tvChainName"
+
+                app:layout_constraintEnd_toEndOf="@id/tvChainName" />
+
+            <TextView
+                android:id="@+id/tvChainName"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_rounded_4_white"
+                android:backgroundTint="@color/neutral200"
+                android:gravity="center"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textColor="@color/contentTertiary"
+                app:drawableStartCompat="@drawable/ic_size_16_dot"
+                app:layout_constraintBottom_toBottomOf="@id/tvPriceChange"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvPriceChange"
+
+                tools:text="Polkadot chain" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/holder_asset_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="26dp"
+            android:background="@drawable/bg_rounded_4_white"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/holder_asset_value">
+
+            <TextView
+                android:id="@+id/labelBalance"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/balance"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTokenBalance"
+                style="@style/TextHeadingsH2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/labelBalance"
+                tools:text="210 DOT" />
+
+            <TextView
+                android:id="@+id/tvCurrencyBalance"
+                style="@style/TextBodyRegularMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintEnd_toStartOf="@id/tvDeltaBalance"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTokenBalance"
+                tools:text="4,001" />
+
+            <TextView
+                android:id="@+id/tvDeltaBalance"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_rounded_4_white"
+                android:gravity="center"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textColor="@color/contentTertiary"
+
+                app:layout_constraintBottom_toBottomOf="@id/tvCurrencyBalance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvCurrencyBalance"
+                app:layout_constraintTop_toTopOf="@+id/tvCurrencyBalance"
+                tools:text="4.5%" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@+id/btnSend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@id/btnReceive"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCurrencyBalance"
+                app:rect_button_ic_start="@drawable/ic_size_24_transaction_send"
+                app:rect_button_size="medium"
+                app:rect_button_text="@string/send"
+                app:rect_button_type="secondary" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@+id/btnReceive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="44dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnSend"
+                app:layout_constraintTop_toBottomOf="@+id/tvCurrencyBalance"
+                app:rect_button_ic_start="@drawable/ic_size_24_qrcode"
+                app:rect_button_size="medium"
+                app:rect_button_text="@string/receive"
+                app:rect_button_type="secondary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_dialog_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/holder_asset_balance">
+
+            <TextView
+                android:id="@+id/tvTransactions"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:text="@string/transactions"
+                android:textAllCaps="true"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="@id/btnSeeAll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnSeeAll" />
+
+            <TextView
+                android:id="@+id/btnSeeAll"
+                style="@style/TextCaptionBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/see_all"
+                android:textAllCaps="true"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/transactionDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/neutral200"
+                app:layout_constraintTop_toBottomOf="@+id/btnSeeAll" />
+
+            <FrameLayout
+                android:id="@+id/containerTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/transactionDivider" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

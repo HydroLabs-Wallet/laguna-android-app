@@ -1,22 +1,47 @@
 package io.novafoundation.nova.common.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import javax.inject.Inject
+import moxy.MvpAppCompatFragment
+import java.lang.ref.WeakReference
 
-abstract class BaseFragment<T : BaseViewModel> : Fragment(), BaseFragmentMixin<T> {
+abstract class BaseFragment : MvpAppCompatFragment(), BackButtonListener {
 
-    @Inject override lateinit var viewModel: T
-
-    override val fragment: Fragment
-        get() = this
-
-    private val delegate by lazy(LazyThreadSafetyMode.NONE) { BaseFragmentDelegate(this) }
+    abstract fun inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        delegate.onViewCreated(view, savedInstanceState)
     }
+
+    override fun onAttach(context: Context) {
+       inject()
+        super.onAttach(context)
+
+        val activity = activity
+        if (activity is ChainHolder) {
+            (activity as ChainHolder).chain.add(WeakReference<Fragment>(this))
+        }
+    }
+
+    override fun onDetach() {
+        val activity = activity
+        if (activity is ChainHolder) {
+            val chain = (activity as ChainHolder).chain
+            val it = chain.iterator()
+            while (it.hasNext()) {
+                val fragmentReference = it.next()
+                val fragment = fragmentReference.get()
+                if (fragment != null && fragment === this) {
+                    it.remove()
+                    break
+                }
+            }
+        }
+        super.onDetach()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <A> argument(key: String): A = arguments!![key] as A
 }

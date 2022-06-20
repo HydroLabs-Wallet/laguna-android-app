@@ -182,9 +182,9 @@ inline fun <T> Flow<T>.observe(
     scope: LifecycleCoroutineScope,
     crossinline collector: suspend (T) -> Unit,
 ) {
-    scope.launchWhenResumed {
-        collect(collector)
-    }
+//    scope.launchWhenResumed {
+//        collect(collector)
+//    }
 }
 
 fun MutableStateFlow<Boolean>.toggle() {
@@ -200,7 +200,7 @@ inline fun <T> Flow<T>.observeInLifecycle(
     crossinline observer: suspend (T) -> Unit,
 ) {
     lifecycleCoroutineScope.launchWhenResumed {
-        collect(observer)
+//        collect(observer)
     }
 }
 
@@ -210,7 +210,8 @@ inline fun <T> Flow<T>.observeInLifecycle(
 fun <E> SendChannel<E>.safeOffer(value: E): Boolean {
     if (isClosedForSend) return false
     return try {
-        offer(value)
+//        offer(value)
+        false
     } catch (e: CancellationException) {
         false
     }

@@ -13,7 +13,7 @@ class NovaNavHostFragment : NavHostFragment() {
     override fun onCreateNavController(navController: NavController) {
         navController.navigatorProvider.addNavigator(DialogFragmentNavigator(requireContext(), childFragmentManager))
 
-        val addFragmentNavigator = AddFragmentNavigator(requireContext(), childFragmentManager, R.id.navHost)
+        val addFragmentNavigator = AddFragmentNavigator(requireContext(), childFragmentManager, R.id.main_container)
 
         navController.navigatorProvider.addNavigator(addFragmentNavigator)
     }

@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
 interface AdvancedEncryptionRequester : InterScreenRequester<AdvancedEncryptionPayload, Response>
 
 suspend fun AdvancedEncryptionRequester.lastResponseOrDefault(addAccountPayload: AddAccountPayload, using: AdvancedEncryptionInteractor): Response {
-    return latestResponse ?: mapAdvancedEncryptionStateToResponse(
+    return  mapAdvancedEncryptionStateToResponse(
         using.getInitialInputState(
             AdvancedEncryptionPayload.Change(addAccountPayload)
         )

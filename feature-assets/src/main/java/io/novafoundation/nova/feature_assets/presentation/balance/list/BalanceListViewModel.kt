@@ -143,7 +143,7 @@ class BalanceListViewModel(
             chainAssetId = asset.token.configuration.id
         )
 
-        router.openAssetDetails(payload)
+//        router.openAssetDetails(payload)
     }
 
     fun avatarClicked() {

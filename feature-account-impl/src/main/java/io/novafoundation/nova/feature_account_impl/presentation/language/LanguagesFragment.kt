@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.novafoundation.nova.common.base.BaseActivity
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.R
@@ -13,7 +13,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.language.model.L
 import kotlinx.android.synthetic.main.fragment_accounts.novaToolbar
 import kotlinx.android.synthetic.main.fragment_languages.languagesList
 
-class LanguagesFragment : BaseFragment<LanguagesViewModel>(), LanguagesAdapter.LanguagesItemHandler {
+class LanguagesFragment : BaseFragmentOld<LanguagesViewModel>(), LanguagesAdapter.LanguagesItemHandler {
 
     private lateinit var adapter: LanguagesAdapter
 

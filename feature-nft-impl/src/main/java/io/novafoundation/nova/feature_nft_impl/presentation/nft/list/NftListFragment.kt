@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.utils.submitListPreservingViewPoint
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_nft_list.nftListRefresh
 import kotlinx.android.synthetic.main.fragment_nft_list.nftListToolbar
 import javax.inject.Inject
 
-class NftListFragment : BaseFragment<NftListViewModel>(), NftAdapter.Handler {
+class NftListFragment : BaseFragmentOld<NftListViewModel>(), NftAdapter.Handler {
 
     @Inject
     lateinit var imageLoader: ImageLoader

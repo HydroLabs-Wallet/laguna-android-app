@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.presentation.LoadingState
 import io.novafoundation.nova.common.utils.setVisible
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_my_contributions.myContributionsP
 import kotlinx.android.synthetic.main.fragment_my_contributions.myContributionsToolbar
 import javax.inject.Inject
 
-class UserContributionsFragment : BaseFragment<UserContributionsViewModel>() {
+class UserContributionsFragment : BaseFragmentOld<UserContributionsViewModel>() {
 
     @Inject protected lateinit var imageLoader: ImageLoader
 

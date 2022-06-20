@@ -62,6 +62,7 @@ class NativeAssetBalance(
 
         return subscriptionBuilder.subscribe(key)
             .map { change ->
+                Log.e("mcheck","NativeAssetBalance $change ")
                 val accountInfo = bindAccountInfoOrDefault(change.value, runtime)
                 val assetChanged = assetCache.updateAsset(metaAccount.id, chain.utilityAsset, accountInfo)
 

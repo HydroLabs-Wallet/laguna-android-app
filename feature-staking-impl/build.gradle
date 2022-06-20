@@ -14,7 +14,9 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -56,6 +58,15 @@ dependencies {
     implementation viewModelKtxDep
     implementation liveDataKtxDep
     implementation lifeCycleKtxDep
+    implementation ciceroneDep
+    implementation ciceroneDep
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
+    implementation androidxCoreDep
 
     implementation insetterDep
 

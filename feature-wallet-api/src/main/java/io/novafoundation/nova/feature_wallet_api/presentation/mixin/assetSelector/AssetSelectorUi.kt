@@ -1,7 +1,7 @@
 package io.novafoundation.nova.feature_wallet_api.presentation.mixin.assetSelector
 
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.feature_wallet_api.presentation.view.AssetSelectorBottomSheet
 import io.novafoundation.nova.feature_wallet_api.presentation.view.AssetSelectorView
@@ -11,7 +11,7 @@ interface WithAssetSelector {
     val assetSelectorMixin: AssetSelectorMixin
 }
 
-fun <V> BaseFragment<V>.setupAssetSelector(
+fun <V> BaseFragmentOld<V>.setupAssetSelector(
     view: AssetSelectorView,
     viewModel: V,
     imageLoader: ImageLoader

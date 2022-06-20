@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 private const val KEY_PAYLOAD = "KEY_PAYLOAD"
 
-class ConfirmContributeFragment : BaseFragment<ConfirmContributeViewModel>() {
+class ConfirmContributeFragment : BaseFragmentOld<ConfirmContributeViewModel>() {
 
     @Inject protected lateinit var imageLoader: ImageLoader
 

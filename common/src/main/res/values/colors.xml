@@ -4,9 +4,7 @@
     <color name="colorPrimaryDark">#80004CB7</color>
     <color name="colorSelected">@color/colorPrimaryDark</color>
     <color name="colorAccent">#FF009A</color>
-    <color name="white">#fff</color>
     <color name="colorHint">#ccc</color>
-    <color name="black">#000</color>
     <color name="gray1">#CCCCCC</color>
     <color name="gray2">#888888</color>
     <color name="gray3">#444444</color>
@@ -20,15 +18,12 @@
     <color name="blurColor">#8C000000</color>
     <color name="blurColorLight">#66000000</color>
 
-    <color name="white_8">#14FFFFFF</color>
     <color name="white_10">#1AFFFFFF</color>
     <color name="white_12">#1FFFFFFF</color>
     <color name="white_16">#29FFFFFF</color>
-    <color name="white_20">#33FFFFFF</color>
     <color name="white_24">#3DFFFFFF</color>
     <color name="white_30">#4DFFFFFF</color>
     <color name="white_32">#52FFFFFF</color>
-    <color name="white_40">#66FFFFFF</color>
     <color name="white_48">#7AFFFFFF</color>
     <color name="white_50">#80FFFFFF</color>
     <color name="white_64">#A8FFFFFF</color>
@@ -64,4 +59,145 @@
     <color name="disabledTransparent">@color/white_8</color>
 
     <color name="pms_black">#2D2926</color>
+
+<!--    LAGUNA RES-->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+
+    <color name="semitransparent">#99000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="black">#FF000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_8">#14000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_8">#14FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+
+    <color name="neutral800">#11171D</color>
+    <color name="neutral700">#202C37</color>
+    <color name="neutral600">#FF394960</color>
+    <color name="neutral500">#62768A</color>
+    <color name="neutral400">#99ADBD</color>
+    <color name="neutral300">#C4D0D9</color>
+    <color name="neutral200">#FFECEFF2</color>
+    <color name="neutral100">#FAFBFC</color>
+
+    <color name="indigo800">#312E81</color>
+    <color name="indigo700">#4338CA</color>
+    <color name="indigo600">#4F46E5</color>
+    <color name="indigo500">#6366F1</color>
+    <color name="indigo400">#7A85FF</color>
+    <color name="indigo300">#9EA6FF</color>
+    <color name="indigo200">#C5C5FC</color>
+    <color name="indigo100">#F5F3FF</color>
+
+    <color name="red800">#7F1D1D</color>
+    <color name="red700">#BE1F1F</color>
+    <color name="red600">#D63434</color>
+    <color name="red500">#FB5A5A</color>
+    <color name="red400">#FF7D7D</color>
+    <color name="red300">#FEAAAA</color>
+    <color name="red200">#FCCFCF</color>
+    <color name="red100">#FEF2F2</color>
+
+    <color name="green800">#003D2C</color>
+    <color name="green700">#005E46</color>
+    <color name="green600">#008060</color>
+    <color name="green500">#00A47C</color>
+    <color name="green400">#00D19E</color>
+    <color name="green300">#ACECD2</color>
+    <color name="green200">#E6F4EE</color>
+    <color name="green100">#F0FDF4</color>
+
+    <color name="yellow800">#B45309</color>
+    <color name="yellow700">#D97706</color>
+    <color name="yellow600">#F59E0B</color>
+    <color name="yellow500">#FFC755</color>
+    <color name="yellow400">#FFE18F</color>
+    <color name="yellow300">#FFEEB3</color>
+    <color name="yellow200">#FFF5CC</color>
+    <color name="yellow100">#FFFBEB</color>
+
+
+    <color name="blue800">#103262</color>
+    <color name="blue700">#1F5199</color>
+    <color name="blue600">#2E72D2</color>
+    <color name="blue500">#458FFF</color>
+    <color name="blue400">#7CBBFF</color>
+    <color name="blue300">#B3D9FF</color>
+    <color name="blue200">#DAECFF</color>
+    <color name="blue100">#EFF6FF</color>
+
+    <color name="gray800">#1F1F1F</color>
+    <color name="gray700">#333333</color>
+    <color name="gray600">#545454</color>
+    <color name="gray500">#8A8A8A</color>
+    <color name="gray400">#BFBFBF</color>
+    <color name="gray300">#DBDBDB</color>
+    <color name="gray200">#EBEBEB</color>
+    <color name="gray100">#F6F6F6</color>
+
+    <color name="corePrimaryA">@color/neutral800</color>
+    <color name="corePrimaryB">@color/indigo500</color>
+    <color name="coreAccent">@color/blue500</color>
+    <color name="coreNegative">@color/red500</color>
+    <color name="coreWarning">@color/yellow500</color>
+    <color name="corePositive">@color/green500</color>
+
+    <color name="backgroundPrimary">@color/white</color>
+    <color name="backgroundInversePrimary">@color/gray800</color>
+    <color name="backgroundSecondary">@color/neutral100</color>
+    <color name="backgroundInverseSecondary">@color/gray700</color>
+    <color name="backgroundTertiary">@color/neutral200</color>
+    <color name="backgroundInverseTertiary">@color/gray600</color>
+
+    <color name="contentPrimary">@color/neutral800</color>
+    <color name="contentInversePrimary">@color/white</color>
+    <color name="contentSecondary">@color/neutral600</color>
+    <color name="contentInverseSecondary">@color/gray300</color>
+    <color name="contentTertiary">@color/neutral500</color>
+    <color name="contentInverseTertiary">@color/gray400</color>
+
+    <color name="borderOpaque">@color/neutral200</color>
+    <color name="borderInverseOpaque">@color/green700</color>
+    <color name="borderTransparent">@color/white_8</color>
+    <color name="borderInverseTransparent">@color/white_20</color>
+    <color name="borderSelected">@color/neutral800</color>
+    <color name="borderInverseSelected">@color/white</color>
+
+    <color name="backgroundStateDisabled">@color/neutral100</color>
+    <color name="backgroundOverlayDark">@color/black_30</color>
+    <color name="backgroundOverlayLight">@color/black_8</color>
+
+    <color name="backgroundAccent">@color/coreAccent</color>
+    <color name="backgroundNegative">@color/coreNegative</color>
+    <color name="backgroundWarning">@color/coreWarning</color>
+    <color name="backgroundPositive">@color/corePositive</color>
+    <color name="backgroundLightAccent">@color/blue100</color>
+    <color name="backgroundLightNegative">@color/red100</color>
+    <color name="backgroundLightWarning">@color/yellow100</color>
+    <color name="backgroundLightPositive">@color/green100</color>
+    <color name="backgroundAlwaysDark">@color/black</color>
+    <color name="backgroundAlwaysLight">@color/white</color>
+
+    <color name="contentStateDisabled">@color/neutral300</color>
+    <color name="contentOnColor">@color/white</color>
+    <color name="contentAccent">@color/blue500</color>
+    <color name="contentNegative">@color/red700</color>
+    <color name="contentWarning">@color/yellow700</color>
+    <color name="contentPositive">@color/green700</color>
+
+    <color name="borderStateDisabled">@color/neutral200</color>
+    <color name="borderAccent">@color/blue500</color>
+    <color name="borderAccentLight">@color/blue300</color>
+    <color name="borderNegative">@color/red300</color>
+    <color name="borderWarning">@color/yellow300</color>
+    <color name="borderPositive">@color/green300</color>
+
 </resources>

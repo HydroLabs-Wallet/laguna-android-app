@@ -3,10 +3,13 @@ package io.novafoundation.nova.splash
 import io.novafoundation.nova.common.navigation.SecureRouter
 
 interface SplashRouter : SecureRouter {
+    fun setResult(key:String,data:Any)
 
-    fun openAddFirstAccount()
+    fun toSplashScreen()
+    fun toOnboardingScreen()
 
-    fun openCreatePincode()
+    fun toCreatePassword()
+    fun toLoginScreen()
 
     fun openInitialCheckPincode()
 }

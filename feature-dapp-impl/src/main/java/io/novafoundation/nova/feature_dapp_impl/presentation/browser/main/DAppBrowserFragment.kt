@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.utils.themed
@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_dapp_browser.dappBrowserRefresh
 import kotlinx.android.synthetic.main.fragment_dapp_browser.dappBrowserWebView
 import javax.inject.Inject
 
-class DAppBrowserFragment : BaseFragment<DAppBrowserViewModel>() {
+class DAppBrowserFragment : BaseFragmentOld<DAppBrowserViewModel>() {
 
     companion object {
 

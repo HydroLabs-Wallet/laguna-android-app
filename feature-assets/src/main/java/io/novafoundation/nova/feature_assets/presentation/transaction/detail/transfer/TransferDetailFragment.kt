@@ -3,7 +3,7 @@ package io.novafoundation.nova.feature_assets.presentation.transaction.detail.tr
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.formatDateTime
 import io.novafoundation.nova.common.utils.makeGone
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_transfer_details.transactionDetai
 
 private const val KEY_TRANSACTION = "KEY_DRAFT"
 
-class TransferDetailFragment : BaseFragment<TransactionDetailViewModel>() {
+class TransferDetailFragment : BaseFragmentOld<TransactionDetailViewModel>() {
 
     companion object {
         fun getBundle(operation: OperationParcelizeModel.Transfer) = Bundle().apply {

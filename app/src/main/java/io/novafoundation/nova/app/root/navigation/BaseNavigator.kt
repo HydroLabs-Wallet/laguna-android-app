@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 
 abstract class BaseNavigator(
-    private val navigationHolder: NavigationHolder
+    private val navigationHolder: NavigationHolderOld
 ) {
 
     fun back() {

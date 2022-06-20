@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.mixin.impl.observeRetries
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_select_reward_destination.selectR
 import kotlinx.android.synthetic.main.fragment_select_reward_destination.selectRewardDestinationFee
 import kotlinx.android.synthetic.main.fragment_select_reward_destination.selectRewardDestinationToolbar
 
-class SelectRewardDestinationFragment : BaseFragment<SelectRewardDestinationViewModel>() {
+class SelectRewardDestinationFragment : BaseFragmentOld<SelectRewardDestinationViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

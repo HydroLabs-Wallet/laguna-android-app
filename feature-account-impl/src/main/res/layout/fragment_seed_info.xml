@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semitransparent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_grey"
+            android:paddingTop="38dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldLarge"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="44dp"
+                android:text="@string/seed_info_title"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/tvSubTitle" />
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                style="@style/TextBodyBoldMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="32dp"
+                android:maxLines="100"
+                android:singleLine="false"
+                android:text="@string/seed_info_hint"
+                android:textColor="@color/contentSecondary"
+
+                app:layout_constraintBottom_toTopOf="@+id/btnNext" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:rect_button_text="@string/i_understand" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

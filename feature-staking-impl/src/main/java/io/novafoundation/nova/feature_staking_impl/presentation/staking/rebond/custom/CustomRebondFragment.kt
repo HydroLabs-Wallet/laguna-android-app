@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.hints.observeHints
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_rebond_custom.rebondHints
 import kotlinx.android.synthetic.main.fragment_rebond_custom.rebondToolbar
 import kotlinx.android.synthetic.main.fragment_rebond_custom.rebondTransferable
 
-class CustomRebondFragment : BaseFragment<CustomRebondViewModel>() {
+class CustomRebondFragment : BaseFragmentOld<CustomRebondViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

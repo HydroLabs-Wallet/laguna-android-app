@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_crowdloan_impl.presentation
 
+import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.confirm.parcel.ConfirmContributePayload
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.custom.BonusPayload
@@ -8,6 +9,8 @@ import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.sel
 import kotlinx.coroutines.flow.Flow
 
 interface CrowdloanRouter {
+    fun setResult(key:String,data:Any)
+    fun setResultListener(key:String, listener: ResultListener)
 
     fun openContribute(payload: ContributePayload)
 

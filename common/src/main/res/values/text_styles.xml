@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DefaultTextViewStyle" parent="TextAppearance.AppCompat">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_body_m</item>
+        <item name="android:fontFamily">@font/ibmplexsans_regular</item>
+    </style>
+
+    <style name="TextDisplayD1" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_display_1</item>
+        <item name="android:fontFamily">@font/ibmplexsans_bold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">100sp</item>
+    </style>
+
+    <style name="TextDisplayD2" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_display_2</item>
+        <item name="android:fontFamily">@font/ibmplexsans_bold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">54sp</item>
+    </style>
+
+    <style name="TextHeadingsH1" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_1</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">44sp</item>
+    </style>
+
+    <style name="TextHeadingsH2" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_2</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="TextHeadingsH3" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_3</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="TextHeadingsH4" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_4</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextHeadingsH5" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_5</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextHeadingsH6" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_h_6</item>
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="TextBodyBoldXLarge" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_xl</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="TextBodyBoldLarge" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_l</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextBodyBoldMedium" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_m</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextBodyBoldSmall" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_s</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="TextBodyRegularXLarge" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_xl</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="TextBodyRegularLarge" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_l</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextBodyRegularMedium" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_m</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="TextBodyRegularSmall" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_body_s</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="TextCaptionBold" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
+    <style name="TextCaptionRegular" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
+    <style name="TextCapitalRegular" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_capital</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="textAllCaps">true</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
+    <style name="TextCapitalBold" parent="DefaultTextViewStyle">
+        <item name="android:textSize">@dimen/text_size_capital</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="textAllCaps">true</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+</resources>

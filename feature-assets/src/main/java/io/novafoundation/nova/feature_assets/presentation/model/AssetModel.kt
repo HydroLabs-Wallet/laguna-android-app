@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_assets.presentation.model
 
+import io.novafoundation.nova.common.utils.equalTo
 import java.math.BigDecimal
 
 data class AssetModel(
@@ -12,4 +13,13 @@ data class AssetModel(
     val redeemable: BigDecimal,
     val unbonding: BigDecimal,
     val available: BigDecimal
-)
+) : AssetMarker {
+    override fun isItemSame(other: Any?): Boolean {
+        return equalTo(other, { token.configuration.id }, { token.configuration.chainId })
+    }
+
+    override fun isContentSame(other: Any?): Boolean {
+        return equalTo(other, { total }, { dollarAmount })
+
+    }
+}

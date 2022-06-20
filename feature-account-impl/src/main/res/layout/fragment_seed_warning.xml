@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semitransparent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_white"
+            android:paddingTop="38dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldLarge"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="44dp"
+                android:gravity="center"
+                android:text="@string/skip_account_security"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/tvSubTitle" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:buttonTint="@color/black"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvSubTitle" />
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="0dp"
+                style="@style/TextBodyRegularMedium"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:singleLine="false"
+                android:maxLines="100"
+                android:layout_marginBottom="32dp"
+                android:text="@string/seed_warning_hint"
+                android:textColor="@color/contentSecondary"
+                app:layout_constraintBottom_toTopOf="@+id/btnSecure"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@+id/checkbox" />
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@+id/btnSecure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/btnSkip"
+                app:rect_button_text="@string/secure_now" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@+id/btnSkip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                app:rect_button_enabled="false"
+                android:layout_marginBottom="16dp"
+                app:rect_button_type="secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:rect_button_text="@string/skip" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

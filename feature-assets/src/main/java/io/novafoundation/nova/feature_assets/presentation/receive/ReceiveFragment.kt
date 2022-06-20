@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import coil.ImageLoader
 import coil.load
 import io.novafoundation.nova.feature_assets.R
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.view.shape.getRoundedCornerDrawable
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 private const val KEY_PAYLOAD = "KEY_PAYLOAD"
 
-class ReceiveFragment : BaseFragment<ReceiveViewModel>() {
+class ReceiveFragment : BaseFragmentOld<ReceiveViewModel>() {
 
     @Inject
     lateinit var imageLoader: ImageLoader

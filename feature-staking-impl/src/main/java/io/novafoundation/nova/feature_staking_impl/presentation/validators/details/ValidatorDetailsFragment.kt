@@ -9,7 +9,7 @@ import android.widget.LinearLayout.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
 import androidx.core.view.children
 import androidx.core.view.updateMarginsRelative
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.addAfter
 import io.novafoundation.nova.common.utils.makeGone
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.fragment_validator_details.validatorStakin
 import kotlinx.android.synthetic.main.fragment_validator_details.validatorStakingStatus
 import kotlinx.android.synthetic.main.fragment_validator_details.validatorStakingTotalStake
 
-class ValidatorDetailsFragment : BaseFragment<ValidatorDetailsViewModel>() {
+class ValidatorDetailsFragment : BaseFragmentOld<ValidatorDetailsViewModel>() {
 
     companion object {
         private const val KEY_VALIDATOR = "validator"

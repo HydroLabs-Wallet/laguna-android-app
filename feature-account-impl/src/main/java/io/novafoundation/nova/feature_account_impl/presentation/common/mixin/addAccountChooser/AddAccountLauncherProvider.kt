@@ -34,7 +34,7 @@ class AddAccountLauncherProvider(
     }
 
     private fun importTypeSelected(chainAccountPayload: AddAccountPayload.ChainAccount, secretType: SecretType) {
-        router.openImportAccountScreen(ImportAccountPayload(secretType, chainAccountPayload))
+//        router.openImportAccountScreen(ImportAccountPayload(secretType, chainAccountPayload))
     }
 
     override fun initiateLaunch(chain: Chain, metaAccountId: Long, mode: Mode) {

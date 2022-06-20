@@ -3,7 +3,7 @@ package io.novafoundation.nova.feature_assets.presentation.transaction.detail.re
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.formatDateTime
 import io.novafoundation.nova.common.utils.makeGone
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_reward_slash_details.rewardDetail
 
 private const val KEY_REWARD = "KEY_REWARD"
 
-class RewardDetailFragment : BaseFragment<RewardDetailViewModel>() {
+class RewardDetailFragment : BaseFragmentOld<RewardDetailViewModel>() {
     companion object {
         fun getBundle(operation: OperationParcelizeModel.Reward) = Bundle().apply {
             putParcelable(KEY_REWARD, operation)
