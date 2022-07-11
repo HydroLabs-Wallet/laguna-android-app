@@ -8,12 +8,11 @@ import io.novafoundation.nova.core_db.di.DbApi
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_choose.di.AssetChooseComponent
-import io.novafoundation.nova.feature_assets.presentation.asset_receive.di.AssetReceiveComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_details.di.AssetDetailComponent
+import io.novafoundation.nova.feature_assets.presentation.asset_receive.di.AssetReceiveComponent
+import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.di.AssetReceiveChooserComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.di.AssetTransactionsComponent
 import io.novafoundation.nova.feature_assets.presentation.balance.filters.di.AssetFiltersComponent
-import io.novafoundation.nova.feature_assets.presentation.balance.list.di.BalanceListComponent
-import io.novafoundation.nova.feature_assets.presentation.balance.list.view.GoToNftsView
 import io.novafoundation.nova.feature_assets.presentation.receive.di.ReceiveComponent
 import io.novafoundation.nova.feature_assets.presentation.send.amount.di.SelectSendComponent
 import io.novafoundation.nova.feature_assets.presentation.send.confirm.di.ConfirmSendComponent
@@ -37,8 +36,6 @@ import io.novafoundation.nova.runtime.di.RuntimeApi
 @FeatureScope
 interface AssetsFeatureComponent : AssetsFeatureApi {
 
-    fun balanceListComponentFactory(): BalanceListComponent.Factory
-
 
     fun chooseAmountComponentFactory(): SelectSendComponent.Factory
 
@@ -47,6 +44,7 @@ interface AssetsFeatureComponent : AssetsFeatureApi {
     fun transactionDetailComponentFactory(): TransactionDetailComponent.Factory
 
     fun transactionHistoryComponentFactory(): TransactionHistoryFilterComponent.Factory
+    fun assetReceiveChooserComponentFactory(): AssetReceiveChooserComponent.Factory
 
     fun rewardDetailComponentFactory(): RewardDetailComponent.Factory
 
@@ -61,7 +59,6 @@ interface AssetsFeatureComponent : AssetsFeatureApi {
     fun sendReceiveComponentFactory(): SendReceiveComponent.Factory
     fun assetTransactionsComponentFactory(): AssetTransactionsComponent.Factory
 
-    fun inject(view: GoToNftsView)
 
     @Component.Factory
     interface Factory {

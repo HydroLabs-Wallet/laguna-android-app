@@ -784,4 +784,8 @@
     <string name="fee">Fee</string>
     <string name="total">Total</string>
     <string name="received">Received</string>
+    <plurals name="n_assets">
+        <item quantity="one">%d Asset</item>
+        <item quantity="other">%d Assets</item>
+    </plurals>
 </resources>

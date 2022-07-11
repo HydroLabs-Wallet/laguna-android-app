@@ -15,7 +15,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountChosenNavDirection
 import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountListViewModel
 import io.novafoundation.nova.feature_account_impl.presentation.mixin.api.AccountListingMixin
-import io.novafoundation.nova.feature_account_impl.presentation.account.mixin.impl.AccountListingProvider
+import io.novafoundation.nova.feature_account_impl.presentation.mixin.impl.AccountListingProvider
 
 @Module(includes = [ViewModelModule::class])
 class AccountListModule {

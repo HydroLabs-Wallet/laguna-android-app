@@ -1,4 +1,4 @@
-package io.novafoundation.nova.feature_assets.presentation.asset_choose.adapter
+package io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -6,13 +6,12 @@ import coil.ImageLoader
 import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import io.novafoundation.nova.common.utils.format
 import io.novafoundation.nova.common.utils.formatAsCurrency
 import io.novafoundation.nova.feature_assets.databinding.ListitemAssetChooseBinding
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
 
-class AssetChooseAdapter(private val imageLoader: ImageLoader) :
+class AssetReceiveChooserAdapter(private val imageLoader: ImageLoader) :
     AsyncListDifferDelegationAdapter<AssetModel>(AssetChooseDiffCallback()) {
     var onItemClick: ((AssetModel) -> Unit)? = null
 

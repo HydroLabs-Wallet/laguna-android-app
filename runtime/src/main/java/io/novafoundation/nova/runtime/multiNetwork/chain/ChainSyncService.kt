@@ -23,7 +23,7 @@ class ChainSyncService(
         val remoteChains = retryUntilDone { chainFetcher.getChains() }
 //            .filter { it.name == "Polkadot"  }
 
-            .filter {it.name == "Westend" || it.name == "Polkadot" || it.name == "Kusama" || it.name == "Astar"  }
+//            .filter {it.name == "Westend" || it.name == "Polkadot" || it.name == "Kusama" || it.name == "Astar"  }
             .map(::mapChainRemoteToChain)
         val localChains = localChainsJoinedInfo.map { mapChainLocalToChain(it, gson) }
 

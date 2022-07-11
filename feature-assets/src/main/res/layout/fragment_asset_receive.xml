@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_40"
-            android:padding="@dimen/margin_16"
             android:background="@drawable/bg_qr"
+            android:padding="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -104,17 +104,67 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewQrAddress" />
 
-        <include
-            android:id="@+id/viewAssetList"
-            layout="@layout/view_asset_spinner"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vAsset"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_24"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAsset" />
+            android:background="@drawable/bg_qr_grey"
+            app:layout_constraintTop_toBottomOf="@+id/tvAsset">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imIconBig"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/circle_black"
+                android:src="@drawable/bg_asset_secondary_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_asset_polkadot" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:padding="3dp"
+
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imIconBig"
+                app:layout_constraintTop_toTopOf="@+id/imIconBig"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/TextBodyBoldSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imIconBig"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Polkadot" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_size_24_cheveron_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/tvQrHint"
@@ -132,7 +182,7 @@
             android:text="@string/asset_qr_hint"
             android:textColor="@color/neutral800"
             android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@+id/viewAssetList" />
+            app:layout_constraintTop_toBottomOf="@+id/vAsset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

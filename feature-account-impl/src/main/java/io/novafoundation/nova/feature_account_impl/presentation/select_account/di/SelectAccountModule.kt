@@ -6,7 +6,7 @@ import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.di.scope.ScreenScope
 import io.novafoundation.nova.common.di.viewmodel.ViewModelModule
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
-import io.novafoundation.nova.feature_account_impl.presentation.account.mixin.impl.AccountListingProvider
+import io.novafoundation.nova.feature_account_impl.presentation.mixin.impl.AccountListingProvider
 import io.novafoundation.nova.feature_account_impl.presentation.mixin.api.AccountListingMixin
 
 @Module(includes = [ViewModelModule::class])

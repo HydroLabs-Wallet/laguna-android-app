@@ -7,10 +7,17 @@ import javax.inject.Inject
 
 @InjectViewState
 class SendReceivePresenter @Inject constructor(
-    private val router: WalletRouter
+    private val router: WalletRouter,
+    private val payload: SendReceivePayload
 ) : MvpPresenter<SendReceiveView>() {
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.setSendEnabled(payload.sendEnabled)
+    }
+
     fun onAssetChooseClicked() {
+        router.back()
         router.toAssetSelectionToReceive()
     }
 

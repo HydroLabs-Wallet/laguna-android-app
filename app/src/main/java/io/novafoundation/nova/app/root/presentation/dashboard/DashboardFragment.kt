@@ -18,6 +18,7 @@ import io.novafoundation.nova.common.utils.showToast
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.TotalBalanceModel
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class DashboardFragment : BaseFragment(), DashboardView {
@@ -97,10 +98,10 @@ class DashboardFragment : BaseFragment(), DashboardView {
 
     override fun submitBalanceModel(data: TotalBalanceModel) {
         val balance = DashboardBalanceView.DashboardBalanceValue(
-            isHidden = false,
-            hasAccounts = true,
+            isHidden = data.totalBalance.stripTrailingZeros() == BigDecimal.ZERO,
+            hasAccounts = data.totalBalance.stripTrailingZeros() != BigDecimal.ZERO,
             balance = data.totalBalanceFiat,
-            delta = ""
+            delta = data.balanceChange
         )
         binding.holderBalance.updateValue(balance)
     }

@@ -36,7 +36,7 @@ class ChainSettingsPresenter @Inject constructor(
         .share()
     val assetsFlow: Flow<List<AssetModel>> = balancesFlow.map { balances ->
         balances.assets
-            .map { it.value.map(::mapAssetToAssetModel) }
+            .map { entry-> entry.value.map{mapAssetToAssetModel(entry.key.chain,it)} }
             .flatten()
 
     }

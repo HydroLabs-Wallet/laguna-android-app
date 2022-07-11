@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@drawable/bg_brand_1">
 
         <io.novafoundation.nova.app.root.presentation.view.ToolbarView
             android:id="@+id/toolbar"
@@ -43,6 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bg_assets"
             app:tabMode="scrollable"
+            android:background="@color/transparent"
             app:tabIndicatorColor="@color/indigo500"
             app:tabSelectedTextColor="@color/contentPrimary"
             app:tabTextColor="@color/neutral400" />

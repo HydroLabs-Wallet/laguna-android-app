@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_assets.databinding.FragmentSendReceivePopupBinding
@@ -15,7 +16,13 @@ import javax.inject.Inject
 
 class SendReceiveFragment : BaseFragment(), SendReceiveView {
     companion object {
-        fun getNewInstance(): SendReceiveFragment = SendReceiveFragment()
+        const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
+
+        fun getNewInstance(data: SendReceivePayload): SendReceiveFragment = SendReceiveFragment().apply {
+            arguments = bundleOf(
+                EXTRA_PAYLOAD to data
+            )
+        }
     }
 
     @Inject
@@ -30,7 +37,7 @@ class SendReceiveFragment : BaseFragment(), SendReceiveView {
     override fun inject() {
         FeatureUtils.getFeature<AssetsFeatureComponent>(requireContext(), AssetsFeatureApi::class.java)
             .sendReceiveComponentFactory()
-            .create(this)
+            .create(this, argument(EXTRA_PAYLOAD))
             .inject(this)
     }
 
@@ -50,6 +57,11 @@ class SendReceiveFragment : BaseFragment(), SendReceiveView {
         binding.holderReceive.setOnClickListener { presenter.onAssetChooseClicked() }
         binding.root.setOnClickListener { presenter.onBackCommandClick() }
 
+    }
+
+    override fun setSendEnabled(enabled: Boolean) {
+        binding.holderSend.isEnabled = enabled
+        binding.holderSend.alpha = if (enabled) 1f else 0.5f
     }
 
     override fun onBackPressed(): Boolean {

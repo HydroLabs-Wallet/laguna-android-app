@@ -21,7 +21,14 @@ val BigDecimal.isNonNegative: Boolean
     get() = signum() >= 0
 
 fun BigInteger?.orZero(): BigInteger = this ?: BigInteger.ZERO
-
+fun BigDecimal?.orZero(): BigDecimal = this ?: BigDecimal.ZERO
+fun String.ellipsis(): String {
+    return if (length > 10) {
+        val chunkStart = substring(0, 4)
+        val chunkEnd = substring(length - 3, length)
+        "$chunkStart..$chunkEnd"
+    } else this
+}
 fun Long.daysFromMillis() = TimeUnit.MILLISECONDS.toDays(this)
 
 inline fun <T> List<T>.sumByBigInteger(extractor: (T) -> BigInteger) = fold(BigInteger.ZERO) { acc, element ->

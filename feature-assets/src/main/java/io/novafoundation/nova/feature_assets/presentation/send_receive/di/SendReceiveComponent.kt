@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Subcomponent
 import io.novafoundation.nova.common.di.scope.ScreenScope
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceiveFragment
+import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 
 @Subcomponent()
 @ScreenScope
@@ -14,7 +15,8 @@ interface SendReceiveComponent {
     interface Factory {
 
         fun create(
-            @BindsInstance fragment: Fragment
+            @BindsInstance fragment: Fragment,
+            @BindsInstance data: SendReceivePayload
         ): SendReceiveComponent
     }
 

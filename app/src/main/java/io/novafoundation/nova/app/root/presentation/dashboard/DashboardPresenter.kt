@@ -6,10 +6,7 @@ import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.address.createAddressModel
 import io.novafoundation.nova.common.presentation.LoadingState
-import io.novafoundation.nova.common.utils.Event
-import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
-import io.novafoundation.nova.common.utils.formatAsCurrency
-import io.novafoundation.nova.common.utils.inBackground
+import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.feature_account_api.data.mappers.mapChainToUi
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
 import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
@@ -22,6 +19,7 @@ import io.novafoundation.nova.feature_assets.presentation.balance.list.model.Ass
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.NftPreviewUi
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.TotalBalanceModel
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
+import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_nft_api.data.model.Nft
 import io.novafoundation.nova.feature_wallet_api.domain.model.AssetGroup
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnection
@@ -33,6 +31,7 @@ import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import moxy.presenterScope
+import java.math.BigDecimal
 import javax.inject.Inject
 
 
@@ -55,56 +54,30 @@ class DashboardPresenter @Inject constructor(
     MvpPresenter<DashboardView>(), WithCoroutineScopeExtensions {
     private val _hideRefreshEvent = MutableLiveData<Event<Unit>>()
     val hideRefreshEvent: LiveData<Event<Unit>> = _hideRefreshEvent
+    var balanceModel: TotalBalanceModel? = null
 
     private val fullSyncActions: List<SyncAction> = listOf(
         { interactor.syncAssetsRates() },
 //        interactor::syncNfts
     )
 
-    private val accountChangeSyncActions: List<SyncAction> = listOf(
-        interactor::syncNfts
-    )
+    override val coroutineScope: CoroutineScope
+        get() = presenterScope
 
     private val selectedMetaAccount = selectedAccountUseCase.selectedMetaAccountFlow().share()
 
-    val currentAddressModelFlow = selectedMetaAccount
-        .map { addressIconGenerator.createAddressModel(it.defaultSubstrateAddress, CURRENT_ICON_SIZE, it.name) }
-        .inBackground()
-        .share()
-
-//    private val nftsPreviews = assetsListInteractor.observeNftPreviews()
-//        .inBackground()
-//        .share()
-//
-//    val nftCountFlow = nftsPreviews
-//        .map { it.totalNftsCount.format() }
-//        .inBackground()
-//        .share()
-//
-//    val nftPreviewsUi = nftsPreviews
-//        .map { it.nftPreviews.map(::mapNftPreviewToUi) }
-//        .inBackground()
-//        .share()
 
     private val balancesFlow = interactor.balancesFlow()
         .inBackground()
         .share()
 
-    val assetsFlow: Flow<List<AssetModel>> = balancesFlow.map { balances ->
-        balances.assets
-            .map { it.value.map(::mapAssetToAssetModel) }
-            .flatten()
-
-    }
-        .distinctUntilChanged()
-        .inBackground()
-        .share()
 
     val totalBalanceFlow = balancesFlow.map {
         TotalBalanceModel(
             shouldShowPlaceholder = it.assets.isEmpty(),
             totalBalanceFiat = it.totalBalanceFiat.formatAsCurrency(),
-            lockedBalanceFiat = it.lockedBalanceFiat.formatAsCurrency()
+            lockedBalanceFiat = it.lockedBalanceFiat.formatAsCurrency(),
+            balances = it
         )
     }
         .inBackground()
@@ -119,26 +92,20 @@ class DashboardPresenter @Inject constructor(
 
             _hideRefreshEvent.value = Event(Unit)
         }
+        selectedMetaAccount.onEach {
+            val name = it.name.ifEmpty { it.defaultSubstrateAddress.ellipsis() }
+            viewState.setAccountName(name)
+        }
+            .launchIn(presenterScope)
         totalBalanceFlow.onEach {
+            balanceModel=it
             viewState.submitBalanceModel(it)
         }
             .launchIn(presenterScope)
     }
 
-    override val coroutineScope: CoroutineScope
-        get() = presenterScope
 
-    fun onCreateClick() {
-//        router.navigateTo(Screens.toCreatePasswordScreen())
-    }
 
-    fun onImportClick() {
-        viewState.showImportSnack()
-    }
-
-    fun onSupportClick() {
-        viewState.showSupportSnack()
-    }
 
     fun onBackCommandClick() {
         router.back()
@@ -153,7 +120,9 @@ class DashboardPresenter @Inject constructor(
     }
 
     fun onSendReceivePopupScreen() {
-        router.showSendReceiveDialog()
+        val sendEnabled = balanceModel?.totalBalance?.stripTrailingZeros()?.orZero() != BigDecimal.ZERO
+        val payload = SendReceivePayload(sendEnabled)
+        router.showSendReceiveDialog(payload)
     }
 
     private suspend fun syncWith(syncActions: List<SyncAction>, metaAccount: MetaAccount) = if (syncActions.size == 1) {
@@ -164,15 +133,5 @@ class DashboardPresenter @Inject constructor(
         syncJobs.joinAll()
     }
 
-    private fun mapNftPreviewToUi(nftPreview: Nft): NftPreviewUi {
-        return when (val details = nftPreview.details) {
-            Nft.Details.Loadable -> LoadingState.Loading()
-            is Nft.Details.Loaded -> LoadingState.Loaded(details.metadata?.media)
-        }
-    }
 
-    private fun mapAssetGroupToUi(assetGroup: AssetGroup) = AssetGroupUi(
-        chainUi = mapChainToUi(assetGroup.chain),
-        groupBalanceFiat = assetGroup.groupBalanceFiat.formatAsCurrency()
-    )
 }

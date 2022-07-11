@@ -179,7 +179,7 @@ class SeedConfirmPresenter  @Inject constructor(
 
     private suspend fun continueBasedOnCodeStatus() {
         if (interactor.isCodeSet()) {
-            router.openMain()
+            router.toDashboard()
         } else {
             router.toCreatePassword()
         }

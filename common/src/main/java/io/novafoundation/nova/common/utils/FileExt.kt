@@ -38,7 +38,7 @@ fun Context.newImageFile(fileName: String, extension: Bitmap.CompressFormat): Fi
 fun Context.getUriForFile(file: File): Uri? {
     return FileProvider.getUriForFile(
         this,
-        "$packageName.presentation.provider",
+        "${packageName}.provider",
         file
     )
 }

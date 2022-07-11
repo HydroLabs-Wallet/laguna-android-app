@@ -13,6 +13,7 @@ import io.novafoundation.nova.app.root.presentation.dashboard.page_networks.adap
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
+import io.novafoundation.nova.feature_wallet_api.domain.model.AssetGroup
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -58,7 +59,7 @@ class PageNetworksFragment : BaseFragment(), PageNetworksView {
 
     }
 
-    override fun submitList(data: List<AssetModel>) {
+    override fun submitList(data: List<AssetGroup>) {
         adapter.items = data
     }
 

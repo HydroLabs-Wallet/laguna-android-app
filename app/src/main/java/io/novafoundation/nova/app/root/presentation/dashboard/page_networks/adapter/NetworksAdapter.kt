@@ -1,42 +1,47 @@
 package io.novafoundation.nova.app.root.presentation.dashboard.page_networks.adapter
 
-import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import coil.ImageLoader
 import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.databinding.ListitemNetworkBinding
-import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback
-import io.novafoundation.nova.feature_assets.presentation.model.AssetMarker
-import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
+import io.novafoundation.nova.common.utils.ellipsis
+import io.novafoundation.nova.common.utils.formatAsCurrency
+import io.novafoundation.nova.feature_wallet_api.domain.model.AssetGroup
+
+private val diffUtilCallback = object : DiffUtil.ItemCallback<AssetGroup>() {
+    override fun areItemsTheSame(oldItem: AssetGroup, newItem: AssetGroup): Boolean {
+        return oldItem.chain.id == newItem.chain.id
+    }
+
+    override fun areContentsTheSame(oldItem: AssetGroup, newItem: AssetGroup): Boolean {
+        return oldItem.groupBalanceFiat == newItem.groupBalanceFiat
+    }
+}
 
 class NetworksAdapter(private val imageLoader: ImageLoader) :
-    AsyncListDifferDelegationAdapter<AssetMarker>(DefaultDiffUtilCallback()) {
-    var onItemClick: ((AssetModel) -> Unit)? = null
-    var onAddClick: (() -> Unit)? = null
+    AsyncListDifferDelegationAdapter<AssetGroup>(diffUtilCallback) {
+    var onItemClick: ((AssetGroup) -> Unit)? = null
 
     init {
         delegatesManager.addDelegate(assetDelegate())
-//        delegatesManager.addDelegate(addDelegate())
     }
 
     private fun assetDelegate() =
-        adapterDelegateViewBinding<AssetModel, AssetMarker, ListitemNetworkBinding>(
+        adapterDelegateViewBinding<AssetGroup, AssetGroup, ListitemNetworkBinding>(
             { layoutInflater, root ->
                 ListitemNetworkBinding.inflate(layoutInflater, root, false)
             }
         ) {
             bind {
                 with(binding) {
-                    val asset = item
-                    val configuration = asset.token.configuration
-                    tvTitle.text = configuration.name
-                    imNotNative.isVisible = configuration.chainId != configuration.chainId
-//                    tvAddress.text = asset.address?.ellipsis()
-//                    tvAmount.text =
-//                        asset.token.capitalisation.orZero().formatAsCurrency(asset.token.fiatSymbol)
-                    imIcon.load(configuration.iconUrl, imageLoader)
-                    tvAssetQuantity.text = "1 Asset"
+                    tvTitle.text = item.chain.name
+                    tvAddress.text = item.address?.ellipsis()
+                    tvAmount.text = item.groupBalanceFiat.formatAsCurrency()
+                    imIcon.load(item.chain.icon, imageLoader)
+                    tvAssetQuantity.text = context.resources.getQuantityString(R.plurals.n_assets, item.chain.assets.size, item.chain.assets.size)
                     root.setOnClickListener {
                         onItemClick?.invoke(item)
                     }
@@ -47,17 +52,5 @@ class NetworksAdapter(private val imageLoader: ImageLoader) :
 
         }
 
-//    private fun addDelegate() =
-//        adapterDelegateViewBinding<AssetAddModel, AssetMarker, ListitemAssetAddBinding>(
-//            { layoutInflater, root ->
-//                ListitemAssetAddBinding.inflate(layoutInflater, root, false)
-//            }
-//        ) {
-//            bind {
-//
-//                binding.root.setOnClickListener {
-//                    onAddClick?.invoke()
-//                }
-//            }
-//        }
+
 }

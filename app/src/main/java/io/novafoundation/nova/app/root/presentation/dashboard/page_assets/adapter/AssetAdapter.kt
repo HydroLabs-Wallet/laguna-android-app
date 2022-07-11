@@ -12,6 +12,7 @@ import io.novafoundation.nova.common.utils.formatAsCurrency
 import io.novafoundation.nova.common.utils.setTextColorRes
 import io.novafoundation.nova.feature_assets.presentation.model.AssetMarker
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
+import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
 
 class AssetAdapter(private val imageLoader: ImageLoader) :
     AsyncListDifferDelegationAdapter<AssetMarker>(DefaultDiffUtilCallback()) {
@@ -34,15 +35,12 @@ class AssetAdapter(private val imageLoader: ImageLoader) :
                     val asset = item
                     val configuration = asset.token.configuration
                     tvTitle.text = configuration.name
-                    imNotNative.isVisible = configuration.chainId != configuration.name
-                    tvTokenAmount.text =asset.token.dollarRate
-                    tvAmount.text =asset.token.dollarRate
+                    imNotNative.isVisible = !item.isNative()
+                    tvTokenAmount.text = asset.total.formatTokenAmount(asset.token.configuration.symbol)
+                    tvAmount.text = asset.dollarAmount?.formatAsCurrency()
                     imIcon.load(configuration.iconUrl, imageLoader)
-                    if (asset.token.configuration.name != asset.token.configuration.chainId) {
-                        imNotNative.isVisible = true
-                        imNotNative.load(asset.token.configuration.iconUrl, imageLoader)
-                    } else {
-                        imNotNative.isVisible = false
+                    if (!item.isNative()) {
+                        imNotNative.load(item.chain.icon, imageLoader)
                     }
                     tvDelta.text = asset.token.recentRateChange
                     tvDelta.setTextColorRes(asset.token.rateChangeColorRes)
@@ -50,10 +48,7 @@ class AssetAdapter(private val imageLoader: ImageLoader) :
                         onItemClick?.invoke(item)
                     }
                 }
-
-
             }
-
         }
 
 //    private fun addDelegate() =

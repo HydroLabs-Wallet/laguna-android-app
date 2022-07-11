@@ -17,11 +17,13 @@ import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
+import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.receive.ReceiveFragment
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send.amount.SelectSendFragment
 import io.novafoundation.nova.feature_assets.presentation.send.confirm.ConfirmSendFragment
+import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.transaction.detail.extrinsic.ExtrinsicDetailFragment
 import io.novafoundation.nova.feature_assets.presentation.transaction.detail.reward.RewardDetailFragment
 import io.novafoundation.nova.feature_assets.presentation.transaction.detail.transfer.TransferDetailFragment
@@ -165,12 +167,16 @@ class Navigator(
         router.navigateTo(Screens.toAssetReceiveScreen(assetPayload))
     }
 
+    override fun toAssetReceiveChooser(payload: AssetReceivePayload) {
+        router.navigateTo(Screens.toAssetReceiveChooserScreen(payload))
+    }
+
     override fun toAssetDetails(data: AssetPayload) {
         router.navigateTo(Screens.toAssetDetails(data))
     }
 
-    override fun showSendReceiveDialog() {
-        router.navigateTo(Screens.toSendReceivePopupScreen())
+    override fun showSendReceiveDialog(data:SendReceivePayload) {
+        router.navigateTo(Screens.toSendReceivePopupScreen(data))
     }
 
     // transactions

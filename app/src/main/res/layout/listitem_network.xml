@@ -19,6 +19,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="12dp"
+                android:background="@drawable/circle_black"
                 android:src="@drawable/bg_asset_secondary_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

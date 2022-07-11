@@ -8,6 +8,7 @@ import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_assets.presentation.model.TokenModel
 import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
 import io.novafoundation.nova.feature_wallet_api.domain.model.Token
+import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import java.math.BigDecimal
 
 fun mapTokenToTokenModel(token: Token): TokenModel {
@@ -29,7 +30,7 @@ fun mapTokenToTokenModel(token: Token): TokenModel {
     }
 }
 
-fun mapAssetToAssetModel(asset: Asset): AssetModel {
+fun mapAssetToAssetModel(chain: Chain, asset: Asset): AssetModel {
     return with(asset) {
         AssetModel(
             token = mapTokenToTokenModel(token),
@@ -40,7 +41,8 @@ fun mapAssetToAssetModel(asset: Asset): AssetModel {
             reserved = reserved,
             redeemable = redeemable,
             unbonding = unbonding,
-            dollarAmount = dollarAmount
+            dollarAmount = dollarAmount,
+            chain = chain
         )
     }
 }

@@ -6,5 +6,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface SendReceiveView : MvpView {
-
+    fun setSendEnabled(enabled: Boolean)
 }

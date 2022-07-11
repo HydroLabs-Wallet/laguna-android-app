@@ -1,5 +1,6 @@
-package io.novafoundation.nova.feature_assets.presentation.asset_choose
+package io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser
 
+import android.util.Log
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.inBackground
 import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapAssetToAssetModel
@@ -15,10 +16,11 @@ import moxy.presenterScope
 import javax.inject.Inject
 
 @InjectViewState
-class AssetChoosePresenter @Inject constructor(
+class AssetReceiveChooserPresenter @Inject constructor(
     private val router: WalletRouter,
     private val interactor: WalletInteractor,
-) : MvpPresenter<AssetChooseView>(), WithCoroutineScopeExtensions {
+    private val payload: AssetReceivePayload
+) : MvpPresenter<AssetReceiveChooserView>(), WithCoroutineScopeExtensions {
 
     override val coroutineScope: CoroutineScope = presenterScope
 
@@ -27,9 +29,12 @@ class AssetChoosePresenter @Inject constructor(
         .share()
     val assetsFlow: Flow<List<AssetModel>> = balancesFlow.map { balances ->
         balances.assets
-            .map { entry-> entry.value.map{mapAssetToAssetModel(entry.key.chain,it)} }
+            .map { entry ->
+                entry.value
+                    .map { mapAssetToAssetModel(entry.key.chain, it) }
+            }
             .flatten()
-            .sortedByDescending { it.dollarAmount }
+
 
     }
         .distinctUntilChanged()
@@ -45,10 +50,18 @@ class AssetChoosePresenter @Inject constructor(
             assetsFlow,
             searchQueryFlow
         ) { assets, query ->
+            val filteredAssets = assets.filter {
+
+                val nameSame = it.token.configuration.name.lowercase() == payload.priceId
+                val priceIdSame = payload.priceId != null && it.token.configuration.priceId == payload.priceId
+                val filtered = nameSame || priceIdSame
+                Log.e("mcheck", "name $filtered")
+                filtered
+            }
             if (query.isEmpty()) {
-                viewState.submitList(assets)
+                viewState.submitList(filteredAssets)
             } else {
-                val filtered = assets.filter {
+                val filtered = filteredAssets.filter {
                     it.token.configuration.symbol == query ||
                         it.token.configuration.chainId == query ||
                         it.token.configuration.name == query
@@ -63,11 +76,12 @@ class AssetChoosePresenter @Inject constructor(
     }
 
     fun onAssetClicked(asset: AssetModel) {
+        router.back()
         val payload = AssetPayload(
             chainId = asset.token.configuration.chainId,
             chainAssetId = asset.token.configuration.id
         )
-        router.toAssetReceive(payload)
+        router.setResult(AssetReceiveChooserFragment.RESULT, payload)
     }
 
     fun onBackCommandClick() {

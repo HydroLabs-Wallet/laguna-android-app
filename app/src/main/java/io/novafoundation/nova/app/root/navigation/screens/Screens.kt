@@ -19,8 +19,11 @@ import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 import io.novafoundation.nova.feature_assets.presentation.asset_choose.AssetChooseFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_details.AssetDetailsFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_receive.AssetReceiveFragment
+import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceiveChooserFragment
+import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.AssetTransactionsFragment
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceiveFragment
+import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_onboarding_impl.presentation.welcome.OnboardingFragment
 import io.novafoundation.nova.splash.presentation.SplashFragment
 
@@ -70,11 +73,11 @@ object Screens {
     // Assets
     fun toAssetChooseScreen() = FragmentScreen { AssetChooseFragment.getNewInstance() }
     fun toAssetReceiveScreen(receive: AssetPayload) = FragmentScreen { AssetReceiveFragment.getNewInstance(receive) }
-    fun toAssetDetails(payload: AssetPayload) =  FragmentScreen { AssetDetailsFragment.getNewInstance(payload) }
-        fun toSendReceivePopupScreen() = FragmentScreen(clearContainer = false) { SendReceiveFragment.getNewInstance() }
-
+    fun toAssetDetails(payload: AssetPayload) = FragmentScreen { AssetDetailsFragment.getNewInstance(payload) }
+    fun toSendReceivePopupScreen(data: SendReceivePayload) = FragmentScreen(clearContainer = false) { SendReceiveFragment.getNewInstance(data) }
+    fun toAssetReceiveChooserScreen(data:AssetReceivePayload) = FragmentScreen{AssetReceiveChooserFragment.getNewInstance(data)}
     //transactions
-        fun toAssetTransactions(payload: AssetPayload) =
+    fun toAssetTransactions(payload: AssetPayload) =
         FragmentScreen { AssetTransactionsFragment.getNewInstance(payload, true) }
 //
 
@@ -83,7 +86,6 @@ object Screens {
 //    fun toTransactionDetails(data: TransactionPayload) =
 //        FragmentScreen(clearContainer = false) { TransactionDetailsFragment.getNewInstance(data) }
 //
-
 
 
 //
