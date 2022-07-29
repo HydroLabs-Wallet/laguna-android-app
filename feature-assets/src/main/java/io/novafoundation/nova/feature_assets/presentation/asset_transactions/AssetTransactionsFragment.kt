@@ -48,11 +48,7 @@ class AssetTransactionsFragment : BaseFragment(), AssetTransactionsView {
     lateinit var presenter: AssetTransactionsPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        val payload = requireArguments().getParcelable<AssetPayload>(EXTRA_PAYLOAD)
-        requireNotNull(payload)
-        presenter.setData(payload)
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentAssetTransactionsBinding
     lateinit var adapter: AssetTransactionsAdapter

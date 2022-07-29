@@ -223,6 +223,8 @@ class PillButtonView @JvmOverloads constructor(
 
     fun setText(text: String?) {
         binding.tvTitle.text = text
+        binding.tvTitle.isVisible = binding.tvTitle.text.isNotEmpty()
+
     }
 
     fun setText(@StringRes id: Int) {

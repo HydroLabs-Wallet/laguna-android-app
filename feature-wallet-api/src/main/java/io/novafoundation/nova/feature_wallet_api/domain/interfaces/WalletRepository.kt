@@ -3,6 +3,7 @@ package io.novafoundation.nova.feature_wallet_api.domain.interfaces
 import io.novafoundation.nova.common.data.model.CursorPage
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransfer
 import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
+import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
@@ -62,11 +63,8 @@ interface WalletRepository {
         chainAsset: Chain.Asset
     ): Flow<CursorPage<Operation>>
 
-    suspend fun getContacts(
-        accountId: AccountId,
-        chain: Chain,
-        query: String
-    ): Set<String>
+    fun getContacts(): Flow<List<Contact>>
+    suspend fun createContact(data: Contact)
 
     suspend fun insertPendingTransfer(
         hash: String,

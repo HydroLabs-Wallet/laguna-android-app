@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transferable_balance">Transferable Balance</string>
+    <string name="contacts">Contacts</string>
+    <string name="send_to">Send to</string>
+    <string name="transfer_to_my_account">Self transfer to my account</string>
+    <string name="new_contact">New contact</string>
+    <string name="save_to_contact">Save to contact</string>
+    <string name="contact_name">Contact name</string>
+    <string name="enter_name">Enter name</string>
+    <string name="to_with_dots">To:</string>
+    <string name="send_tokens">Send Tokens</string>
+    <string name="amount">Amount</string>
+    <string name="max">Max</string>
+    <string name="network_fee">Network fee</string>
+    <string name="transferable_n">Transferable $s</string>
+    <string name="usd">USD</string>
+    <string name="confirm_send">Confirm Send</string>
+    <string name="add_note">Add note</string>
+    <string name="conversion_rate">Conversion Rate</string>
+</resources>

@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface SelectAccountView : MvpView {
     fun submitList(data: List<LightMetaAccountUi>)
+    fun showAddButton(show: Boolean)
 }

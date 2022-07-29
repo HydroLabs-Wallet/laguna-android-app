@@ -6,14 +6,11 @@ import io.novafoundation.nova.common.data.network.coingecko.PriceInfo
 import io.novafoundation.nova.common.utils.asQueryParam
 import io.novafoundation.nova.common.utils.defaultOnNull
 import io.novafoundation.nova.common.utils.mapList
+import io.novafoundation.nova.core_db.dao.ContactsDao
 import io.novafoundation.nova.core_db.dao.OperationDao
 import io.novafoundation.nova.core_db.dao.PhishingAddressDao
 import io.novafoundation.nova.core_db.dao.TokenDao
-import io.novafoundation.nova.core_db.model.AssetLocal
-import io.novafoundation.nova.core_db.model.AssetWithToken
-import io.novafoundation.nova.core_db.model.OperationLocal
-import io.novafoundation.nova.core_db.model.PhishingAddressLocal
-import io.novafoundation.nova.core_db.model.TokenLocal
+import io.novafoundation.nova.core_db.model.*
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_account_api.domain.interfaces.findMetaAccountOrThrow
 import io.novafoundation.nova.feature_account_api.domain.model.addressIn
@@ -24,6 +21,7 @@ import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TransactionFi
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletConstants
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletRepository
 import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
+import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 import io.novafoundation.nova.feature_wallet_api.domain.model.planksFromAmount
 import io.novafoundation.nova.feature_wallet_impl.data.mappers.mapAssetLocalToAsset
@@ -46,13 +44,7 @@ import jp.co.soramitsu.fearless_utils.extensions.toHexString
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.ss58.SS58Encoder.toAccountId
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
@@ -70,6 +62,7 @@ class WalletRepositoryImpl(
     private val coingeckoApi: CoingeckoApi,
     private val chainRegistry: ChainRegistry,
     private val tokenDao: TokenDao,
+    private val contactsDao: ContactsDao
 ) : WalletRepository {
 
     override fun assetsFlow(metaId: Long): Flow<List<Asset>> {
@@ -230,12 +223,13 @@ class WalletRepositoryImpl(
             }
     }
 
-    override suspend fun getContacts(
-        accountId: AccountId,
-        chain: Chain,
-        query: String,
-    ): Set<String> {
-        return operationDao.getContacts(query, chain.addressOf(accountId), chain.id).toSet()
+    override fun getContacts(): Flow<List<Contact>> {
+        return contactsDao.getContacts()
+            .mapList { Contact(name = it.name, address = it.address) }
+    }
+
+    override suspend fun createContact(data: Contact) {
+        contactsDao.insert(ContactLocal(address = data.address, name = data.name))
     }
 
     override suspend fun insertPendingTransfer(

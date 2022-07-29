@@ -120,7 +120,7 @@
         <attr name="sectionContentEndIconTint" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="SearchView">
+    <declare-styleable name="SearchViewOld">
         <attr name="android:hint" />
         <attr name="icon" />
     </declare-styleable>
@@ -150,6 +150,15 @@
 
 
     <!--    LAGUNA RES -->
+    <declare-styleable name="SearchView">
+        <attr name="sv_text" format="string" />
+        <attr name="sv_text_hint" format="string" />
+        <attr name="sv_button_ic_start" format="reference" />
+        <attr name="sv_button_ic_end" format="reference" />
+        <attr name="sv_button_text_end" format="string" />
+        <attr name="sv_button_color_end" format="reference" />
+
+    </declare-styleable>
     <declare-styleable name="InputFieldView">
         <attr name="if_title" format="string" />
         <attr name="if_text" format="string" />

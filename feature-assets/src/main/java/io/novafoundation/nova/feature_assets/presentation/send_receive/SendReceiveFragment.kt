@@ -53,8 +53,8 @@ class SendReceiveFragment : BaseFragment(), SendReceiveView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.holderSend.setOnClickListener { presenter.onAssetChooseClicked() }
-        binding.holderReceive.setOnClickListener { presenter.onAssetChooseClicked() }
+        binding.holderSend.setOnClickListener { presenter.onSendClick() }
+        binding.holderReceive.setOnClickListener { presenter.onReceiveClick() }
         binding.root.setOnClickListener { presenter.onBackCommandClick() }
 
     }

@@ -2,12 +2,7 @@ package io.novafoundation.nova.feature_assets.presentation.transaction.history.m
 
 import android.util.Log
 import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.LOG_TAG
-import io.novafoundation.nova.common.utils.daysFromMillis
-import io.novafoundation.nova.common.utils.inBackground
-import io.novafoundation.nova.common.utils.invoke
-import io.novafoundation.nova.common.utils.lazyAsync
-import io.novafoundation.nova.common.utils.singleReplaySharedFlow
+import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.feature_account_api.presenatation.account.AddressDisplayUseCase
 import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapOperationToOperationModel
 import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapOperationToParcel
@@ -22,6 +17,7 @@ import io.novafoundation.nova.feature_assets.presentation.transaction.history.mi
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.DayHeader
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.OperationMarker
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
+import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TokenRepository
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TransactionFilter
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
@@ -29,16 +25,10 @@ import io.novafoundation.nova.runtime.multiNetwork.asset
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class TransactionHistoryProvider(
     private val walletInteractor: WalletInteractor,
@@ -48,6 +38,7 @@ class TransactionHistoryProvider(
     private val addressDisplayUseCase: AddressDisplayUseCase,
     private val assetsSourceRegistry: AssetSourceRegistry,
     private val chainRegistry: ChainRegistry,
+    private val tokenRepository: TokenRepository,
     private val chainId: ChainId,
     private val assetId: Int
 ) : TransactionHistoryMixin, CoroutineScope by CoroutineScope(Dispatchers.Default) {
@@ -107,17 +98,18 @@ class TransactionHistoryProvider(
             val clickedOperation = operations.first { it.id == transactionModel.id }
 
             withContext(Dispatchers.Main) {
-                when (val payload = mapOperationToParcel(clickedOperation, chainRegistry, resourceManager)) {
+                val token = tokenRepository.getToken(clickedOperation.chainAsset)
+                when (val payload = mapOperationToParcel(clickedOperation, token, chainRegistry, resourceManager)) {
                     is OperationParcelizeModel.Transfer -> {
-                        router.openTransferDetail(payload)
+                        router.toTransferDetails(payload)
                     }
 
                     is OperationParcelizeModel.Extrinsic -> {
-                        router.openExtrinsicDetail(payload)
+//                        router.openExtrinsicDetail(payload)
                     }
 
                     is OperationParcelizeModel.Reward -> {
-                        router.openRewardDetail(payload)
+//                        router.openRewardDetail(payload)
                     }
                 }
             }
@@ -210,15 +202,16 @@ class TransactionHistoryProvider(
     }
 
     private suspend fun transformDataToUi(data: List<Operation>): List<OperationMarker> {
-        val accountIdentifier = addressDisplayUseCase.createIdentifier()
         val chain = chainAsync()
-
+        val asset = chain.assets.first { it.id == assetId }
+        val token = tokenRepository.getToken(asset)
         return data.groupBy { it.time.daysFromMillis() }
             .map { (daysSinceEpoch, operationsPerDay) ->
-                val header = DayHeader(daysSinceEpoch)
+                val millis = TimeUnit.DAYS.toMillis(daysSinceEpoch)
+                val header = DayHeader(resourceManager.formatMonthDateLong(millis))
 
                 val operationModels = operationsPerDay.map { operation ->
-                    mapOperationToOperationModel(chain, operation, accountIdentifier, resourceManager)
+                    mapOperationToOperationModel(chain, operation, token, resourceManager)
                 }
 
                 listOf(header) + operationModels

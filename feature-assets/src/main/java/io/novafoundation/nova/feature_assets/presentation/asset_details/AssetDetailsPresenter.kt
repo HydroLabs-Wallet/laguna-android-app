@@ -2,6 +2,7 @@ package io.novafoundation.nova.feature_assets.presentation.asset_details
 
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.inBackground
+import io.novafoundation.nova.common.utils.patternWith
 import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapTokenToTokenModel
 import io.novafoundation.nova.feature_assets.domain.WalletInteractor
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
@@ -21,16 +22,10 @@ import javax.inject.Inject
 class AssetDetailsPresenter @Inject constructor(
     private val interactor: WalletInteractor,
     private val router: WalletRouter,
-
-    ) :
+    val payload: AssetPayload
+) :
     MvpPresenter<AssetDetailsView>(), WithCoroutineScopeExtensions {
     override val coroutineScope = presenterScope
-
-    lateinit var payload: AssetPayload
-
-    fun setData(payload: AssetPayload) {
-        this.payload = payload
-    }
 
 
     override fun onFirstViewAttach() {
@@ -50,10 +45,18 @@ class AssetDetailsPresenter @Inject constructor(
         router.toAssetTransaction(payload)
     }
 
-    fun onReceiveClick(asset: AssetDetailsModel) {
+    fun onSendClick() {
         val payload = AssetPayload(
-            chainId = asset.token.configuration.chainId,
-            chainAssetId = asset.token.configuration.id
+            chainId = payload.chainId,
+            chainAssetId = payload.chainAssetId
+        )
+        router.toSendAddressChooser(payload)
+    }
+
+    fun onReceiveClick() {
+        val payload = AssetPayload(
+            chainId = payload.chainId,
+            chainAssetId = payload.chainAssetId
         )
         router.toAssetReceive(payload)
     }

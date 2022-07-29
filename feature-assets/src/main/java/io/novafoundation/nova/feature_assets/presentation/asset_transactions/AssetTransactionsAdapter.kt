@@ -1,16 +1,16 @@
 package io.novafoundation.nova.feature_assets.presentation.asset_transactions
 
+import androidx.core.view.isVisible
 import coil.ImageLoader
+import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback
 import io.novafoundation.nova.feature_assets.databinding.ListitemAssetTransactionBinding
 import io.novafoundation.nova.feature_assets.databinding.ListitemAssetTransactionDateBinding
 import io.novafoundation.nova.feature_assets.presentation.model.OperationModel
-import io.novafoundation.nova.feature_assets.presentation.model.OperationStatusAppearance
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.DayHeader
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.OperationMarker
-import io.novafoundation.nova.feature_assets.presentation.view.TransactionStatusView
 
 class AssetTransactionsAdapter(private val imageLoader: ImageLoader) :
     AsyncListDifferDelegationAdapter<OperationMarker>(DefaultDiffUtilCallback()) {
@@ -30,22 +30,21 @@ class AssetTransactionsAdapter(private val imageLoader: ImageLoader) :
         ) {
             bind {
                 with(binding) {
-                    when (item.statusAppearance) {
-                        OperationStatusAppearance.COMPLETED -> vStatus.setStatus(TransactionStatusView.TransactionStatus.APPROVED)
-                        OperationStatusAppearance.PENDING -> vStatus.setStatus(TransactionStatusView.TransactionStatus.PENDING)
-                        OperationStatusAppearance.FAILED -> vStatus.setStatus(TransactionStatusView.TransactionStatus.FAILED)
-                    }
-//                    tvName.text = item.name
+                    vStatus.setStatus(item.statusAppearance, item.operation)
+                    tvName.text = item.title
                     tvTokenAmount.text = item.amount
-//                    tvCurrencyAmount.text = item.currencyAmount
-//                    tvAddress.text = item.address
+                    tvCurrencyAmount.text = item.dollarAmount
+                    tvAddress.text = item.subtitle
                     tvDate.text = item.formattedTime
-//                    imIconBig.load(item.icon, imageLoader)
+                    imIconBig.load(item.icon, imageLoader)
+                    imNotNative.isVisible = item.notNativeIcon != null
+                    if (item.notNativeIcon != null) {
+                        imNotNative.load(item.notNativeIcon, imageLoader)
+                    }
                     root.setOnClickListener { onItemClickListener?.invoke(item) }
                 }
             }
         }
-
 
     private fun dateDelegate() =
         adapterDelegateViewBinding<DayHeader, OperationMarker, ListitemAssetTransactionDateBinding>(
@@ -54,7 +53,7 @@ class AssetTransactionsAdapter(private val imageLoader: ImageLoader) :
             }
         ) {
             bind {
-                binding.tvTitle.text = item.daysSinceEpoch.toString()
+                binding.tvTitle.text = item.date
             }
         }
 }

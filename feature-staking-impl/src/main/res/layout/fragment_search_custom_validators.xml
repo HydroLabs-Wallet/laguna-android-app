@@ -18,7 +18,7 @@
         app:textRight="@string/common_done"
         app:titleText="@string/common_search" />
 
-    <io.novafoundation.nova.common.view.SearchView
+    <io.novafoundation.nova.common.view.SearchViewOld
         android:id="@+id/searchCustomValidatorsInput"
         android:layout_width="0dp"
         app:icon="@drawable/ic_search"

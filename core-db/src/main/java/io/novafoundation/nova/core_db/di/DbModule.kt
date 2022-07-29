@@ -5,21 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.core_db.AppDatabase
-import io.novafoundation.nova.core_db.dao.AccountDao
-import io.novafoundation.nova.core_db.dao.AccountStakingDao
-import io.novafoundation.nova.core_db.dao.AssetDao
-import io.novafoundation.nova.core_db.dao.ChainDao
-import io.novafoundation.nova.core_db.dao.DappAuthorizationDao
-import io.novafoundation.nova.core_db.dao.FavouriteDAppsDao
-import io.novafoundation.nova.core_db.dao.MetaAccountDao
-import io.novafoundation.nova.core_db.dao.NftDao
-import io.novafoundation.nova.core_db.dao.NodeDao
-import io.novafoundation.nova.core_db.dao.OperationDao
-import io.novafoundation.nova.core_db.dao.PhishingAddressDao
-import io.novafoundation.nova.core_db.dao.PhishingSitesDao
-import io.novafoundation.nova.core_db.dao.StakingTotalRewardDao
-import io.novafoundation.nova.core_db.dao.StorageDao
-import io.novafoundation.nova.core_db.dao.TokenDao
+import io.novafoundation.nova.core_db.dao.*
 
 @Module
 class DbModule {
@@ -120,5 +106,11 @@ class DbModule {
     @ApplicationScope
     fun provideFavouriteDappsDao(appDatabase: AppDatabase): FavouriteDAppsDao {
         return appDatabase.favouriteDAppsDao()
+    }
+
+    @Provides
+    @ApplicationScope
+    fun provideContactsDao(appDatabase: AppDatabase): ContactsDao {
+        return appDatabase.contactsDao()
     }
 }

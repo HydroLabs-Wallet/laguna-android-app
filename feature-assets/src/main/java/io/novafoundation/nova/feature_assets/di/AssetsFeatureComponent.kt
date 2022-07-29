@@ -11,15 +11,16 @@ import io.novafoundation.nova.feature_assets.presentation.asset_choose.di.AssetC
 import io.novafoundation.nova.feature_assets.presentation.asset_details.di.AssetDetailComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_receive.di.AssetReceiveComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.di.AssetReceiveChooserComponent
+import io.novafoundation.nova.feature_assets.presentation.asset_transactions.details.transfer.di.TransferDetailsComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.di.AssetTransactionsComponent
 import io.novafoundation.nova.feature_assets.presentation.balance.filters.di.AssetFiltersComponent
 import io.novafoundation.nova.feature_assets.presentation.receive.di.ReceiveComponent
-import io.novafoundation.nova.feature_assets.presentation.send.amount.di.SelectSendComponent
-import io.novafoundation.nova.feature_assets.presentation.send.confirm.di.ConfirmSendComponent
+import io.novafoundation.nova.feature_assets.presentation.send.address_choose.di.SendAddressChooseComponent
+import io.novafoundation.nova.feature_assets.presentation.send.asset_choose.di.SendAssetChooseComponent
+import io.novafoundation.nova.feature_assets.presentation.send.confirm.di.SendConfirmComponent
+import io.novafoundation.nova.feature_assets.presentation.send.create_contact.di.CreateContactComponent
+import io.novafoundation.nova.feature_assets.presentation.send.fill.di.SendFillComponent
 import io.novafoundation.nova.feature_assets.presentation.send_receive.di.SendReceiveComponent
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.di.ExtrinsicDetailComponent
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.di.RewardDetailComponent
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.di.TransactionDetailComponent
 import io.novafoundation.nova.feature_assets.presentation.transaction.filter.di.TransactionHistoryFilterComponent
 import io.novafoundation.nova.feature_nft_api.NftFeatureApi
 import io.novafoundation.nova.feature_wallet_api.di.WalletFeatureApi
@@ -37,18 +38,10 @@ import io.novafoundation.nova.runtime.di.RuntimeApi
 interface AssetsFeatureComponent : AssetsFeatureApi {
 
 
-    fun chooseAmountComponentFactory(): SelectSendComponent.Factory
-
-    fun confirmTransferComponentFactory(): ConfirmSendComponent.Factory
-
-    fun transactionDetailComponentFactory(): TransactionDetailComponent.Factory
-
     fun transactionHistoryComponentFactory(): TransactionHistoryFilterComponent.Factory
     fun assetReceiveChooserComponentFactory(): AssetReceiveChooserComponent.Factory
+    fun transferDetailsComponentFactory(): TransferDetailsComponent.Factory
 
-    fun rewardDetailComponentFactory(): RewardDetailComponent.Factory
-
-    fun extrinsicDetailComponentFactory(): ExtrinsicDetailComponent.Factory
 
     fun receiveComponentFactory(): ReceiveComponent.Factory
 
@@ -59,6 +52,12 @@ interface AssetsFeatureComponent : AssetsFeatureApi {
     fun sendReceiveComponentFactory(): SendReceiveComponent.Factory
     fun assetTransactionsComponentFactory(): AssetTransactionsComponent.Factory
 
+    //send
+    fun sendAssetChooseComponentFactory(): SendAssetChooseComponent.Factory
+    fun sendAddressChooseComponentFactory(): SendAddressChooseComponent.Factory
+    fun createContactComponentFactory(): CreateContactComponent.Factory
+    fun sendFillComponentFactory(): SendFillComponent.Factory
+    fun sendConfirmComponentFactory(): SendConfirmComponent.Factory
 
     @Component.Factory
     interface Factory {

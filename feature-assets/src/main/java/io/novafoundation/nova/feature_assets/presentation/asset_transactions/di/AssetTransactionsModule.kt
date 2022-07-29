@@ -13,6 +13,7 @@ import io.novafoundation.nova.feature_assets.presentation.transaction.filter.His
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.mixin.TransactionHistoryMixin
 import io.novafoundation.nova.feature_assets.presentation.transaction.history.mixin.TransactionHistoryProvider
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
+import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TokenRepository
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 
 @Module(includes = [ViewModelModule::class])
@@ -28,6 +29,7 @@ class AssetTransactionsModule {
         resourceManager: ResourceManager,
         assetPayload: AssetPayload,
         addressDisplayUseCase: AddressDisplayUseCase,
+        tokenRepository: TokenRepository,
         chainRegistry: ChainRegistry,
     ): TransactionHistoryMixin {
         return TransactionHistoryProvider(
@@ -39,9 +41,8 @@ class AssetTransactionsModule {
             assetsSourceRegistry = assetSourceRegistry,
             chainRegistry = chainRegistry,
             chainId = assetPayload.chainId,
-            assetId = assetPayload.chainAssetId
+            assetId = assetPayload.chainAssetId,
+            tokenRepository = tokenRepository
         )
     }
-
-
 }

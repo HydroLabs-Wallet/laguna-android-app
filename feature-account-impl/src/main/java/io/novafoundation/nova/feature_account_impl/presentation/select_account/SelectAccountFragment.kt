@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import coil.ImageLoader
-import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentSelectAccountBinding
@@ -18,7 +20,13 @@ import javax.inject.Inject
 
 class SelectAccountFragment : BaseFragment(), SelectAccountView {
     companion object {
-        fun getNewInstance(): SelectAccountFragment = SelectAccountFragment()
+        const val EXTRA_PAYLOAD = "SelectAccountFragment.extra_asset"
+
+        fun getNewInstance(data: SelectAccountPayload): SelectAccountFragment = SelectAccountFragment().apply {
+            arguments = bundleOf(
+                EXTRA_PAYLOAD to data
+            )
+        }
     }
 
     @Inject
@@ -41,7 +49,7 @@ class SelectAccountFragment : BaseFragment(), SelectAccountView {
             AccountFeatureApi::class.java
         )
             .selectAccountComponentFactory()
-            .create(this)
+            .create(this, argument(EXTRA_PAYLOAD))
             .inject(this)
     }
 
@@ -62,6 +70,10 @@ class SelectAccountFragment : BaseFragment(), SelectAccountView {
         binding.imBack.setOnClickListener { presenter.onBackCommandClick() }
         adapter.onItemClick = { presenter.onItemClicked(it) }
         binding.imAdd.setOnClickListener { presenter.onAddClick() }
+    }
+
+    override fun showAddButton(show: Boolean) {
+        binding.imAdd.isVisible = show
     }
 
     override fun submitList(data: List<LightMetaAccountUi>) {

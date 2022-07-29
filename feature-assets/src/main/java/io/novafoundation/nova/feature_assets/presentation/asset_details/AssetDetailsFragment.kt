@@ -7,22 +7,21 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import coil.ImageLoader
 import coil.load
-import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.backgroundTint
 import io.novafoundation.nova.common.utils.compatColor
+import io.novafoundation.nova.common.utils.formatAsCurrency
+import io.novafoundation.nova.common.utils.orZero
 import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.databinding.FragmentAssetDetailsBinding
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureApi
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureComponent
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
-import io.novafoundation.nova.feature_assets.presentation.asset_receive.AssetReceiveFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.AssetTransactionsFragment
 import io.novafoundation.nova.feature_assets.presentation.balance.detail.AssetDetailsModel
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class AssetDetailsFragment : BaseFragment(), AssetDetailsView {
@@ -42,11 +41,7 @@ class AssetDetailsFragment : BaseFragment(), AssetDetailsView {
     lateinit var presenter: AssetDetailsPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        val payload = requireArguments().getParcelable<AssetPayload>(EXTRA_PAYLOAD)
-        requireNotNull(payload)
-        presenter.setData(payload)
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentAssetDetailsBinding
 
@@ -81,16 +76,17 @@ class AssetDetailsFragment : BaseFragment(), AssetDetailsView {
             tvTitle.text = "${configuration.name} (${configuration.symbol})"
             imIcon.load(configuration.iconUrl, imageLoader)
             val fiatSymbol = data.token.configuration.symbol
-            tvTokePrice.text = data.token.dollarRate
+            tvTokePrice.text = data.token.dollarRate.orZero().formatAsCurrency()
             val delta = data.token.recentRateChange
-            tvPriceChange.text =data.token.recentRateChange
+            tvPriceChange.text = data.token.recentRateChange
             tvPriceDelta.text = data.token.recentRateChange
             tvTokenBalance.text = data.total.token
-            tvCurrencyBalance.text =data.total.fiat
+            tvCurrencyBalance.text = data.total.fiat
             tvDeltaBalance.text = delta
             tvChainName.text = "${configuration.name} ${getString(R.string.chain)}"
 
-            btnReceive.setOnClickListener { presenter.onReceiveClick(data) }
+            btnReceive.setOnClickListener { presenter.onReceiveClick() }
+            btnSend.setOnClickListener { presenter.onSendClick() }
 
             if (delta.startsWith("-")) {
                 val redTextColor = requireContext().compatColor(R.color.red500)

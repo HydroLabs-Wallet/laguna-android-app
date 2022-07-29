@@ -1,8 +1,9 @@
 buildscript {
     ext {
         // App version
-        versionName = '0.0.10'
-        versionCode = 10
+        versionCode = 13
+
+        versionName = "0.0.$verversionCode"
 
         applicationId = "com.hydrogenex.lagunawallet"
         releaseApplicationSuffix = "market"

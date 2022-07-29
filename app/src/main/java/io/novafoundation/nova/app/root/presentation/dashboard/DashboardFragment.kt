@@ -82,6 +82,7 @@ class DashboardFragment : BaseFragment(), DashboardView {
         binding.bottomNavBarView.actionButton.setOnClickListener {
             presenter.onSendReceivePopupScreen()
         }
+        binding.holderBalance.setOnClickListener { presenter.onReceiveClicked()}
     }
 
     override fun showImportSnack() {

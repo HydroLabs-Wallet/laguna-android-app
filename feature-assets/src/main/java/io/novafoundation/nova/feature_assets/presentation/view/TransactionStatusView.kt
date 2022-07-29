@@ -8,6 +8,8 @@ import io.novafoundation.nova.common.utils.inflater
 import io.novafoundation.nova.common.utils.tint
 import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.databinding.ViewTransactionStatusBinding
+import io.novafoundation.nova.feature_assets.presentation.model.OperationStatusAppearance
+import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 
 class TransactionStatusView @JvmOverloads constructor(
     context: Context,
@@ -17,50 +19,67 @@ class TransactionStatusView @JvmOverloads constructor(
     private val binding: ViewTransactionStatusBinding =
         ViewTransactionStatusBinding.inflate(inflater, this, true)
 
-    fun setStatus(status: TransactionStatus) {
+    fun setStatus(statusAppearance: OperationStatusAppearance, operation: Operation) {
         with(binding) {
-            when (status) {
-                TransactionStatus.PENDING -> {
+            when (statusAppearance) {
+                OperationStatusAppearance.COMPLETED -> {
+                    if (operation.type is Operation.Type.Transfer) {
+                        val transfer = operation.type as Operation.Type.Transfer
+                        if (transfer.myAddress == transfer.receiver) {
+                            imStatus.setImageResource(R.drawable.ic_size_24_transaction_receive)
+                            imStatus.tint(R.color.green500)
+                            imStatus.backgroundTint(R.color.green100)
+                            tvStatus.text = context.getString(R.string.receive)
+                        } else {
+                            imStatus.setImageResource(R.drawable.ic_size_24_transaction_send)
+                            imStatus.tint(R.color.neutral500)
+                            imStatus.backgroundTint(R.color.neutral100)
+                            tvStatus.text = context.getString(R.string.sent)
+                        }
+                    } else {
+                        imStatus.setImageResource(R.drawable.ic_size_24__transaction_failed)
+                        imStatus.tint(R.color.red500)
+                        imStatus.backgroundTint(R.color.red100)
+                        tvStatus.text = context.getString(R.string.common_unknown)
+                    }
+                }
+                OperationStatusAppearance.PENDING -> {
                     imStatus.setImageResource(R.drawable.ic_size_24_transaction_pending)
                     imStatus.tint(R.color.yellow500)
                     imStatus.backgroundTint(R.color.yellow100)
                     tvStatus.text = context.getString(R.string.sending)
                 }
-                TransactionStatus.SENT -> {
-                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_send)
-                    imStatus.tint(R.color.neutral500)
-                    imStatus.backgroundTint(R.color.neutral100)
-                    tvStatus.text = context.getString(R.string.sent)
-                }
-                TransactionStatus.APPROVED -> {
-                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_approved)
-                    imStatus.tint(R.color.neutral500)
-                    imStatus.backgroundTint(R.color.neutral100)
-                    tvStatus.text = context.getString(R.string.approve_token)
-                }
-                TransactionStatus.RECEIVE -> {
-                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_receive)
-                    imStatus.tint(R.color.green500)
-                    imStatus.backgroundTint(R.color.green100)
-                    tvStatus.text = context.getString(R.string.receive)
-                }
-                TransactionStatus.SWAP -> {
-                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_swap)
-                    imStatus.tint(R.color.green500)
-                    imStatus.backgroundTint(R.color.green100)
-                    tvStatus.text = context.getString(R.string.swap)
-                }
-                TransactionStatus.FAILED -> {
+                OperationStatusAppearance.FAILED -> {
                     imStatus.setImageResource(R.drawable.ic_size_24__transaction_failed)
                     imStatus.tint(R.color.red500)
                     imStatus.backgroundTint(R.color.red100)
                     tvStatus.text = context.getString(R.string.failed)
+
                 }
+                else -> {
+                    imStatus.setImageResource(R.drawable.ic_size_24__transaction_failed)
+                    imStatus.tint(R.color.red500)
+                    imStatus.backgroundTint(R.color.red100)
+                    tvStatus.text = context.getString(R.string.common_unknown)
+                }
+
+//
+//                TransactionStatus.APPROVED -> {
+//                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_approved)
+//                    imStatus.tint(R.color.neutral500)
+//                    imStatus.backgroundTint(R.color.neutral100)
+//                    tvStatus.text = context.getString(R.string.approve_token)
+//                }
+//
+//                TransactionStatus.SWAP -> {
+//                    imStatus.setImageResource(R.drawable.ic_size_24_transaction_swap)
+//                    imStatus.tint(R.color.green500)
+//                    imStatus.backgroundTint(R.color.green100)
+//                    tvStatus.text = context.getString(R.string.swap)
+//                }
+
+
             }
         }
-    }
-
-    enum class TransactionStatus {
-        PENDING, SENT, APPROVED, RECEIVE, SWAP, FAILED
     }
 }

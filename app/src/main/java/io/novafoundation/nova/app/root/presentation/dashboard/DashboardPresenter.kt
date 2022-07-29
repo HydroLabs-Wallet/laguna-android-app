@@ -2,26 +2,21 @@ package io.novafoundation.nova.app.root.presentation.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.address.AddressIconGenerator
-import io.novafoundation.nova.common.address.createAddressModel
-import io.novafoundation.nova.common.presentation.LoadingState
 import io.novafoundation.nova.common.utils.*
-import io.novafoundation.nova.feature_account_api.data.mappers.mapChainToUi
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
 import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
 import io.novafoundation.nova.feature_account_api.domain.model.defaultSubstrateAddress
-import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapAssetToAssetModel
+import io.novafoundation.nova.common.data.model.SelectAccountPayload
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_assets.domain.WalletInteractor
 import io.novafoundation.nova.feature_assets.domain.assets.list.AssetsListInteractor
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
-import io.novafoundation.nova.feature_assets.presentation.balance.list.model.AssetGroupUi
-import io.novafoundation.nova.feature_assets.presentation.balance.list.model.NftPreviewUi
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.TotalBalanceModel
-import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
-import io.novafoundation.nova.feature_nft_api.data.model.Nft
-import io.novafoundation.nova.feature_wallet_api.domain.model.AssetGroup
 import io.novafoundation.nova.runtime.multiNetwork.connection.ChainConnection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -49,8 +44,10 @@ class DashboardPresenter @Inject constructor(
     private val router: WalletRouter,
     private val rootRouter: RootRouter,
     private val externalRequirements: MutableStateFlow<ChainConnection.ExternalRequirement>,
+    private val accountRepository: AccountRepository
 
-    ) :
+
+) :
     MvpPresenter<DashboardView>(), WithCoroutineScopeExtensions {
     private val _hideRefreshEvent = MutableLiveData<Event<Unit>>()
     val hideRefreshEvent: LiveData<Event<Unit>> = _hideRefreshEvent
@@ -98,13 +95,11 @@ class DashboardPresenter @Inject constructor(
         }
             .launchIn(presenterScope)
         totalBalanceFlow.onEach {
-            balanceModel=it
+            balanceModel = it
             viewState.submitBalanceModel(it)
         }
             .launchIn(presenterScope)
     }
-
-
 
 
     fun onBackCommandClick() {
@@ -116,7 +111,18 @@ class DashboardPresenter @Inject constructor(
     }
 
     fun onAvatarClicked() {
-        rootRouter.toSelectAccount()
+        val payload = SelectAccountPayload("Dashboard.selectAccount", true)
+        val resultListener = ResultListener {
+            presenterScope.launch {
+                accountRepository.selectMetaAccount(it as Long)
+            }
+        }
+        router.setResultListener(payload.tag, resultListener)
+        rootRouter.toSelectAccount(payload)
+    }
+
+    fun onReceiveClicked() {
+        router.toAssetSelectionToReceive()
     }
 
     fun onSendReceivePopupScreen() {

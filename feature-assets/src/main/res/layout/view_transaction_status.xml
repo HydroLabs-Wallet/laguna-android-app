@@ -10,11 +10,11 @@
             android:id="@+id/imStatus"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:backgroundTint="@color/yellow100"
+            android:backgroundTint="@color/white"
             android:padding="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@drawable/circle_black"
+            android:background="@drawable/circle_black"
             tools:src="@drawable/ic_size_24_arrow_left" />
 
         <TextView

@@ -33,9 +33,26 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/circle_black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vStatus"
                 tools:src="@drawable/ic_asset_polkadot" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:padding="3dp"
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imIconBig"
+
+                app:layout_constraintTop_toTopOf="@+id/imIconBig"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tvDate"

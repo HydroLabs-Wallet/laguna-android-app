@@ -9,10 +9,10 @@ import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.AdvancedEncryptionCommunicator
 import io.novafoundation.nova.feature_account_impl.presentation.account.advancedEncryption.di.AdvancedEncryptionComponent
-import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.di.AccountImportComponent
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.di.AccountImportInfoComponent
 import io.novafoundation.nova.feature_account_impl.presentation.language.di.LanguagesComponent
+import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
 import io.novafoundation.nova.feature_account_impl.presentation.login.di.LoginComponent
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.di.SeedConfirmComponent
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.di.SeedCreateComponent
@@ -21,6 +21,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.warning.di.SeedPromptWarningComponent
 import io.novafoundation.nova.feature_account_impl.presentation.onboarding_complete.di.AccountCreatedComponent
 import io.novafoundation.nova.feature_account_impl.presentation.password.di.CreatePasswordComponent
+import io.novafoundation.nova.feature_account_impl.presentation.password_confirm.di.PasswordConfirmComponent
 import io.novafoundation.nova.feature_account_impl.presentation.select_account.di.SelectAccountComponent
 import io.novafoundation.nova.feature_account_impl.presentation.settings.di.SettingsComponent
 import io.novafoundation.nova.runtime.di.RuntimeApi
@@ -43,6 +44,8 @@ interface AccountFeatureComponent : AccountFeatureApi {
     fun seedCreateComponentFactory(): SeedCreateComponent.Factory
     fun seedConfirmComponentFactory(): SeedConfirmComponent.Factory
     fun createPasswordComponentFactory(): CreatePasswordComponent.Factory
+    fun passwordConfirmComponentFactory(): PasswordConfirmComponent.Factory
+
     fun accountCreatedComponentFactory(): AccountCreatedComponent.Factory
     fun accountImportInfoComponent(): AccountImportInfoComponent.Factory
     fun accountImportComponent(): AccountImportComponent.Factory

@@ -10,6 +10,8 @@ import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.navigation.screens.Screens
 import io.novafoundation.nova.app.root.presentation.RootRouter
+import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
 import io.novafoundation.nova.common.utils.postToUiThread
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
@@ -20,13 +22,9 @@ import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.receive.ReceiveFragment
+import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
-import io.novafoundation.nova.feature_assets.presentation.send.amount.SelectSendFragment
-import io.novafoundation.nova.feature_assets.presentation.send.confirm.ConfirmSendFragment
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.extrinsic.ExtrinsicDetailFragment
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.reward.RewardDetailFragment
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.transfer.TransferDetailFragment
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.CrowdloanRouter
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.confirm.ConfirmContributeFragment
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.confirm.parcel.ConfirmContributePayload
@@ -91,6 +89,12 @@ class Navigator(
         router.setResultListener(key, listener)
     }
 
+    override fun toPasswordConfirm(data: ConfirmPayload) {
+        router.navigateTo(Screens.toPasswordConfirm(data))
+
+
+    }
+
     // SplashScreen
     override fun toSplashScreen() {
         router.navigateTo(Screens.toSplashScreen())
@@ -143,7 +147,11 @@ class Navigator(
     override fun toLoginScreen() {
         router.navigateTo(Screens.toLoginScreen())
     }
+
     // Dashboard
+    override fun backToDashBoard() {
+        router.backTo(Screens.toDashboardScreen())
+    }
 
     override fun toDashboard() {
         router.navigateTo(Screens.toDashboardScreen())
@@ -153,8 +161,8 @@ class Navigator(
         router.navigateTo(Screens.toChainSettings())
     }
 
-    override fun toSelectAccount() {
-        router.navigateTo(Screens.toSelectAccountScreen())
+    override fun toSelectAccount(data: SelectAccountPayload) {
+        router.navigateTo(Screens.toSelectAccountScreen(data))
     }
 
     // assets
@@ -175,7 +183,7 @@ class Navigator(
         router.navigateTo(Screens.toAssetDetails(data))
     }
 
-    override fun showSendReceiveDialog(data:SendReceivePayload) {
+    override fun showSendReceiveDialog(data: SendReceivePayload) {
         router.navigateTo(Screens.toSendReceivePopupScreen(data))
     }
 
@@ -184,8 +192,29 @@ class Navigator(
         router.navigateTo(Screens.toAssetTransactions(data))
     }
 
-    override fun toTransferDetails(transaction: OperationParcelizeModel.Transfer) {
-//        router.navigateTo(Screens.toAssetTransactions())
+    override fun toTransferDetails(data: OperationParcelizeModel.Transfer) {
+        router.navigateTo(Screens.toTransferDetails(data))
+    }
+
+    //send
+    override fun toSendAssetChooser() {
+        router.navigateTo(Screens.toSendAssetChooser())
+    }
+
+    override fun toSendAddressChooser(data: AssetPayload) {
+        router.navigateTo(Screens.toSendAddressChooser(data))
+    }
+
+    override fun toSendFill(data: TransferDraft) {
+        router.navigateTo(Screens.toSendFill(data))
+    }
+
+    override fun toSendConfirm(data: TransferDraft) {
+        router.navigateTo(Screens.toSendConfirm(data))
+    }
+
+    override fun toCreateContact(data: ContactPayload) {
+        router.navigateTo(Screens.toCreateContact(data))
     }
 
     override fun openInitialCheckPincode() {
@@ -409,38 +438,21 @@ class Navigator(
     }
 
     override fun openSend(assetPayload: AssetPayload, initialRecipientAddress: String?) {
-        val extras = SelectSendFragment.getBundle(assetPayload, initialRecipientAddress)
-
-        navController?.navigate(R.id.action_open_send, extras)
+//        val extras = SelectSendFragment.getBundle(assetPayload, initialRecipientAddress)
+//
+//        navController?.navigate(R.id.action_open_send, extras)
     }
 
     override fun openConfirmTransfer(transferDraft: TransferDraft) {
-        val bundle = ConfirmSendFragment.getBundle(transferDraft)
-
-        navController?.navigate(R.id.action_chooseAmountFragment_to_confirmTransferFragment, bundle)
+//        val bundle = ConfirmSendFragment.getBundle(transferDraft)
+//
+//        navController?.navigate(R.id.action_chooseAmountFragment_to_confirmTransferFragment, bundle)
     }
 
     override fun finishSendFlow() {
         navController?.navigate(R.id.finish_send_flow)
     }
 
-    override fun openTransferDetail(transaction: OperationParcelizeModel.Transfer) {
-        val bundle = TransferDetailFragment.getBundle(transaction)
-
-        navController?.navigate(R.id.open_transfer_detail, bundle)
-    }
-
-    override fun openRewardDetail(reward: OperationParcelizeModel.Reward) {
-        val bundle = RewardDetailFragment.getBundle(reward)
-
-        navController?.navigate(R.id.open_reward_detail, bundle)
-    }
-
-    override fun openExtrinsicDetail(extrinsic: OperationParcelizeModel.Extrinsic) {
-        val bundle = ExtrinsicDetailFragment.getBundle(extrinsic)
-
-        navController?.navigate(R.id.open_extrinsic_detail, bundle)
-    }
 
 //    override fun openAccounts(accountChosenNavDirection: AccountChosenNavDirection) {
 //        navController?.navigate(R.id.action_open_accounts, AccountListFragment.getBundle(accountChosenNavDirection))
