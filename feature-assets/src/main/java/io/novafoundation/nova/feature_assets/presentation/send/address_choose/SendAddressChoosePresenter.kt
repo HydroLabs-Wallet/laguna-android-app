@@ -2,8 +2,12 @@ package io.novafoundation.nova.feature_assets.presentation.send.address_choose
 
 import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
+import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.ellipsis
+import io.novafoundation.nova.common.utils.systemCall.ScanQrCodeCall
+import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
+import io.novafoundation.nova.common.utils.systemCall.onSystemCallFailure
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_account_api.domain.model.addressIn
 import io.novafoundation.nova.feature_assets.domain.send.SendInteractor
@@ -21,7 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -33,8 +37,10 @@ class SendAddressChoosePresenter @Inject constructor(
     private val sendInteractor: SendInteractor,
     private val accountRepository: AccountRepository,
     private val chainRegistry: ChainRegistry,
+    private val systemCallExecutor: SystemCallExecutor,
+    private val resourceManager: ResourceManager,
 
-    ) : MvpPresenter<SendAddressChooseView>(), WithCoroutineScopeExtensions {
+    ) : BasePresenter<SendAddressChooseView>(), WithCoroutineScopeExtensions {
 
     override val coroutineScope: CoroutineScope = presenterScope
     private val searchQueryFlow = MutableStateFlow("")
@@ -112,6 +118,18 @@ class SendAddressChoosePresenter @Inject constructor(
 
     fun onSearchResultClicked() {
         onItemClicked(ContactUi(query, query))
+    }
+
+    fun onQrClicked() {
+        presenterScope.launch {
+            systemCallExecutor.executeSystemCall(ScanQrCodeCall())
+                .onSuccess { address ->
+                    val contact = ContactUi(address.ellipsis(), address)
+                    onItemClicked(contact)
+                }.onSystemCallFailure {
+                    viewState.showError(resourceManager.getString(io.novafoundation.nova.feature_account_api.R.string.invoice_scan_error_no_info))
+                }
+        }
     }
 
     fun onItemClicked(data: ContactUi) {

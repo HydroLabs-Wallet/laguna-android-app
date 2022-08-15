@@ -271,33 +271,52 @@
             app:layout_constraintTop_toTopOf="@+id/labelFee"
             app:tint="@color/contentTertiary" />
 
-        <TextView
-            android:id="@+id/tvCurrencyFee"
-            style="@style/TextBodyRegularMedium"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textAllCaps="true"
-            android:textColor="@color/contentTertiary"
-            app:layout_constraintBottom_toBottomOf="@id/labelFee"
-            app:layout_constraintEnd_toStartOf="@id/tvDotFee"
-            app:layout_constraintTop_toTopOf="@+id/labelFee"
-            app:layout_goneMarginEnd="12dp"
-            tools:text="0.01 DOT" />
-
-        <TextView
-            android:id="@+id/tvDotFee"
-            style="@style/TextBodyRegularMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:textAllCaps="true"
-            android:textColor="@color/contentPrimary"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@id/labelFee"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/labelFee"
-            app:layout_goneMarginEnd="12dp"
-            tools:text="0.01 DOT" />
+            app:layout_constraintTop_toTopOf="@+id/labelFee">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/feeProgress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="64dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorColor="@color/contentPrimary"
+
+                app:indicatorSize="24dp"
+                app:trackThickness="2dp"
+
+                />
+
+            <TextView
+                android:id="@+id/tvCurrencyFee"
+                style="@style/TextBodyRegularMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textAllCaps="true"
+                android:textColor="@color/contentTertiary"
+
+                app:layout_goneMarginEnd="12dp"
+                tools:text="0.01 DOT" />
+
+            <TextView
+                android:id="@+id/tvDotFee"
+                style="@style/TextBodyRegularMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:textAllCaps="true"
+                android:textColor="@color/contentPrimary"
+                tools:text="0.01 DOT" />
+        </LinearLayout>
+
 
         <io.novafoundation.nova.common.view.RectButtonView
             android:id="@+id/btnNext"

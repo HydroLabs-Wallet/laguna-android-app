@@ -13,7 +13,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SeedWarningFragment : BaseFragment(), SeedWarningView {
+class SeedWarningFragment : BaseFragment<SeedWarningPresenter>(), SeedWarningView {
     companion object {
         fun getNewInstance(): SeedWarningFragment = SeedWarningFragment()
     }
@@ -28,7 +28,7 @@ class SeedWarningFragment : BaseFragment(), SeedWarningView {
     lateinit var binding: FragmentSeedWarningBinding
 
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .seedPromptWarningComponentFactory()
             .create(
                 fragment = this,

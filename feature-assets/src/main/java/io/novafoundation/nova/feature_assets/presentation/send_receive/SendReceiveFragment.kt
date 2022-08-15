@@ -14,9 +14,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SendReceiveFragment : BaseFragment(), SendReceiveView {
+class SendReceiveFragment : BaseFragment<SendReceivePresenter>(), SendReceiveView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
 
         fun getNewInstance(data: SendReceivePayload): SendReceiveFragment = SendReceiveFragment().apply {
             arguments = bundleOf(

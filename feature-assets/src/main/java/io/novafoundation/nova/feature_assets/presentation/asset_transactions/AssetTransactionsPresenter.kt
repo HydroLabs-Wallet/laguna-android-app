@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import java.util.*
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class AssetTransactionsPresenter @Inject constructor(
     private val payload: AssetPayload,
     private val interactor: WalletInteractor,
 ) :
-    MvpPresenter<AssetTransactionsView>(),
+    BasePresenter<AssetTransactionsView>(),
     TransactionHistoryUi by transactionHistoryMixin, WithCoroutineScopeExtensions {
 
     override val coroutineScope = presenterScope

@@ -10,6 +10,7 @@ import com.github.terrakok.cicerone.Router
 import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_onboarding_api.di.OnboardingFeatureApi
 import io.novafoundation.nova.feature_onboarding_impl.databinding.FragmentOnboardingStartBinding
 import io.novafoundation.nova.feature_onboarding_impl.di.OnboardingFeatureComponent
@@ -17,14 +18,14 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class OnboardingFragment : BaseFragment(), OnboardingView {
+class OnboardingFragment : BaseFragment<OnboardingPresenter>(), OnboardingView {
 
     companion object {
-        fun getNewInstance(isAuth: Boolean): OnboardingFragment = OnboardingFragment().apply {
-            arguments = bundleOf(EXTRA_IS_AUTH to isAuth)
+        private const val EXTRA_IS_AUTH = "isAuth"
+        fun getNewInstance(payload: AddAccountPayload): OnboardingFragment = OnboardingFragment().apply {
+            arguments = bundleOf(EXTRA_IS_AUTH to payload)
         }
 
-        const val EXTRA_IS_AUTH = "isAuth"
     }
 
     @Inject
@@ -32,9 +33,7 @@ class OnboardingFragment : BaseFragment(), OnboardingView {
     lateinit var presenter: OnboardingPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        presenter.isAuth = requireArguments().getBoolean(EXTRA_IS_AUTH)
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentOnboardingStartBinding
 

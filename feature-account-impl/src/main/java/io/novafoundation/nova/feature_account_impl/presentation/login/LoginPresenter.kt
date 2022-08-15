@@ -1,10 +1,13 @@
 package io.novafoundation.nova.feature_account_impl.presentation.login
 
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
+import io.novafoundation.nova.feature_account_impl.R
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -12,8 +15,9 @@ import javax.inject.Inject
 class LoginPresenter @Inject constructor(
     private val interactor: AccountInteractor,
     private val router: AccountRouter,
+    private val resourceManager: ResourceManager
 ) :
-    MvpPresenter<LoginView>() {
+    BasePresenter<LoginView>() {
     private var password = ""
 
     override fun onFirstViewAttach() {
@@ -36,13 +40,14 @@ class LoginPresenter @Inject constructor(
             if (isValid) {
                 router.toDashboard()
             } else {
-                viewState.showPasswordError()
+                val text = resourceManager.getString(R.string.password_do_not_match)
+                showError(text)
             }
         }
     }
 
     fun onImportClick() {
-        router.toAccountImport(true)
+        router.toAccountImport(AddAccountPayload.MetaAccount(true))
     }
 
     fun onSupportClick() {

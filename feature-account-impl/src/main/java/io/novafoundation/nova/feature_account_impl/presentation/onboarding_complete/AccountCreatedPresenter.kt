@@ -1,15 +1,17 @@
 package io.novafoundation.nova.feature_account_impl.presentation.onboarding_complete
 
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import moxy.InjectViewState
-import moxy.MvpPresenter
 import javax.inject.Inject
 
 @InjectViewState
 class AccountCreatedPresenter @Inject constructor(
     private val router: AccountRouter,
+    private val payload: AddAccountPayload
 ) :
-    MvpPresenter<AccountCreatedView>() {
+    BasePresenter<AccountCreatedView>() {
 
     var isAuth = true
     fun onDiscordClick() {

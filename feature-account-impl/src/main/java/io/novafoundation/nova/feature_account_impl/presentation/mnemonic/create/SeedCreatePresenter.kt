@@ -7,7 +7,10 @@ import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.setSeedWord
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -15,10 +18,10 @@ import javax.inject.Inject
 class SeedCreatePresenter @Inject constructor(
     private val interactor: AccountInteractor,
     private val router: AccountRouter,
-    private val seedMapper: SeedMapper
+    private val seedMapper: SeedMapper,
+    private val payload: AddAccountPayload
 ) :
-    MvpPresenter<SeedCreateView>() {
-    var isAuth = true
+    BasePresenter<SeedCreateView>() {
     var seed: String = ""
     var seedWords = emptyList<SeedWord>()
     override fun onFirstViewAttach() {
@@ -42,7 +45,8 @@ class SeedCreatePresenter @Inject constructor(
     }
 
     fun onNextClick() {
-        router.toSeedConfirm(isAuth, seedWords)
+        payload.setSeedWord(seedWords)
+        router.toSeedConfirm(payload)
     }
 
     fun onInfoClick() {

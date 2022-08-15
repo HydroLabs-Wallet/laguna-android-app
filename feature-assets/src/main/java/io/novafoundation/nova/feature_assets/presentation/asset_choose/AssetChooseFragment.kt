@@ -22,7 +22,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AssetChooseFragment : BaseFragment(), AssetChooseView {
+class AssetChooseFragment : BaseFragment<AssetChoosePresenter>(), AssetChooseView {
     companion object {
         fun getNewInstance() = AssetChooseFragment()
     }

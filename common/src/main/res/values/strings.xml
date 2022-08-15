@@ -373,7 +373,6 @@
     <string name="make_payout_transaction_sent">Payout transaction sent</string>
     <string name="mnemonic_error_try_another_one">Please, try another one.</string>
     <string name="mnemonic_error_try_another_one_v2_2_0">Invalid mnemonic passphrase, please check one more time the words order</string>
-    <string name="network_fee">Network fee</string>
     <string name="network_info_address">Node address</string>
     <string name="network_info_title">Node Info</string>
     <string name="network_status_connecting">Connecting…</string>
@@ -673,7 +672,7 @@
     <!--  LAGUNA RES-->
     <!--  LAGUNA RES-->
     <!--  LAGUNA RES-->
-    <string name="app_name">HydrogenX</string>
+    <string name="app_name">Laguna</string>
     <string name="secure_your_wallet">Secure Your Wallet</string>
     <string name="secure_wallet_hint">To secure your wallet you will be given a <b>seed phrase</b>. Store this in a safe place. It\'s the only way to recover your wallet if you get locked out of the app or get a new device.</string>
     <string name="start">Start</string>
@@ -783,6 +782,7 @@
     <string name="pending">Pending</string>
     <string name="s_chain">%1$s Chain</string>
     <string name="successful">Successful</string>
+    <string name="transaction_sent">Transaction sent</string>
     <string name="to">To</string>
     <string name="from">From</string>
     <string name="fee">Fee</string>
@@ -795,4 +795,32 @@
     <string name="confirm">Confirm</string>
     <string name="your_password">Your password</string>
     <string name="confirm_operation">Confirm operation</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="invalid_json">Not a valid JSON backup file (.json)</string>
+    <string name="invalid_password">Incorrect password</string>
+    <string name="invalid_encryption">Json uses unsupported encryption</string>
+    <string name="invalid_blockchain_address">Not a valid blockchain address</string>
+    <string name="invalid_word_count">Please enter 12 or 24 words</string>
+
+    <string name="transferable_balance">Transferable Balance</string>
+    <string name="contacts">Contacts</string>
+    <string name="send_to">Send to</string>
+    <string name="transfer_to_my_account">Self transfer to my account</string>
+    <string name="new_contact">New contact</string>
+    <string name="save_to_contact">Save to contact</string>
+    <string name="contact_name">Contact name</string>
+    <string name="enter_name">Enter name</string>
+    <string name="to_with_dots">To:</string>
+    <string name="send_tokens">Send Tokens</string>
+    <string name="amount">Amount</string>
+    <string name="max">Max</string>
+    <string name="network_fee">Network fee</string>
+    <string name="transferable_n">Transferable $s</string>
+    <string name="usd">USD</string>
+    <string name="confirm_send">Confirm Send</string>
+    <string name="add_note">Add note</string>
+    <string name="conversion_rate">Conversion Rate</string>
+    <string name="saved_to_csv">Saved to $s.csv in Downloads folder</string>
+    <string name="transaction_copied_to_clip">Transaction copied to clipboard</string>
+    <string name="seed_copied_to_clip">Seed copied to clipboard</string>
 </resources>

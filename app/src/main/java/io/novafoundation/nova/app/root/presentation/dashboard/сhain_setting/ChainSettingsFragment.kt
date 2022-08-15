@@ -22,7 +22,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class ChainSettingsFragment : BaseFragment(), ChainSettingsView {
+class ChainSettingsFragment : BaseFragment<ChainSettingsPresenter>(), ChainSettingsView {
     companion object {
         fun getNewInstance(): ChainSettingsFragment = ChainSettingsFragment()
     }

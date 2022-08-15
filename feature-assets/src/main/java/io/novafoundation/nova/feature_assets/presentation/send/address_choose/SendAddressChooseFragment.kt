@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -30,9 +31,9 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 
-class SendAddressChooseFragment : BaseFragment(), SendAddressChooseView {
+class SendAddressChooseFragment : BaseFragment<SendAddressChoosePresenter>(), SendAddressChooseView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
 
         fun getNewInstance(data: AssetPayload) = SendAddressChooseFragment().apply {
             arguments = bundleOf(
@@ -82,7 +83,7 @@ class SendAddressChooseFragment : BaseFragment(), SendAddressChooseView {
         binding.btnBack.setOnClickListener { presenter.onBackCommandClick() }
         binding.btnMyAccounts.setOnClickListener { presenter.onMyAccountClick() }
         binding.tvSearchResult.setOnClickListener { presenter.onSearchResultClicked() }
-
+        binding.btnScan.setOnClickListener { presenter.onQrClicked() }
     }
 
     override fun submitList(data: List<ContactUiMarker>, query: String) {

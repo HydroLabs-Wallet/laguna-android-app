@@ -10,9 +10,10 @@ import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentWalletImportInfoBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportPresenter
 import javax.inject.Inject
 
-class AccountImportInfoFragment : BaseFragment() {
+class AccountImportInfoFragment : BaseFragment<AccountImportInfoPresenter>(), AccountImportInfoView {
     companion object {
         fun getNewInstance(): AccountImportInfoFragment = AccountImportInfoFragment()
     }

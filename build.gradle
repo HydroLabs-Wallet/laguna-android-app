@@ -3,7 +3,7 @@ buildscript {
         // App version
         versionCode = 13
 
-        versionName = "0.0.$verversionCode"
+        versionName = "0.0.$versionCode"
 
         applicationId = "com.hydrogenex.lagunawallet"
         releaseApplicationSuffix = "market"

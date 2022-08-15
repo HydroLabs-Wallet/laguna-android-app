@@ -13,7 +13,7 @@ import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class PageAssetsPresenter @Inject constructor(
     private val selectedAccountUseCase: SelectedAccountUseCase,
     private val router: WalletRouter,
 ) :
-    MvpPresenter<PageAssetsView>(), WithCoroutineScopeExtensions {
+    BasePresenter<PageAssetsView>(), WithCoroutineScopeExtensions {
 
     override val coroutineScope: CoroutineScope = presenterScope
 

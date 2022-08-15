@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.novafoundation.nova.core_db.di.DbModule_ProvideOperationHistoryDaoFactory
 import io.novafoundation.nova.core_db.model.AssetLocal
 import io.novafoundation.nova.core_db.model.AssetWithToken
 import kotlinx.coroutines.flow.Flow
@@ -49,4 +50,7 @@ abstract class AssetDao : AssetReadOnlyCache {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAsset(asset: AssetLocal)
+
+    @Query("UPDATE assets SET hasIncomeHistory = :hasIncomeHistory WHERE chainId = :chainId AND metaId =:metaId AND assetId = :assetId")
+    abstract suspend fun setIncomeHistory(metaId: Long, chainId: String, assetId: Int, hasIncomeHistory: Boolean)
 }

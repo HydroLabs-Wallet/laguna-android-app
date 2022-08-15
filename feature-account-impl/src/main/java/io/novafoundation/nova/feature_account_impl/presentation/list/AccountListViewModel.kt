@@ -50,6 +50,6 @@ class AccountListViewModel(
     }
 
     fun addAccountClicked() {
-        accountRouter.openAddAccount(AddAccountPayload.MetaAccount)
+        accountRouter.openAddAccount(AddAccountPayload.MetaAccount(false))
     }
 }

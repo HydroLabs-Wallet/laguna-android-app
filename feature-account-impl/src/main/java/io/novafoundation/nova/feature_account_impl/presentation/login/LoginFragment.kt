@@ -8,10 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
+import io.novafoundation.nova.common.view.CustomSnack
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.R
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentLoginBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportPresenter
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -20,7 +22,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class LoginFragment : BaseFragment(), LoginView {
+class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
     companion object {
         fun getNewInstance(): LoginFragment = LoginFragment()
     }
@@ -72,14 +74,6 @@ class LoginFragment : BaseFragment(), LoginView {
 
     override fun enableButton(enable: Boolean) {
         binding.btnNext.isEnabled = enable
-    }
-
-    override fun showPasswordError() {
-        Snackbar.make(
-            requireView(),
-            getString(R.string.password_do_not_match),
-            Snackbar.LENGTH_LONG
-        ).show()
     }
 
     override fun onBackPressed(): Boolean {

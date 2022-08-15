@@ -16,7 +16,7 @@ import io.novafoundation.nova.common.navigation.DelayedNavigation
 import io.novafoundation.nova.common.utils.postToUiThread
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
@@ -101,12 +101,12 @@ class Navigator(
     }
 
     //Onboarding and account creation
-    override fun toSeedPromptScreen(isAuth: Boolean) {
-        router.navigateTo(Screens.toSeedPromptScreen(isAuth))
+    override fun toSeedPromptScreen(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedPromptScreen(payload))
     }
 
-    override fun toSeedCreate(isAuth: Boolean) {
-        router.navigateTo(Screens.toSeedCreateScreen(isAuth))
+    override fun toSeedCreate(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedCreateScreen(payload))
     }
 
     override fun toSeedInfo() {
@@ -118,8 +118,8 @@ class Navigator(
 
     }
 
-    override fun toAccountImport(isAuth: Boolean) {
-        router.navigateTo(Screens.toAccountImportScreen(isAuth))
+    override fun toAccountImport(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAccountImportScreen(payload))
     }
 
     override fun toAccountImportInfo() {
@@ -127,20 +127,20 @@ class Navigator(
     }
 
 
-    override fun toCreatePassword() {
-        router.navigateTo(Screens.toCreatePasswordScreen())
+    override fun toCreatePassword(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toCreatePasswordScreen(payload))
     }
 
-    override fun toAccountComplete(isAuth: Boolean) {
-        router.navigateTo(Screens.toAccountCreatedScreen(isAuth))
+    override fun toAccountComplete(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAccountCreatedScreen(payload))
     }
 
-    override fun toSeedConfirm(isAuth: Boolean, data: List<SeedWord>) {
-        router.navigateTo(Screens.toSeedConfirmScreen(isAuth, data))
+    override fun toSeedConfirm(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedConfirmScreen(payload))
     }
 
     override fun toOnboardingScreen() {
-        router.navigateTo(Screens.toOnboardingScreen(true))
+        router.navigateTo(Screens.toOnboardingScreen(AddAccountPayload.MetaAccount(true)))
     }
 
     // Login

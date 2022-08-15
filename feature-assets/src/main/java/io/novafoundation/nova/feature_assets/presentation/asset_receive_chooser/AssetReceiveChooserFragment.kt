@@ -24,9 +24,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AssetReceiveChooserFragment : BaseFragment(), AssetReceiveChooserView {
+class AssetReceiveChooserFragment : BaseFragment<AssetReceiveChooserPresenter>(), AssetReceiveChooserView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetReceiveChooserFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "AssetReceiveChooserFragment.extra_asset"
         const val RESULT = "AssetReceiveChooserFragment.Result"
 
         fun getNewInstance(data: AssetReceivePayload) = AssetReceiveChooserFragment().apply {

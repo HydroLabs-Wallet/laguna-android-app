@@ -24,9 +24,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AssetDetailsFragment : BaseFragment(), AssetDetailsView {
+class AssetDetailsFragment : BaseFragment<AssetDetailsPresenter>(), AssetDetailsView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetDetailsFragment.extra_payload"
+        private const val EXTRA_PAYLOAD = "AssetDetailsFragment.extra_payload"
         fun getNewInstance(payload: AssetPayload): AssetDetailsFragment =
             AssetDetailsFragment().apply {
                 arguments = bundleOf(EXTRA_PAYLOAD to payload)
@@ -48,7 +48,7 @@ class AssetDetailsFragment : BaseFragment(), AssetDetailsView {
     override fun inject() {
         FeatureUtils.getFeature<AssetsFeatureComponent>(requireContext(), AssetsFeatureApi::class.java)
             .assetDetailComponentFactory()
-            .create(this, argument(AssetDetailsFragment.EXTRA_PAYLOAD))
+            .create(this, argument(EXTRA_PAYLOAD))
             .inject(this)
     }
 

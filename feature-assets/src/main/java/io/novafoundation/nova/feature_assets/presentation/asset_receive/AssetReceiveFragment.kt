@@ -24,9 +24,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AssetReceiveFragment : BaseFragment(), AssetReceiveView {
+class AssetReceiveFragment : BaseFragment<AssetReceivePresenter>(), AssetReceiveView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
         fun getNewInstance(assetReceive: AssetPayload) = AssetReceiveFragment().apply {
             arguments = bundleOf(
                 EXTRA_PAYLOAD to assetReceive
@@ -41,6 +41,8 @@ class AssetReceiveFragment : BaseFragment(), AssetReceiveView {
     @Inject
     @InjectPresenter
     lateinit var presenter: AssetReceivePresenter
+    @ProvidePresenter
+    fun createPresenter() = presenter
 
     lateinit var adapter: AssetReceiveAdapter
     override fun inject() {
@@ -50,8 +52,6 @@ class AssetReceiveFragment : BaseFragment(), AssetReceiveView {
             .inject(this)
     }
 
-    @ProvidePresenter
-    fun createPresenter() = presenter
 
     lateinit var binding: FragmentAssetReceiveBinding
 

@@ -5,12 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
-import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.view.InputFieldView
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentCreatePasswordBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
 import kotlinx.coroutines.flow.debounce
@@ -21,9 +22,14 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class CreatePasswordFragment : BaseFragment(), CreatePasswordView {
+class CreatePasswordFragment : BaseFragment<CreatePasswordPresenter>(), CreatePasswordView {
     companion object {
-        fun getNewInstance(): CreatePasswordFragment = CreatePasswordFragment()
+        private const val EXTRA_IS_AUTH = "isAuth"
+        fun getNewInstance(data: AddAccountPayload): CreatePasswordFragment = CreatePasswordFragment().apply {
+            arguments = bundleOf(
+                EXTRA_IS_AUTH to data
+            )
+        }
     }
 
 
@@ -36,10 +42,11 @@ class CreatePasswordFragment : BaseFragment(), CreatePasswordView {
 
     lateinit var binding: FragmentCreatePasswordBinding
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .createPasswordComponentFactory()
             .create(
-                fragment = this
+                fragment = this,
+                argument(EXTRA_IS_AUTH)
             ).inject(this)
     }
 

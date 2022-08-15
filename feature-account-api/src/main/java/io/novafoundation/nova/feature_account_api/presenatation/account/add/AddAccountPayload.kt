@@ -7,11 +7,27 @@ import kotlinx.android.parcel.Parcelize
 sealed class AddAccountPayload : Parcelable {
 
     @Parcelize
-    object MetaAccount : AddAccountPayload()
+    class MetaAccount(val isAuth: Boolean, var seed: List<SeedWord> = emptyList()) : AddAccountPayload()
 
     @Parcelize
-    class ChainAccount(val chainId: ChainId, val metaId: Long) : AddAccountPayload()
+    class ChainAccount(val chainId: ChainId, val metaId: Long, var seed: List<SeedWord> = emptyList()) : AddAccountPayload()
+
+
 }
 
 val AddAccountPayload.chainIdOrNull
     get() = (this as? AddAccountPayload.ChainAccount)?.chainId
+
+fun AddAccountPayload.isAuth(): Boolean {
+    return when (this) {
+        is AddAccountPayload.ChainAccount -> false
+        is AddAccountPayload.MetaAccount -> this.isAuth
+    }
+}
+
+fun AddAccountPayload.setSeedWord(seed: List<SeedWord>) {
+    when (this) {
+        is AddAccountPayload.ChainAccount -> this.seed = seed
+        is AddAccountPayload.MetaAccount -> this.seed = seed
+    }
+}

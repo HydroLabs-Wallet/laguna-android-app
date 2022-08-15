@@ -7,12 +7,12 @@ import io.novafoundation.nova.feature_account_api.presenatation.account.add.Impo
 interface OnboardingRouter {
     fun setResult(key:String,data:Any)
     fun setResultListener(key:String, listener: ResultListener)
-    fun toSeedPromptScreen(isAuth: Boolean)
+    fun toSeedPromptScreen(payload: AddAccountPayload)
 
     fun openCreateAccount(addAccountPayload: AddAccountPayload.MetaAccount)
 
     fun openMnemonicScreen(accountName: String?, payload: AddAccountPayload)
-    fun toAccountImport(isAuth: Boolean)
+    fun toAccountImport(payload: AddAccountPayload)
 
 //    fun openImportAccountScreen(payload: ImportAccountPayload)
 

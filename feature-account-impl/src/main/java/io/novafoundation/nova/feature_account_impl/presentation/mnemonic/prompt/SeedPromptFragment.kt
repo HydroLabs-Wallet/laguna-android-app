@@ -10,19 +10,20 @@ import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentSeedPromptBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SeedPromptFragment : BaseFragment(), SeedPromptView {
+class SeedPromptFragment : BaseFragment<SeedPromptPresenter>(), SeedPromptView {
     companion object {
         const val RESULT_PROMPT = "result_prompt"
-        const val EXTRA_IS_AUTH = "isAuth"
+        private const val EXTRA_IS_AUTH = "isAuth"
 
-        fun getNewInstance(isAuth:Boolean): SeedPromptFragment = SeedPromptFragment().apply {
-            arguments = bundleOf(EXTRA_IS_AUTH to isAuth)
+        fun getNewInstance(payload: AddAccountPayload): SeedPromptFragment = SeedPromptFragment().apply {
+            arguments = bundleOf(EXTRA_IS_AUTH to payload)
         }
     }
 
@@ -31,14 +32,12 @@ class SeedPromptFragment : BaseFragment(), SeedPromptView {
     lateinit var presenter: SeedPromptPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        presenter.isAuth = requireArguments().getBoolean(EXTRA_IS_AUTH)
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentSeedPromptBinding
 
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .seedPromptComponentFactory()
             .create(
                 fragment = this,

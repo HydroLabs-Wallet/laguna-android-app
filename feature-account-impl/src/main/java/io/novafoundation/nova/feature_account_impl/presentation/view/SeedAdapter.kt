@@ -1,6 +1,6 @@
 package io.novafoundation.nova.feature_account_impl.presentation.view
 
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback

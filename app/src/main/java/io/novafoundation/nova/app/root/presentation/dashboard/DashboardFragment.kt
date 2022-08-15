@@ -21,7 +21,7 @@ import moxy.presenter.ProvidePresenter
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class DashboardFragment : BaseFragment(), DashboardView {
+class DashboardFragment : BaseFragment<DashboardPresenter>(), DashboardView {
     companion object {
         fun getNewInstance(): DashboardFragment = DashboardFragment()
     }

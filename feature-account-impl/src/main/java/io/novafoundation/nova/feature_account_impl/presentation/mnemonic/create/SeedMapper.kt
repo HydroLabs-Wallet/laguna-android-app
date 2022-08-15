@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create
 
 import io.novafoundation.nova.common.utils.BaseMapper
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import javax.inject.Inject
 
 class SeedMapper @Inject constructor() : BaseMapper<List<String>, List<SeedWord>>() {

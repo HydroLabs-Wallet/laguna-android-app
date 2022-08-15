@@ -9,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.ellipsis
 import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.databinding.FragmentTransferDetailsBinding
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureApi
@@ -24,9 +22,9 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 
-class TransferDetailsFragment : BaseFragment(), TransferDetailsView {
+class TransferDetailsFragment : BaseFragment<TransactionDetailsPresenter>(), TransferDetailsView {
     companion object {
-        const val EXTRA_PAYLOAD = "TransactionDetailsFragment.extra_payload"
+        private const val EXTRA_PAYLOAD = "TransactionDetailsFragment.extra_payload"
         fun getNewInstance(payload: OperationParcelizeModel.Transfer): TransferDetailsFragment =
             TransferDetailsFragment().apply {
                 arguments = bundleOf(EXTRA_PAYLOAD to payload)
@@ -108,18 +106,9 @@ class TransferDetailsFragment : BaseFragment(), TransferDetailsView {
         val clipboard =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboard.setPrimaryClip(clip)
-
-        Snackbar.make(requireView(), "Transaction copied to clipboard", Snackbar.LENGTH_SHORT)
-            .show()
+        showSuccess(getString(R.string.transaction_copied_to_clip))
     }
 
-    override fun showSaveMessage(hash: String) {
-        Snackbar.make(
-            requireView(),
-            "Saved to ${hash.ellipsis()}.csv in Downloads folder",
-            Snackbar.LENGTH_SHORT
-        ).show()
-    }
 
     override fun onBackPressed(): Boolean {
         presenter.onBackCommandClick()

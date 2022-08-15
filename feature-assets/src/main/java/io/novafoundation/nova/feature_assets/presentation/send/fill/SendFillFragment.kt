@@ -19,6 +19,7 @@ import io.novafoundation.nova.feature_assets.di.AssetsFeatureComponent
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
+import io.novafoundation.nova.feature_assets.presentation.send.qr.SendQRView
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
 import kotlinx.android.synthetic.main.fragment_send_fill.*
 import kotlinx.coroutines.flow.debounce
@@ -29,9 +30,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SendFillFragment : BaseFragment(), SendFillView {
+class SendFillFragment : BaseFragment<SendFillPresenter>(), SendFillView {
     companion object {
-        const val EXTRA_PAYLOAD = "SendFillFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "SendFillFragment.extra_asset"
         fun getNewInstance(data: TransferDraft) = SendFillFragment().apply {
             arguments = bundleOf(
                 EXTRA_PAYLOAD to data
@@ -46,6 +47,8 @@ class SendFillFragment : BaseFragment(), SendFillView {
     @Inject
     @InjectPresenter
     lateinit var presenter: SendFillPresenter
+    @ProvidePresenter
+    fun createPresenter() = presenter
 
     override fun inject() {
         FeatureUtils.getFeature<AssetsFeatureComponent>(requireContext(), AssetsFeatureApi::class.java)
@@ -54,8 +57,6 @@ class SendFillFragment : BaseFragment(), SendFillView {
             .inject(this)
     }
 
-    @ProvidePresenter
-    fun createPresenter() = presenter
 
     lateinit var binding: FragmentSendFillBinding
 
@@ -101,6 +102,12 @@ class SendFillFragment : BaseFragment(), SendFillView {
         }
     }
 
+    override fun setForceValues(top: String, bottom: String) {
+        binding.tvAmount.setText(top)
+        binding.tvCurrentAmount.text = bottom
+
+    }
+
     override fun setFee(currency: String, token: String) {
         binding.tvCurrencyFee.text = currency
         binding.tvDotFee.text = token
@@ -114,10 +121,6 @@ class SendFillFragment : BaseFragment(), SendFillView {
         binding.tvCurrentAmount.text = data
     }
 
-    override fun showError(data: String) {
-        Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
-    }
-
     override fun showLoader(show: Boolean) {
         tvAmount.isEnabled = !show
         binding.btnNext.setIsProgress(show)
@@ -125,6 +128,14 @@ class SendFillFragment : BaseFragment(), SendFillView {
 
     override fun setAmountName(data: String) {
         binding.amountType.text = data
+    }
+
+    override fun showFeeLoader(show: Boolean) {
+        with(binding) {
+            feeProgress.isVisible = show
+            tvCurrencyFee.isVisible = !show
+            tvDotFee.isVisible = !show
+        }
     }
 
     override fun enableButton(enabled: Boolean) {

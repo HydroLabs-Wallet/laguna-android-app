@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser
 
 import android.util.Log
+import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.inBackground
 import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapAssetToAssetModel
@@ -20,9 +21,7 @@ class AssetReceiveChooserPresenter @Inject constructor(
     private val router: WalletRouter,
     private val interactor: WalletInteractor,
     private val payload: AssetReceivePayload
-) : MvpPresenter<AssetReceiveChooserView>(), WithCoroutineScopeExtensions {
-
-    override val coroutineScope: CoroutineScope = presenterScope
+) : BasePresenter<AssetReceiveChooserView>() {
 
     private val balancesFlow = interactor.balancesFlow()
         .inBackground()

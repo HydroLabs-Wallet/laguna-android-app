@@ -5,7 +5,9 @@ import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInter
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.common.resources.ResourceManager
+import io.novafoundation.nova.feature_account_impl.R
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -13,9 +15,10 @@ import javax.inject.Inject
 class PasswordConfirmPresenter @Inject constructor(
     private val interactor: AccountInteractor,
     private val router: AccountRouter,
-    private val payload: ConfirmPayload
+    private val payload: ConfirmPayload,
+    private val resourceManager: ResourceManager
 ) :
-    MvpPresenter<PasswordConfirmView>() {
+    BasePresenter<PasswordConfirmView>() {
     private var password: String = ""
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -26,7 +29,7 @@ class PasswordConfirmPresenter @Inject constructor(
         presenterScope.launch {
             val valid = interactor.isPinCorrect(password)
             if (!valid) {
-                viewState.showError()
+                viewState.showError(resourceManager.getString(R.string.password_do_not_match))
             } else {
                 router.back()
                 router.setResult(payload.tag, true)

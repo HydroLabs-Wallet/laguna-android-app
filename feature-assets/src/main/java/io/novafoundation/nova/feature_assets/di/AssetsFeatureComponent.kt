@@ -20,6 +20,7 @@ import io.novafoundation.nova.feature_assets.presentation.send.asset_choose.di.S
 import io.novafoundation.nova.feature_assets.presentation.send.confirm.di.SendConfirmComponent
 import io.novafoundation.nova.feature_assets.presentation.send.create_contact.di.CreateContactComponent
 import io.novafoundation.nova.feature_assets.presentation.send.fill.di.SendFillComponent
+import io.novafoundation.nova.feature_assets.presentation.send.qr.di.SendQRComponent
 import io.novafoundation.nova.feature_assets.presentation.send_receive.di.SendReceiveComponent
 import io.novafoundation.nova.feature_assets.presentation.transaction.filter.di.TransactionHistoryFilterComponent
 import io.novafoundation.nova.feature_nft_api.NftFeatureApi
@@ -55,6 +56,8 @@ interface AssetsFeatureComponent : AssetsFeatureApi {
     //send
     fun sendAssetChooseComponentFactory(): SendAssetChooseComponent.Factory
     fun sendAddressChooseComponentFactory(): SendAddressChooseComponent.Factory
+    fun sendQRComponentFactory(): SendQRComponent.Factory
+
     fun createContactComponentFactory(): CreateContactComponent.Factory
     fun sendFillComponentFactory(): SendFillComponent.Factory
     fun sendConfirmComponentFactory(): SendConfirmComponent.Factory

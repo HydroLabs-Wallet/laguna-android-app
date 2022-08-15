@@ -3,22 +3,21 @@ package io.novafoundation.nova.feature_account_impl.presentation
 import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.common.navigation.SecureRouter
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
-import io.novafoundation.nova.feature_account_api.presenatation.account.add.ImportAccountPayload
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 
 interface AccountRouter : SecureRouter {
     fun setResult(key: String, data: Any)
     fun setResultListener(key: String, listener: ResultListener)
     fun toOnboardingScreen()
 
-    fun toSeedCreate(isAuth: Boolean)
+    fun toSeedCreate(payload:AddAccountPayload)
     fun toSeedInfo()
     fun toSeedWarning()
-    fun toSeedConfirm(isAuth: Boolean, data: List<SeedWord>)
-    fun toCreatePassword()
-    fun toAccountComplete(isAuth: Boolean)
+    fun toSeedConfirm(payload:AddAccountPayload)
+    fun toCreatePassword(payload:AddAccountPayload)
+    fun toAccountComplete(payload:AddAccountPayload)
 
-    fun toAccountImport(isAuth: Boolean)
+    fun toAccountImport(payload:AddAccountPayload)
     fun toAccountImportInfo()
     fun openMain()
     fun toLoginScreen()

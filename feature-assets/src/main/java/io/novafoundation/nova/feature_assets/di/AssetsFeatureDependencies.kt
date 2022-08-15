@@ -16,6 +16,7 @@ import io.novafoundation.nova.common.mixin.actionAwaitable.ActionAwaitableMixin
 import io.novafoundation.nova.common.resources.ClipboardManager
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.QrCodeGenerator
+import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
 import io.novafoundation.nova.common.validation.ValidationExecutor
 import io.novafoundation.nova.feature_account_api.data.extrinsic.ExtrinsicService
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
@@ -120,4 +121,6 @@ interface AssetsFeatureDependencies {
     val computationalCache: ComputationalCache
 
     val actionAwaitableMixinFactory: ActionAwaitableMixin.Factory
+    val systemCallExecutor: SystemCallExecutor
+
 }

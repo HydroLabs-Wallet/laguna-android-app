@@ -18,7 +18,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class PageNetworksFragment : BaseFragment(), PageNetworksView {
+class PageNetworksFragment : BaseFragment<PageNetworksPresenter>(), PageNetworksView {
     companion object {
         fun getNewInstance(): PageNetworksFragment = PageNetworksFragment()
     }

@@ -15,7 +15,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SeedInfoFragment : BaseFragment(), SeedInfoView {
+class SeedInfoFragment : BaseFragment<SeedInfoPresenter>(), SeedInfoView {
     companion object {
         fun getNewInstance(): SeedInfoFragment = SeedInfoFragment()
     }
@@ -30,7 +30,7 @@ class SeedInfoFragment : BaseFragment(), SeedInfoView {
     lateinit var binding: FragmentSeedInfoBinding
 
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .seedPromptInfoComponentFactory()
             .create(
                 fragment = this,

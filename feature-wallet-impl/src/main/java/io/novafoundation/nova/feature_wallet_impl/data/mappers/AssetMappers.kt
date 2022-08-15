@@ -31,7 +31,8 @@ fun mapAssetLocalToAsset(
             reservedInPlanks = asset.reservedInPlanks,
             bondedInPlanks = asset.bondedInPlanks,
             unbondingInPlanks = asset.unbondingInPlanks,
-            redeemableInPlanks = asset.redeemableInPlanks
+            redeemableInPlanks = asset.redeemableInPlanks,
+            hasHistoryRecord = assetLocal.asset.hasIncomeHistory
         )
     }
 }

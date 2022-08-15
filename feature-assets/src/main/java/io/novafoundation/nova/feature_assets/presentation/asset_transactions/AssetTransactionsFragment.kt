@@ -23,9 +23,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AssetTransactionsFragment : BaseFragment(), AssetTransactionsView {
+class AssetTransactionsFragment : BaseFragment<AssetTransactionsPresenter>(), AssetTransactionsView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetTransactionsFragment.extra_payload"
+        private const val EXTRA_PAYLOAD = "AssetTransactionsFragment.extra_payload"
         const val EXTRA_SHOW_CONTAINER = "AssetTransactionsFragment.extra_show_container"
 
         fun getNewInstance(

@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm
 
+import androidx.room.PrimaryKey
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
@@ -12,12 +13,12 @@ import io.novafoundation.nova.feature_account_impl.domain.account.advancedEncryp
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.AdvancedEncryptionRequester
 import io.novafoundation.nova.feature_account_impl.presentation.lastResponseOrDefault
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import jp.co.soramitsu.fearless_utils.encrypt.junction.BIP32JunctionDecoder
 import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -28,10 +29,11 @@ class SeedConfirmPresenter  @Inject constructor(
     private val addAccountInteractor: AddAccountInteractor,
     private val resourceManager: ResourceManager,
     private val advancedEncryptionInteractor: AdvancedEncryptionInteractor,
-    private val advancedEncryptionRequester: AdvancedEncryptionRequester
+    private val advancedEncryptionRequester: AdvancedEncryptionRequester,
+    private val payload: AddAccountPayload
 
 ) :
-    MvpPresenter<SeedConfirmView>() {
+    BasePresenter<SeedConfirmView>() {
     var seedList = mutableListOf<SeedWord>()
     var shuffledSeedList = mutableListOf<SeedWord>()
     private lateinit var initSelection: List<SeedWord>
@@ -116,7 +118,7 @@ class SeedConfirmPresenter  @Inject constructor(
                     viewState.enableButton(true)
                 } else {
                     focusedItem = 0
-                    viewState.showConfirmationError()
+                    showError("Seed words does not match. Please, try again")
                     selection.clear()
                     selection.addAll(initSelection)
                     shuffledSeedList = shuffledSeedList
@@ -149,9 +151,9 @@ class SeedConfirmPresenter  @Inject constructor(
 
         presenterScope.launch {
             val mnemonicString = seedList.joinToString(" ") { it.word }
-            val advancedEncryptionResponse = advancedEncryptionRequester.lastResponseOrDefault(AddAccountPayload.MetaAccount, advancedEncryptionInteractor)
+            val advancedEncryptionResponse = advancedEncryptionRequester.lastResponseOrDefault(payload, advancedEncryptionInteractor)
             val accountNameState = mapOptionalNameToNameChooserState("")
-            val addAccountType = mapAddAccountPayloadToAddAccountType(AddAccountPayload.MetaAccount, accountNameState)
+            val addAccountType = mapAddAccountPayloadToAddAccountType(payload, accountNameState)
             val advancedEncryption = mapAdvancedEncryptionResponseToAdvancedEncryption(advancedEncryptionResponse)
 
             addAccountInteractor.createAccount(mnemonicString, advancedEncryption, addAccountType)
@@ -181,7 +183,7 @@ class SeedConfirmPresenter  @Inject constructor(
         if (interactor.isCodeSet()) {
             router.toDashboard()
         } else {
-            router.toCreatePassword()
+            router.toCreatePassword(payload)
         }
     }
 

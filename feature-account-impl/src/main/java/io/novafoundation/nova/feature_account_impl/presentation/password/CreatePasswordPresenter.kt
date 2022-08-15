@@ -4,14 +4,15 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.view.InputFieldView
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.R
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
 import moxy.presenterScope
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -20,9 +21,10 @@ import javax.inject.Inject
 class CreatePasswordPresenter @Inject constructor(
     private val interactor: AccountInteractor,
     private val router: AccountRouter,
-    private val resourceManager: ResourceManager
+    private val resourceManager: ResourceManager,
+    private val payload: AddAccountPayload
 ) :
-    MvpPresenter<CreatePasswordView>() {
+    BasePresenter<CreatePasswordView>() {
     private var password: String = ""
     private var passwordConfirm: String = ""
     override fun onFirstViewAttach() {
@@ -33,7 +35,7 @@ class CreatePasswordPresenter @Inject constructor(
     fun onNextClick() {
         presenterScope.launch {
             interactor.savePin(password)
-            router.toAccountComplete(true)
+            router.toAccountComplete(payload)
         }
     }
 

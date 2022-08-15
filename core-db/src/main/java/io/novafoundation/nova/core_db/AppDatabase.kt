@@ -12,7 +12,7 @@ import io.novafoundation.nova.core_db.model.*
 import io.novafoundation.nova.core_db.model.chain.*
 
 @Database(
-    version = 14,
+    version = 15,
     entities = [
         AccountLocal::class,
         NodeLocal::class,
@@ -69,6 +69,7 @@ abstract class AppDatabase : RoomDatabase() {
                     .addMigrations(AddChainColor_4_5, AddNfts_5_6, AddSitePhishing_6_7, AddBuyProviders_7_8, BetterChainDiffing_8_9)
                     .addMigrations(AddFavouriteDApps_9_10, ChangeDAppAuthorization_10_11, RemoveChainForeignKeyFromChainAccount_11_12)
                     .addMigrations(AddAdditionalFieldToChains_12_13)
+                    .addMigrations(AddHistoryMarkersToAssets_13_15)
                     .fallbackToDestructiveMigration()
                     .build()
             }

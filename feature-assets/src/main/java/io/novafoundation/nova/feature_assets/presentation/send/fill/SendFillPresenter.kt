@@ -1,6 +1,6 @@
 package io.novafoundation.nova.feature_assets.presentation.send.fill
 
-import androidx.core.text.isDigitsOnly
+import android.util.Log
 import androidx.lifecycle.asFlow
 import io.novafoundation.nova.common.base.TitleAndMessage
 import io.novafoundation.nova.common.mixin.api.Validatable
@@ -23,15 +23,15 @@ import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send.mapAssetTransferValidationFailureToUI
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransfer
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransferPayload
-import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
 import io.novafoundation.nova.feature_wallet_api.domain.model.amountFromPlanks
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -49,13 +49,16 @@ class SendFillPresenter @Inject constructor(
     private val payload: TransferDraft,
     private val validationExecutor: ValidationExecutor,
 
-    ) : MvpPresenter<SendFillView>(), WithCoroutineScopeExtensions, Validatable by validationExecutor {
+    ) : BasePresenter<SendFillView>(), WithCoroutineScopeExtensions, Validatable by validationExecutor {
     override val coroutineScope = presenterScope
 
     var isUsdFlow = MutableStateFlow<Boolean>(true)
     var amountTopFlow = MutableStateFlow<BigDecimal?>(null)
     var amountBottomFlow = flowOf<BigDecimal?> { null }
     var isMaxFlow = MutableStateFlow<Boolean>(false)
+    val feeFlow = MutableStateFlow<AssetTransfer?>(null)
+    var blockUpdate = false
+    var feeJob: Job? = null
     private val sendInProgressFlow = MutableStateFlow(false)
 
     private lateinit var selectedAccount: MetaAccount
@@ -103,44 +106,56 @@ class SendFillPresenter @Inject constructor(
                         viewState.setAmountName(resourceManager.getString(R.string.usd))
                         val precision = asset.token.configuration.precision
                         val amount = amountTop.orZero().divide(exchangeRate, precision, RoundingMode.HALF_UP)
-                        calculateFee(
-                            AssetTransfer(
-                                sender = metaAccount,
-                                recipient = newPayload.contact.address,
-                                asset.chain,
-                                asset.token.configuration,
-                                amount
-                            ), asset
-                        )
+                            .setScale(asset.token.configuration.precision, RoundingMode.HALF_UP)
+                            .stripTrailingZeros()
+
                         newPayload.amount = amount
                         viewState.setValueBottomTransfer(amount.formatTokenAmount(asset.token.configuration))
-                    } else {
-                        calculateFee(
-                            AssetTransfer(
-                                sender = metaAccount,
-                                recipient = newPayload.contact.address,
-                                asset.chain,
-                                asset.token.configuration,
-                                amountTop.orZero()
-                            ), asset
+                        feeFlow.value = AssetTransfer(
+                            sender = metaAccount,
+                            recipient = newPayload.contact.address,
+                            asset.chain,
+                            asset.token.configuration,
+                            amount
                         )
+                    } else {
+
                         newPayload.amount = amountTop.orZero()
                         viewState.setAmountName(asset.token.configuration.symbol)
-                        val amount = amountTop.orZero().multiply(exchangeRate)
+                        val amount = amountTop.orZero().multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros()
                         viewState.setValueBottomTransfer(amount.formatAsCurrency())
                     }
                     selectedAccount = metaAccount
-                    this.assetModel=asset
+                    this.assetModel = asset
                     this.chain = asset.chain
                     this.chainAsset = asset.token.configuration
 
                     viewState.enableButton(amountTop.orZero().stripTrailingZeros() > BigDecimal.ZERO)
+                    feeFlow.value = AssetTransfer(
+                        sender = metaAccount,
+                        recipient = newPayload.contact.address,
+                        asset.chain,
+                        asset.token.configuration,
+                        amountTop.orZero()
+                    )
                 }
             }.launchIn(presenterScope)
+
+        feeFlow.onEach {
+            feeJob?.cancel()
+            feeJob = presenterScope.launch {
+                it?.let {
+                    viewState.showFeeLoader(true)
+                    calculateFee(it, assetModel)
+                }
+                viewState.showFeeLoader(false)
+            }
+
+        }.launchIn(presenterScope)
     }
 
     private suspend fun calculateFee(data: AssetTransfer, assetModel: AssetModel) {
-
+        Log.e("mcheck", "calculate fee")
         val feePlanks =
             if (data.amount.stripTrailingZeros() == BigDecimal.ZERO) {
                 BigInteger.ZERO
@@ -150,8 +165,8 @@ class SendFillPresenter @Inject constructor(
         val fee = data.chainAsset.amountFromPlanks(feePlanks)
         val exchangeRate = assetModel.token.dollarRate
         newPayload.fee = fee
-        val tokenFee = fee.formatTokenAmount(data.chainAsset)
-        val currencyFee = fee.multiply(exchangeRate).formatAsCurrency()
+        val tokenFee = fee.stripTrailingZeros().formatTokenAmount(data.chainAsset)
+        val currencyFee = fee.multiply(exchangeRate).stripTrailingZeros().formatAsCurrency()
         viewState.setFee(currency = currencyFee, token = tokenFee)
     }
 
@@ -160,13 +175,48 @@ class SendFillPresenter @Inject constructor(
     }
 
     fun onMaxClicked() {
+        blockUpdate = true
+        newPayload.amount = assetModel.available
+        val rate = assetModel.token.dollarRate
+        if (isUsdFlow.value) {
+
+            val topValue = assetModel.available.orZero().multiply(rate).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros()
+            val bottom = assetModel.available.stripTrailingZeros()
+            val bottomValue = bottom.formatTokenAmount(assetModel.token.configuration)
+            viewState.setForceValues(topValue.toString(), bottomValue)
+            feeFlow.value = AssetTransfer(
+                sender = selectedAccount,
+                recipient = newPayload.contact.address,
+                assetModel.chain,
+                assetModel.token.configuration,
+                bottom
+            )
+        } else {
+            val top = assetModel.available.setScale(assetModel.token.configuration.precision, RoundingMode.HALF_UP).stripTrailingZeros()
+            val bottom = top.orZero().multiply(rate).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros()
+            val bottomValue = bottom.formatTokenAmount(assetModel.token.configuration)
+            viewState.setForceValues(top.toString(), bottomValue)
+            feeFlow.value = AssetTransfer(
+                sender = selectedAccount,
+                recipient = newPayload.contact.address,
+                assetModel.chain,
+                assetModel.token.configuration,
+                top
+            )
+
+        }
 
     }
 
+
     fun onTextChanged(data: String) {
-        if (data.isNotBlank())
-            amountTopFlow.value = BigDecimal(data)
-        else amountTopFlow.value = null
+        if (blockUpdate) {
+            blockUpdate = false
+        } else {
+            if (data.isNotBlank())
+                amountTopFlow.value = BigDecimal(data)
+            else amountTopFlow.value = null
+        }
     }
 
     fun onNextClicked() {
@@ -194,22 +244,7 @@ class SendFillPresenter @Inject constructor(
 
     }
 
-    suspend fun <P, S> ValidationExecutor.requireValid(
-        validationSystem: ValidationSystem<P, S>,
-        payload: P,
-        validationFailureTransformer: (S) -> TitleAndMessage,
-        progressConsumer: ProgressConsumer? = null,
-        autoFixPayload: (original: P, failureStatus: S) -> P = { original, _ -> original },
-        block: (P) -> Unit,
-    ) = requireValid(
-        validationSystem = validationSystem,
-        payload = payload,
-        errorDisplayer = ::showError,
-        validationFailureTransformerDefault = validationFailureTransformer,
-        progressConsumer = progressConsumer,
-        autoFixPayload = autoFixPayload,
-        block = block
-    )
+
 
     private suspend fun buildTransfer(amount: BigDecimal, address: String): AssetTransfer {
 
@@ -222,7 +257,4 @@ class SendFillPresenter @Inject constructor(
         )
     }
 
-    fun showError(throwable: Throwable) {
-        throwable.message?.let { viewState.showError(it) }
-    }
 }

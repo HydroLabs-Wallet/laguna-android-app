@@ -7,7 +7,10 @@ import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.common.resources.ResourceManager
+import io.novafoundation.nova.common.utils.ellipsis
+import io.novafoundation.nova.feature_assets.R
 import javax.inject.Inject
 
 @InjectViewState
@@ -15,12 +18,13 @@ class TransactionDetailsPresenter @Inject constructor(
     private val router: WalletRouter,
     private val copyUseCase: GetTransactionCopyUseCase,
     private val saveUseCase: SaveTransactionTransferToDownloadsUseCase,
+    private val resourceManager: ResourceManager,
 
     val operation: OperationParcelizeModel.Transfer,
 
 
     ) :
-    MvpPresenter<TransferDetailsView>() {
+    BasePresenter<TransferDetailsView>() {
 
     var transaction: TransactionTransferModel? = null
 
@@ -42,7 +46,8 @@ class TransactionDetailsPresenter @Inject constructor(
         transaction?.let {
             val content = copyUseCase.invoke(it)
             saveUseCase.invoke(content, it.hash!!)
-            viewState.showSaveMessage(it.hash)
+            val message = resourceManager.getString(R.string.saved_to_csv, it.hash)
+            viewState.showSuccess(message)
         }
     }
 

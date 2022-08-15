@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.address.AddressIconGenerator
+import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.utils.*
-import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
 import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
 import io.novafoundation.nova.feature_account_api.domain.model.defaultSubstrateAddress
-import io.novafoundation.nova.common.data.model.SelectAccountPayload
-import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_assets.domain.WalletInteractor
 import io.novafoundation.nova.feature_assets.domain.assets.list.AssetsListInteractor
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
 import moxy.presenterScope
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -48,7 +47,7 @@ class DashboardPresenter @Inject constructor(
 
 
 ) :
-    MvpPresenter<DashboardView>(), WithCoroutineScopeExtensions {
+    BasePresenter<DashboardView>(), WithCoroutineScopeExtensions {
     private val _hideRefreshEvent = MutableLiveData<Event<Unit>>()
     val hideRefreshEvent: LiveData<Event<Unit>> = _hideRefreshEvent
     var balanceModel: TotalBalanceModel? = null
@@ -70,8 +69,9 @@ class DashboardPresenter @Inject constructor(
 
 
     val totalBalanceFlow = balancesFlow.map {
+        val hasHistoryRecord = it.assets.filterValues { value -> value.filter { it.hasHistoryRecord }.isNotEmpty() }.isNotEmpty()
         TotalBalanceModel(
-            shouldShowPlaceholder = it.assets.isEmpty(),
+            shouldShowPlaceholder = !hasHistoryRecord,
             totalBalanceFiat = it.totalBalanceFiat.formatAsCurrency(),
             lockedBalanceFiat = it.lockedBalanceFiat.formatAsCurrency(),
             balances = it
@@ -92,13 +92,11 @@ class DashboardPresenter @Inject constructor(
         selectedMetaAccount.onEach {
             val name = it.name.ifEmpty { it.defaultSubstrateAddress.ellipsis() }
             viewState.setAccountName(name)
-        }
-            .launchIn(presenterScope)
+        }.launchIn(presenterScope)
         totalBalanceFlow.onEach {
             balanceModel = it
             viewState.submitBalanceModel(it)
-        }
-            .launchIn(presenterScope)
+        }.launchIn(presenterScope)
     }
 
 

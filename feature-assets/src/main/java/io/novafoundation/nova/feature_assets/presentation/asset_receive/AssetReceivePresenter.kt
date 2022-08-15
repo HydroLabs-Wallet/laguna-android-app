@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -32,7 +32,7 @@ class AssetReceivePresenter @Inject constructor(
     private val selectedAccountUseCase: SelectedAccountUseCase,
     private val router: WalletRouter,
     private var payload: AssetPayload
-) : MvpPresenter<AssetReceiveView>(), WithCoroutineScopeExtensions {
+) : BasePresenter<AssetReceiveView>(), WithCoroutineScopeExtensions {
     override val coroutineScope = presenterScope
     var currentAsset: TokenReceiver? = null
     private var updatedPayLoad = payload

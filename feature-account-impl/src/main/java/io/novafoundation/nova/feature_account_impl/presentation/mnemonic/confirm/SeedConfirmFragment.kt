@@ -4,29 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.terrakok.cicerone.Router
+import androidx.core.os.bundleOf
 import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentSeedConfirmBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SeedConfirmFragment : BaseFragment(), SeedConfirmView {
+class SeedConfirmFragment : BaseFragment<SeedConfirmPresenter>(), SeedConfirmView {
     companion object {
-        private const val EXTRA_LIST = "extra_list"
-        const val EXTRA_IS_AUTH = "isAuth"
+        private const val EXTRA_IS_AUTH = "isAuth"
 
-        fun getNewInstance(isAuth: Boolean, data: List<SeedWord>): SeedConfirmFragment =
+        fun getNewInstance(payload: AddAccountPayload): SeedConfirmFragment =
             SeedConfirmFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelableArrayList(EXTRA_LIST, ArrayList(data))
-                    putBoolean(EXTRA_IS_AUTH, isAuth)
-                }
+                arguments = bundleOf(
+                    EXTRA_IS_AUTH to payload
+                )
             }
     }
 
@@ -35,22 +34,15 @@ class SeedConfirmFragment : BaseFragment(), SeedConfirmView {
     lateinit var presenter: SeedConfirmPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        requireNotNull(arguments)
-        presenter.isAuth = requireArguments().getBoolean(EXTRA_IS_AUTH)
-        requireArguments().getParcelableArrayList<SeedWord>(EXTRA_LIST)?.let {
-            seedList.addAll(it)
-        }
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentSeedConfirmBinding
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .seedConfirmComponentFactory()
             .create(
                 fragment = this,
-                isAuth = argument(EXTRA_IS_AUTH),
-                list = argument(EXTRA_LIST)
+                isAuth = argument(EXTRA_IS_AUTH)
             ).inject(this)
     }
 
@@ -85,22 +77,6 @@ class SeedConfirmFragment : BaseFragment(), SeedConfirmView {
         binding.btnNext.isEnabled = isEnabled
     }
 
-    override fun showConfirmationError() {
-        Snackbar.make(
-            requireView(),
-            "Seed words does not match. Please, try again",
-            Snackbar.LENGTH_SHORT
-        ).show()
-
-    }
-
-    override fun showError(text: String) {
-        Snackbar.make(
-            requireView(),
-            text,
-            Snackbar.LENGTH_SHORT
-        ).show()
-    }
 
     override fun onBackPressed(): Boolean {
         presenter.onBackCommandClick()

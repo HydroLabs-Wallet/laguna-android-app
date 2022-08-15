@@ -9,7 +9,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.model.LightMetaA
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class SelectAccountPresenter @Inject constructor(
     private val payload: SelectAccountPayload,
     accountListingMixin: AccountListingMixin,
 ) :
-    MvpPresenter<SelectAccountView>(), WithCoroutineScopeExtensions {
+    BasePresenter<SelectAccountView>(), WithCoroutineScopeExtensions {
     override val coroutineScope = presenterScope
 
     val accountsFlow = accountListingMixin.accountsFlow()

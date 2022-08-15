@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class AssetDetailsPresenter @Inject constructor(
     private val router: WalletRouter,
     val payload: AssetPayload
 ) :
-    MvpPresenter<AssetDetailsView>(), WithCoroutineScopeExtensions {
+    BasePresenter<AssetDetailsView>(), WithCoroutineScopeExtensions {
     override val coroutineScope = presenterScope
 
 

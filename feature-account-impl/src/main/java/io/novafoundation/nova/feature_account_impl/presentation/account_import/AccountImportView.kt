@@ -1,13 +1,12 @@
 package io.novafoundation.nova.feature_account_impl.presentation.account_import
 
-import moxy.MvpView
+import io.novafoundation.nova.common.base.BaseView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface AccountImportView : MvpView {
+interface AccountImportView: BaseView {
     fun showProgress(show: Boolean)
-    fun showError(data: String)
     fun enableButton(enable: Boolean)
-    fun updateMode(mode: AccountImportWFragment.ImportMode)
+    fun updateMode(mode: AccountImportFragment.ImportMode)
 }

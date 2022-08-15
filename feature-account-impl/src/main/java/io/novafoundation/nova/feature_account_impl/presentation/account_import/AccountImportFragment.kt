@@ -9,15 +9,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.textFlow
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentAccountImportBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportWFragment.ImportMode.JSON
-import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportWFragment.ImportMode.SEED
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment.ImportMode.JSON
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment.ImportMode.SEED
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -26,12 +26,12 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AccountImportWFragment : BaseFragment(), AccountImportView {
+class AccountImportFragment : BaseFragment<AccountImportPresenter>(), AccountImportView {
     companion object {
-        const val EXTRA_IS_AUTH = "isAuth"
+        private const val EXTRA_IS_AUTH = "isAuth"
 
-        fun getNewInstance(isAuth: Boolean): AccountImportWFragment = AccountImportWFragment().apply {
-            arguments = bundleOf(EXTRA_IS_AUTH to isAuth)
+        fun getNewInstance(payload: AddAccountPayload): AccountImportFragment = AccountImportFragment().apply {
+            arguments = bundleOf(EXTRA_IS_AUTH to payload)
         }
     }
 
@@ -40,9 +40,7 @@ class AccountImportWFragment : BaseFragment(), AccountImportView {
     lateinit var presenter: AccountImportPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        presenter.isAuth = requireArguments().getBoolean(EXTRA_IS_AUTH)
-    }
+     fun createPresenter() = presenter
 
     lateinit var binding: FragmentAccountImportBinding
     override fun inject() {
@@ -94,9 +92,6 @@ class AccountImportWFragment : BaseFragment(), AccountImportView {
         binding.btnNext.setIsProgress(show)
     }
 
-    override fun showError(data: String) {
-        Snackbar.make(requireView(), data, Snackbar.LENGTH_LONG).show()
-    }
 
     override fun enableButton(enable: Boolean) {
         binding.btnNext.isEnabled = enable

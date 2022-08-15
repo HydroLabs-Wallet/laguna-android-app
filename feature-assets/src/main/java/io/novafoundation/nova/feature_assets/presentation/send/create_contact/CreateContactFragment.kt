@@ -23,9 +23,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class CreateContactFragment : BaseFragment(), CreateContactView {
+class CreateContactFragment : BaseFragment<CreateContactPresenter>(), CreateContactView {
     companion object {
-        const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "AssetReceiveFragment.extra_asset"
         fun getNewInstance(data: ContactPayload) = CreateContactFragment().apply {
             arguments = bundleOf(
                 EXTRA_PAYLOAD to data
@@ -41,6 +41,9 @@ class CreateContactFragment : BaseFragment(), CreateContactView {
     @InjectPresenter
     lateinit var presenter: CreateContactPresenter
 
+    @ProvidePresenter
+    fun createPresenter() = presenter
+
     lateinit var adapter: AssetReceiveAdapter
     override fun inject() {
         FeatureUtils.getFeature<AssetsFeatureComponent>(requireContext(), AssetsFeatureApi::class.java)
@@ -48,9 +51,6 @@ class CreateContactFragment : BaseFragment(), CreateContactView {
             .create(this, argument(EXTRA_PAYLOAD))
             .inject(this)
     }
-
-    @ProvidePresenter
-    fun createPresenter() = presenter
 
     lateinit var binding: FragmentCreateContactBinding
 

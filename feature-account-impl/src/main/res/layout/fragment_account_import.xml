@@ -91,6 +91,8 @@
                         android:gravity="center"
                         android:hint="@string/enter_seed_hint"
                         android:inputType="text|textMultiLine"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+
                         android:padding="16dp"
                         android:textColor="@color/contentPrimary"
                         android:textColorHint="@color/contentTertiary"

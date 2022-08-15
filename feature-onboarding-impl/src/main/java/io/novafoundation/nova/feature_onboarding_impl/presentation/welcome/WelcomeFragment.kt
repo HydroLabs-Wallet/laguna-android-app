@@ -31,7 +31,7 @@ class WelcomeFragment : BaseFragmentOld<WelcomeViewModel>() {
 
             return Bundle().apply {
                 putBoolean(KEY_DISPLAY_BACK, displayBack)
-                putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, AddAccountPayload.MetaAccount)
+                putParcelable(KEY_ADD_ACCOUNT_PAYLOAD, AddAccountPayload.MetaAccount(true))
             }
         }
 

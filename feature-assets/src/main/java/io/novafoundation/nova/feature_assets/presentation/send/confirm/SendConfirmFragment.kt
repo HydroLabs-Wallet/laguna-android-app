@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -30,9 +29,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SendConfirmFragment : BaseFragment(), SendConfirmView {
+class SendConfirmFragment : BaseFragment<SendConfirmPresenter>(), SendConfirmView {
     companion object {
-        const val EXTRA_PAYLOAD = "SendConfirmFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "SendConfirmFragment.extra_asset"
         fun getNewInstance(data: TransferDraft) = SendConfirmFragment().apply {
             arguments = bundleOf(
                 EXTRA_PAYLOAD to data
@@ -47,6 +46,8 @@ class SendConfirmFragment : BaseFragment(), SendConfirmView {
     @Inject
     @InjectPresenter
     lateinit var presenter: SendConfirmPresenter
+    @ProvidePresenter
+    fun createPresenter() = presenter
 
     override fun inject() {
         FeatureUtils.getFeature<AssetsFeatureComponent>(requireContext(), AssetsFeatureApi::class.java)
@@ -55,8 +56,6 @@ class SendConfirmFragment : BaseFragment(), SendConfirmView {
             .inject(this)
     }
 
-    @ProvidePresenter
-    fun createPresenter() = presenter
 
     lateinit var binding: FragmentSendConfirmBinding
 
@@ -123,14 +122,6 @@ class SendConfirmFragment : BaseFragment(), SendConfirmView {
 
     override fun setNote(data: String) {
         binding.labelNote.text = data
-    }
-
-    override fun showSuccess(data: String) {
-        Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
-    }
-
-    override fun showError(data: String) {
-        Toast.makeText(requireContext(), data, Toast.LENGTH_LONG).show()
     }
 
     override fun showLoader(show: Boolean) {

@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -46,7 +46,7 @@ class SendConfirmPresenter @Inject constructor(
     private val payload: TransferDraft,
     private val validationExecutor: ValidationExecutor,
 
-    ) : MvpPresenter<SendConfirmView>(), WithCoroutineScopeExtensions, Validatable by validationExecutor {
+    ) : BasePresenter<SendConfirmView>(), WithCoroutineScopeExtensions, Validatable by validationExecutor {
     override val coroutineScope = presenterScope
 
     var isEditMode = false
@@ -138,30 +138,9 @@ class SendConfirmPresenter @Inject constructor(
     private fun performTransfer(transfer: AssetTransfer, fee: BigDecimal) = presenterScope.launch {
         sendInteractor.performTransfer(transfer, fee)
             .onSuccess {
-                viewState.showSuccess(resourceManager.getString(R.string.common_transaction_submitted))
+                viewState.showSuccess(resourceManager.getString(R.string.transaction_sent))
                 router.backToDashBoard()
             }.onFailure(::showError)
 
-    }
-
-    suspend fun <P, S> ValidationExecutor.requireValid(
-        validationSystem: ValidationSystem<P, S>,
-        payload: P,
-        validationFailureTransformer: (S) -> TitleAndMessage,
-        progressConsumer: ProgressConsumer? = null,
-        autoFixPayload: (original: P, failureStatus: S) -> P = { original, _ -> original },
-        block: (P) -> Unit,
-    ) = requireValid(
-        validationSystem = validationSystem,
-        payload = payload,
-        errorDisplayer = ::showError,
-        validationFailureTransformerDefault = validationFailureTransformer,
-        progressConsumer = progressConsumer,
-        autoFixPayload = autoFixPayload,
-        block = block
-    )
-
-    fun showError(throwable: Throwable) {
-        throwable.message?.let { viewState.showError(it) }
     }
 }

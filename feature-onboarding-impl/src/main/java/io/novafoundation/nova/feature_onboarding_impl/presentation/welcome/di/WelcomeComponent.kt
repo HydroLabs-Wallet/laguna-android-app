@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 import io.novafoundation.nova.common.di.scope.ScreenScope
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_onboarding_impl.presentation.welcome.OnboardingFragment
 
 @Subcomponent(
@@ -19,7 +20,7 @@ interface WelcomeComponent {
 
         fun create(
             @BindsInstance fragment: Fragment,
-            @BindsInstance isAuth: Boolean
+            @BindsInstance isAuth: AddAccountPayload
         ): WelcomeComponent
     }
 

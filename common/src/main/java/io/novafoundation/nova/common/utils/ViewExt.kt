@@ -17,6 +17,7 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -24,6 +25,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleableRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.lifecycle.LifecycleOwner
@@ -185,7 +187,34 @@ fun ImageView.setImageTintRes(@ColorRes tintRes: Int) {
 fun ImageView.setImageTint(@ColorInt tint: Int) {
     imageTintList = ColorStateList.valueOf(tint)
 }
+internal fun View?.findSuitableParent(): ViewGroup? {
+    var view = this
+    var fallback: ViewGroup? = null
+    do {
+        if (view is CoordinatorLayout) {
+            // We've found a CoordinatorLayout, use it
+            return view
+        } else if (view is FrameLayout) {
+            if (view.id == android.R.id.content) {
+                // If we've hit the decor content view, then we didn't find a CoL in the
+                // hierarchy, so use it.
+                return view
+            } else {
+                // It's not the content view but we'll use it as our fallback
+                fallback = view
+            }
+        }
 
+        if (view != null) {
+            // Else, we will loop and crawl up the view hierarchy and try to find a parent
+            val parent = view.parent
+            view = if (parent is View) parent else null
+        }
+    } while (view != null)
+
+    // If we reach here then we didn't find a CoL or a suitable content view so we'll fallback
+    return fallback
+}
 inline fun View.doOnGlobalLayout(crossinline action: () -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {

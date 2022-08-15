@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentAccountCreatedBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.SeedConfirmFragment
@@ -17,12 +18,12 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class AccountCreatedFragment : BaseFragment(), AccountCreatedView {
+class AccountCreatedFragment : BaseFragment<AccountCreatedPresenter>(), AccountCreatedView {
     companion object {
-        const val EXTRA_IS_AUTH = "isAuth"
+        private const val EXTRA_IS_AUTH = "isAuth"
 
-        fun getNewInstance(isAuth: Boolean): AccountCreatedFragment = AccountCreatedFragment().apply {
-            arguments = bundleOf(EXTRA_IS_AUTH to isAuth)
+        fun getNewInstance(payload: AddAccountPayload): AccountCreatedFragment = AccountCreatedFragment().apply {
+            arguments = bundleOf(EXTRA_IS_AUTH to payload)
         }
     }
 
@@ -31,17 +32,15 @@ class AccountCreatedFragment : BaseFragment(), AccountCreatedView {
     lateinit var presenter: AccountCreatedPresenter
 
     @ProvidePresenter
-    fun createPresenter() = presenter.apply {
-        presenter.isAuth = requireArguments().getBoolean(EXTRA_IS_AUTH)
-    }
+    fun createPresenter() = presenter
 
     lateinit var binding: FragmentAccountCreatedBinding
     override fun inject() {
-        FeatureUtils.getFeature<AccountFeatureComponent>(context!!, AccountFeatureApi::class.java)
+        FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
             .accountCreatedComponentFactory()
             .create(
                 fragment = this,
-                isAuth = argument(SeedConfirmFragment.EXTRA_IS_AUTH),
+                isAuth = argument(EXTRA_IS_AUTH),
             ).inject(this)
     }
 

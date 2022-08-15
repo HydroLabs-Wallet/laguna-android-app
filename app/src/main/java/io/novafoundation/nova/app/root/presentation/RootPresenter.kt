@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class RootPresenter @Inject constructor(
     private val externalConnectionRequirementFlow: MutableStateFlow<ChainConnection.ExternalRequirement>,
     private val resourceManager: ResourceManager,
     private val networkStateMixin: NetworkStateMixin
-) : MvpPresenter<RootView>(), NetworkStateUi by networkStateMixin {
+) : BasePresenter<RootView>(), NetworkStateUi by networkStateMixin {
 
     private var willBeClearedForLanguageChange = false
 

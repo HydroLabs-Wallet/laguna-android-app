@@ -7,7 +7,7 @@ import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class CreateContactPresenter @Inject constructor(
     private val sendInteractor: SendInteractor,
     private val router: WalletRouter,
     private var payload: ContactPayload
-) : MvpPresenter<CreateContactView>(), WithCoroutineScopeExtensions {
+) : BasePresenter<CreateContactView>(), WithCoroutineScopeExtensions {
     override val coroutineScope = presenterScope
 
 

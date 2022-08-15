@@ -1,7 +1,11 @@
 package io.novafoundation.nova.app.root.presentation
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -12,6 +16,8 @@ import io.novafoundation.nova.app.root.di.RootComponent
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.showToast
+import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
+import io.novafoundation.nova.common.view.CustomSnack
 import io.novafoundation.nova.splash.presentation.SplashBackgroundHolder
 import kotlinx.android.synthetic.main.activity_root.*
 import moxy.MvpAppCompatActivity
@@ -26,6 +32,9 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
     lateinit var navigatorHolder: NavigatorHolder
 
     @Inject
+    lateinit var systemCallExecutor: SystemCallExecutor
+
+    @Inject
     @InjectPresenter
     lateinit var presenter: RootPresenter
 
@@ -34,12 +43,21 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
 
     private val navigator: Navigator = AppNavigator(this, R.id.main_container)
     override val chain = ArrayList<WeakReference<Fragment>>()
-
+    lateinit var rootView: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         inject()
         super.onCreate(savedInstanceState)
+        systemCallExecutor.attachActivity(this)
+
         setContentView(R.layout.activity_root)
+        rootView = findViewById(R.id.mainView)
         subscribe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        systemCallExecutor.attachActivity(this)
+
     }
 
     fun inject() {
@@ -60,7 +78,13 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)
-
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.primaryClip?.let {
+            if (it.description.label == getString(R.string.app_name)) {
+                val data = ClipData.newPlainText("", "");
+                clipboard.setPrimaryClip(data);
+            }
+        }
     }
 
     override fun onPause() {
@@ -84,8 +108,14 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
         presenter.showConnectingBarLiveData.observe(this) { show ->
             rootNetworkBar.setVisible(show)
         }
+    }
 
+    override fun showError(data: String) {
+        CustomSnack.make(rootView, true, data)?.show()
+    }
 
+    override fun showSuccess(data: String) {
+        CustomSnack.make(rootView, false, data)?.show()
     }
 
     override fun showMessage(text: String) {

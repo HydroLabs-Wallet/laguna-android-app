@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "ed70ffac25a0b0d3b151f3913f97dda1",
+    "identityHash": "8d668ff3eed78f1e979b7ddbe181ad4c",
     "entities": [
       {
         "tableName": "users",
@@ -106,7 +106,7 @@
       },
       {
         "tableName": "assets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`assetId` INTEGER NOT NULL, `chainId` TEXT NOT NULL, `metaId` INTEGER NOT NULL, `freeInPlanks` TEXT NOT NULL, `frozenInPlanks` TEXT NOT NULL, `reservedInPlanks` TEXT NOT NULL, `bondedInPlanks` TEXT NOT NULL, `redeemableInPlanks` TEXT NOT NULL, `unbondingInPlanks` TEXT NOT NULL, PRIMARY KEY(`assetId`, `chainId`, `metaId`), FOREIGN KEY(`assetId`, `chainId`) REFERENCES `chain_assets`(`id`, `chainId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`assetId` INTEGER NOT NULL, `chainId` TEXT NOT NULL, `metaId` INTEGER NOT NULL, `freeInPlanks` TEXT NOT NULL, `frozenInPlanks` TEXT NOT NULL, `reservedInPlanks` TEXT NOT NULL, `bondedInPlanks` TEXT NOT NULL, `redeemableInPlanks` TEXT NOT NULL, `unbondingInPlanks` TEXT NOT NULL, `hasIncomeHistory` INTEGER NOT NULL, PRIMARY KEY(`assetId`, `chainId`, `metaId`), FOREIGN KEY(`assetId`, `chainId`) REFERENCES `chain_assets`(`id`, `chainId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "assetId",
@@ -160,6 +160,12 @@
             "fieldPath": "unbondingInPlanks",
             "columnName": "unbondingInPlanks",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasIncomeHistory",
+            "columnName": "hasIncomeHistory",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -1282,7 +1288,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ed70ffac25a0b0d3b151f3913f97dda1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d668ff3eed78f1e979b7ddbe181ad4c')"
     ]
   }
 }

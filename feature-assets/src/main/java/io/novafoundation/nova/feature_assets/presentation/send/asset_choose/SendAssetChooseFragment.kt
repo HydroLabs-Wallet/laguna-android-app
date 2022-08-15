@@ -25,7 +25,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SendAssetChooseFragment : BaseFragment(), SendAssetChooseView {
+class SendAssetChooseFragment : BaseFragment<SendAssetChoosePresenter>(), SendAssetChooseView {
     companion object {
         fun getNewInstance() = SendAssetChooseFragment()
     }

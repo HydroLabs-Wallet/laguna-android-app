@@ -18,9 +18,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SelectAccountFragment : BaseFragment(), SelectAccountView {
+class SelectAccountFragment : BaseFragment<SelectAccountPresenter>(), SelectAccountView {
     companion object {
-        const val EXTRA_PAYLOAD = "SelectAccountFragment.extra_asset"
+        private const val EXTRA_PAYLOAD = "SelectAccountFragment.extra_asset"
 
         fun getNewInstance(data: SelectAccountPayload): SelectAccountFragment = SelectAccountFragment().apply {
             arguments = bundleOf(

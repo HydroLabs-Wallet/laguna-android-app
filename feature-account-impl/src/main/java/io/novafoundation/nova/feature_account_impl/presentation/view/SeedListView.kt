@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import io.novafoundation.nova.common.utils.inflater
 import io.novafoundation.nova.common.view.GridSpacingItemDecoration
 import io.novafoundation.nova.feature_account_impl.R

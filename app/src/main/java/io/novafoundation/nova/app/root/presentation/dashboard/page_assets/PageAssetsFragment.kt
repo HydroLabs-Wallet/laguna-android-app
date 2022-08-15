@@ -16,7 +16,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class PageAssetsFragment : BaseFragment(), PageAssetsView {
+class PageAssetsFragment : BaseFragment<PageAssetsPresenter>(), PageAssetsView {
     companion object {
         fun getNewInstance(): PageAssetsFragment = PageAssetsFragment()
     }

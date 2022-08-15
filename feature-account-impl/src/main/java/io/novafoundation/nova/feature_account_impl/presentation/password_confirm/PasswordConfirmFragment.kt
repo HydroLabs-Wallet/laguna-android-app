@@ -24,9 +24,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class PasswordConfirmFragment : BaseFragment(), PasswordConfirmView {
+class PasswordConfirmFragment : BaseFragment<PasswordConfirmPresenter>(), PasswordConfirmView {
     companion object {
-        const val EXTRA_RESULT = "PasswordConfirmFragment.extra_result"
+        private const val EXTRA_RESULT = "PasswordConfirmFragment.extra_result"
         fun getNewInstance(data: ConfirmPayload): PasswordConfirmFragment = PasswordConfirmFragment().apply {
             arguments = bundleOf(
                 EXTRA_RESULT to data
@@ -83,9 +83,7 @@ class PasswordConfirmFragment : BaseFragment(), PasswordConfirmView {
         binding.tvPassword.hideSoftKeyboard()
     }
 
-    override fun showError() {
-        Toast.makeText(requireContext(), R.string.password_do_not_match, Toast.LENGTH_LONG).show()
-    }
+
 
     override fun enableButton(isEnabled: Boolean) {
         binding.btnNext.isEnabled = isEnabled

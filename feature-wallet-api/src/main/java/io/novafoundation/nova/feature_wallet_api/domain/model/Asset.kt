@@ -22,11 +22,13 @@ class Asset(
     // TODO move to runtime storage
     val bondedInPlanks: BigInteger,
     val redeemableInPlanks: BigInteger,
-    val unbondingInPlanks: BigInteger
+    val unbondingInPlanks: BigInteger,
+    val hasHistoryRecord: Boolean
 ) {
 
     // Non-reserved plus reserved
     val totalInPlanks = freeInPlanks + reservedInPlanks
+
     // Free without its min threshold, represented by frozen
     val transferableInPlanks = freeInPlanks - frozenInPlanks
 

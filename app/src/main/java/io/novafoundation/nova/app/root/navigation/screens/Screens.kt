@@ -5,12 +5,12 @@ import io.novafoundation.nova.app.root.presentation.dashboard.DashboardFragment
 import io.novafoundation.nova.app.root.presentation.dashboard.сhain_setting.ChainSettingsFragment
 import io.novafoundation.nova.common.data.model.ConfirmPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
-import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportWFragment
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
+import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.AccountImportInfoFragment
 import io.novafoundation.nova.feature_account_impl.presentation.login.LoginFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.SeedConfirmFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedCreateFragment
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedWord
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.SeedPromptFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.info.SeedInfoFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.warning.SeedWarningFragment
@@ -43,11 +43,11 @@ object Screens {
     fun toSplashScreen() = FragmentScreen { SplashFragment.getNewInstance() }
 
     //Onboarding and account creation
-    fun toOnboardingScreen(isAuth: Boolean = true) =
-        FragmentScreen { OnboardingFragment.getNewInstance(isAuth) }
+    fun toOnboardingScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { OnboardingFragment.getNewInstance(payload) }
 
-    fun toSeedPromptScreen(isAuth: Boolean = true) =
-        FragmentScreen { SeedPromptFragment.getNewInstance(isAuth) }
+    fun toSeedPromptScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { SeedPromptFragment.getNewInstance(payload) }
 
     fun showSeedInfoDialog() =
         FragmentScreen(clearContainer = false) { SeedInfoFragment.getNewInstance() }
@@ -55,21 +55,21 @@ object Screens {
     fun showSeedWarningDialog() =
         FragmentScreen(clearContainer = false) { SeedWarningFragment.getNewInstance() }
 
-    fun toSeedCreateScreen(isAuth: Boolean = true) =
-        FragmentScreen { SeedCreateFragment.getNewInstance(isAuth) }
+    fun toSeedCreateScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { SeedCreateFragment.getNewInstance(payload) }
 
-    fun toSeedConfirmScreen(isAuth: Boolean = true, data: List<SeedWord>) =
-        FragmentScreen { SeedConfirmFragment.getNewInstance(isAuth, data) }
+    fun toSeedConfirmScreen(payload: AddAccountPayload) =
+        FragmentScreen { SeedConfirmFragment.getNewInstance(payload) }
 
-    fun toAccountImportScreen(isAuth: Boolean = true) =
-        FragmentScreen { AccountImportWFragment.getNewInstance(isAuth) }
+    fun toAccountImportScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { AccountImportFragment.getNewInstance(payload) }
 
     fun toAccountImportInfoScreen() =
         FragmentScreen(clearContainer = false) { AccountImportInfoFragment.getNewInstance() }
 
-    fun toCreatePasswordScreen() = FragmentScreen { CreatePasswordFragment.getNewInstance() }
-    fun toAccountCreatedScreen(isAuth: Boolean = true) =
-        FragmentScreen { AccountCreatedFragment.getNewInstance(isAuth) }
+    fun toCreatePasswordScreen(payload:AddAccountPayload) = FragmentScreen { CreatePasswordFragment.getNewInstance(payload) }
+    fun toAccountCreatedScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { AccountCreatedFragment.getNewInstance(payload) }
 
     // Login
     fun toLoginScreen() = FragmentScreen { LoginFragment.getNewInstance() }
