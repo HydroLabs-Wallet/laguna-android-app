@@ -1,6 +1,7 @@
 package io.novafoundation.nova.app.root.presentation.dashboard.page_assets
 
 import io.novafoundation.nova.common.address.AddressIconGenerator
+import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.inBackground
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
@@ -13,7 +14,6 @@ import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import moxy.InjectViewState
-import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -32,14 +32,17 @@ class PageAssetsPresenter @Inject constructor(
     private val balancesFlow = interactor.balancesFlow()
         .inBackground()
         .share()
-    val assetsFlow: Flow<List<AssetModel>> = balancesFlow.map { balances ->
+    private val showValuesFlow = interactor.assetValueVisibleFlow()
+        .inBackground()
+        .share()
+
+    val assetsFlow: Flow<List<AssetModel>> = combine(balancesFlow, showValuesFlow) { balances, visible ->
         balances.assets
-            .map { entry-> entry.value.map{mapAssetToAssetModel(entry.key.chain,it)} }
+            .map { entry -> entry.value.map { mapAssetToAssetModel(entry.key.chain, it, visible) } }
             .flatten()
             .sortedByDescending { it.dollarAmount }
 
-    }
-        .distinctUntilChanged()
+    }.distinctUntilChanged()
         .inBackground()
         .share()
 

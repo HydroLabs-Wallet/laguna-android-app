@@ -7,7 +7,7 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface TransferDetailsView : BaseView {
-    fun setTransaction(data: OperationParcelizeModel.Transfer)
+    fun setTransaction(data: OperationParcelizeModel.Transfer,showValue:Boolean)
     fun copyToClipboard(text: String)
 //    fun showSaveMessage(hash: String)
 }

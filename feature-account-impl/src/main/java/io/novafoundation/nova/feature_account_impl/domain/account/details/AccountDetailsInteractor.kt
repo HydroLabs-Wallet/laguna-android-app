@@ -32,6 +32,10 @@ class AccountDetailsInteractor(
         accountRepository.updateMetaAccountName(metaId, newName)
     }
 
+    suspend fun updateIcon(metaId: Long, resOrPath: String) {
+        accountRepository.updateMetaAccountIcon(metaId, resOrPath)
+    }
+
     suspend fun getChainProjections(metaAccount: MetaAccount): GroupedList<From, AccountInChain> = withContext(Dispatchers.Default) {
         val chains = chainRegistry.currentChains.first()
 

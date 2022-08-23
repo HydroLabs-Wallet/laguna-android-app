@@ -57,6 +57,8 @@ interface AccountDataSource : SecretStoreV1 {
     suspend fun getMetaAccount(metaId: Long): MetaAccount
 
     suspend fun updateMetaAccountName(metaId: Long, newName: String)
+    suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String)
+
     suspend fun deleteMetaAccount(metaId: Long)
 
     /**

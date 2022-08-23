@@ -10,6 +10,7 @@ import io.novafoundation.nova.app.root.presentation.dashboard.page_assets.di.Pag
 import io.novafoundation.nova.app.root.presentation.dashboard.page_networks.di.PageNetworksFragmentComponent
 import io.novafoundation.nova.app.root.presentation.dashboard.сhain_setting.di.ChainSettingsFragmentComponent
 import io.novafoundation.nova.app.root.presentation.di.RootActivityComponent
+import io.novafoundation.nova.app.root.presentation.menu.di.MenuComponent
 import io.novafoundation.nova.common.di.CommonApi
 import io.novafoundation.nova.common.di.scope.FeatureScope
 import io.novafoundation.nova.core_db.di.DbApi
@@ -37,6 +38,8 @@ interface RootComponent {
     fun mainActivityComponentFactory(): RootActivityComponent.Factory
 
     fun dashboardFragmentComponentFactory(): DashboardFragmentComponent.Factory
+    fun menuComponentFactory(): MenuComponent.Factory
+
     fun pageAssetsFragmentComponentFactory(): PageAssetsFragmentComponent.Factory
     fun pageNetworksFragmentComponentFactory(): PageNetworksFragmentComponent.Factory
     fun chainSettingsFragmentComponentFactory(): ChainSettingsFragmentComponent.Factory

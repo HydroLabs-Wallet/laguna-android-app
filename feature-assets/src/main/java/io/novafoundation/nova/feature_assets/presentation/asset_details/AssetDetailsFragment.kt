@@ -80,8 +80,8 @@ class AssetDetailsFragment : BaseFragment<AssetDetailsPresenter>(), AssetDetails
             val delta = data.token.recentRateChange
             tvPriceChange.text = data.token.recentRateChange
             tvPriceDelta.text = data.token.recentRateChange
-            tvTokenBalance.text = data.total.token
-            tvCurrencyBalance.text = data.total.fiat
+            tvTokenBalance.text = if (data.showValues) data.total.token else getString(R.string.value_hidden)
+            tvCurrencyBalance.text = if (data.showValues) data.total.fiat else getString(R.string.value_hidden)
             tvDeltaBalance.text = delta
             tvChainName.text = "${configuration.name} ${getString(R.string.chain)}"
 

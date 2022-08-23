@@ -11,6 +11,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.AdvancedEncrypti
 import io.novafoundation.nova.feature_account_impl.presentation.account.advancedEncryption.di.AdvancedEncryptionComponent
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.di.AccountImportComponent
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.di.AccountImportInfoComponent
+import io.novafoundation.nova.feature_account_impl.presentation.edit_field.di.EditFieldComponent
 import io.novafoundation.nova.feature_account_impl.presentation.language.di.LanguagesComponent
 import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
 import io.novafoundation.nova.feature_account_impl.presentation.login.di.LoginComponent
@@ -52,6 +53,7 @@ interface AccountFeatureComponent : AccountFeatureApi {
     fun loginComponent(): LoginComponent.Factory
 
     fun profileComponentFactory(): SettingsComponent.Factory
+    fun editFieldComponentFactory(): EditFieldComponent.Factory
 
 
     fun languagesComponentFactory(): LanguagesComponent.Factory

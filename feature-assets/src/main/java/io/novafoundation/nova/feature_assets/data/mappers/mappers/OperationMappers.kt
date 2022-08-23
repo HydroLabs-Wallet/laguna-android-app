@@ -84,6 +84,7 @@ suspend fun mapOperationToOperationModel(
     operation: Operation,
     token: Token,
     resourceManager: ResourceManager,
+    showValues: Boolean
 ): OperationModel {
     val statusAppearance = mapStatusToStatusAppearance(operation.type.operationStatus)
     val formattedTime = resourceManager.formatMonthDateShort(operation.time)
@@ -92,6 +93,8 @@ suspend fun mapOperationToOperationModel(
     return with(operation) {
         when (val operationType = type) {
             is Operation.Type.Reward -> {
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
                     operation = operation,
@@ -100,8 +103,8 @@ suspend fun mapOperationToOperationModel(
                     notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
                     title = operation.chainAsset.name,
                     subtitle = operationType.validator.orEmpty().ellipsis(),
-                    amount = formatAmount(chainAsset, operationType),
-                    dollarAmount = formatDollarAmount(chainAsset, token, operationType),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
                     statusAppearance = statusAppearance
                 )
             }
@@ -109,6 +112,8 @@ suspend fun mapOperationToOperationModel(
             is Operation.Type.Transfer -> {
                 var name = token.configuration.priceId ?: token.configuration.name
                 name = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
                     operation = operation,
@@ -117,14 +122,15 @@ suspend fun mapOperationToOperationModel(
                     notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
                     title = name,
                     subtitle = operationType.receiver.ellipsis(),
-                    amount = formatAmount(chainAsset, operationType),
-                    dollarAmount = formatDollarAmount(chainAsset, token, operationType),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
                     statusAppearance = statusAppearance
                 )
             }
 
             is Operation.Type.Extrinsic -> {
-
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
                     operation = operation,
@@ -133,8 +139,8 @@ suspend fun mapOperationToOperationModel(
                     notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
                     title = resourceManager.getString(R.string.wallet_filters_extrinsics),
                     subtitle = resourceManager.getString(R.string.common_unknown),
-                    amount = formatAmount(chainAsset, operationType),
-                    dollarAmount = formatDollarAmount(chainAsset, token, operationType),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
                     statusAppearance = statusAppearance
                 )
             }

@@ -25,14 +25,17 @@ class AssetChoosePresenter @Inject constructor(
     private val balancesFlow = interactor.balancesFlow()
         .inBackground()
         .share()
-    val assetsFlow: Flow<List<AssetModel>> = balancesFlow.map { balances ->
+
+    private val showValuesFlow = interactor.assetValueVisibleFlow()
+        .inBackground()
+        .share()
+    val assetsFlow: Flow<List<AssetModel>> = combine(balancesFlow, showValuesFlow) { balances, visible ->
         balances.assets
-            .map { entry-> entry.value.map{mapAssetToAssetModel(entry.key.chain,it)} }
+            .map { entry-> entry.value.map{mapAssetToAssetModel(entry.key.chain,it,visible)} }
             .flatten()
             .sortedByDescending { it.dollarAmount }
 
-    }
-        .distinctUntilChanged()
+    }.distinctUntilChanged()
         .inBackground()
         .share()
 

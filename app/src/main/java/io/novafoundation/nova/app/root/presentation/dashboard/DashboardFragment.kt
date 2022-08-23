@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.terrakok.cicerone.Router
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import io.novafoundation.nova.app.R
@@ -14,6 +13,7 @@ import io.novafoundation.nova.app.root.di.RootComponent
 import io.novafoundation.nova.app.root.presentation.view.DashboardBalanceView
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
+import io.novafoundation.nova.common.utils.DoubleClickListener
 import io.novafoundation.nova.common.utils.showToast
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.TotalBalanceModel
 import moxy.presenter.InjectPresenter
@@ -65,8 +65,14 @@ class DashboardFragment : BaseFragment<DashboardPresenter>(), DashboardView {
         binding.toolbar.setOnAvatarClickListener {
             presenter.onAvatarClicked()
         }
+        binding.toolbar.setOnMenuClickListener { presenter.onMenuClick() }
         binding.btnOverflow.setOnClickListener { presenter.onChainSettingsCLick() }
 
+        binding.holderBalance.setOnChangeVisibility(object : DoubleClickListener() {
+            override fun onDoubleClick(v: View) {
+                presenter.onValueVisibilityToggle()
+            }
+        })
         binding.bottomNavBarView.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_active -> {
@@ -82,7 +88,7 @@ class DashboardFragment : BaseFragment<DashboardPresenter>(), DashboardView {
         binding.bottomNavBarView.actionButton.setOnClickListener {
             presenter.onSendReceivePopupScreen()
         }
-        binding.holderBalance.setOnClickListener { presenter.onReceiveClicked()}
+        binding.holderBalance.setOnReceiveClickListener { presenter.onReceiveClicked() }
     }
 
     override fun showImportSnack() {

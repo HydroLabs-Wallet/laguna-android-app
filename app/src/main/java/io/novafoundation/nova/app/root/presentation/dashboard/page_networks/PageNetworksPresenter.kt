@@ -10,6 +10,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import moxy.InjectViewState
 import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.feature_assets.data.mappers.mappers.mapAssetToAssetModel
+import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -23,10 +25,15 @@ class PageNetworksPresenter @Inject constructor(
 
     override val coroutineScope: CoroutineScope = presenterScope
 
+    private val showValuesFlow = interactor.assetValueVisibleFlow()
+        .inBackground()
+        .share()
+
     private val balancesFlow = interactor.balancesFlow()
         .inBackground()
         .share()
-    val assetsFlow: Flow<List<AssetGroup>> = balancesFlow.map { balances ->
+
+    val assetsFlow: Flow<List<AssetGroup>> = combine(balancesFlow, showValuesFlow) { balances, showValues ->
         val metaAccount = selectedAccountUseCase.selectedMetaAccountFlow().first()
 
 
@@ -34,12 +41,29 @@ class PageNetworksPresenter @Inject constructor(
             val group = it.key
             val address = metaAccount.addressIn(group.chain)!!
             group.address = address
+            group.showValues = showValues
             group
         }
-    }
-        .distinctUntilChanged()
+
+    }.distinctUntilChanged()
         .inBackground()
         .share()
+
+
+//    val assetsFlow: Flow<List<AssetGroup>> = balancesFlow.map { balances ->
+//        val metaAccount = selectedAccountUseCase.selectedMetaAccountFlow().first()
+//
+//
+//        balances.assets.map {
+//            val group = it.key
+//            val address = metaAccount.addressIn(group.chain)!!
+//            group.address = address
+//            group
+//        }
+//    }
+//        .distinctUntilChanged()
+//        .inBackground()
+//        .share()
 
 
     override fun onFirstViewAttach() {

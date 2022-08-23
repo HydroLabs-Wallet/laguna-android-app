@@ -7,6 +7,7 @@ import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.novafoundation.nova.common.utils.formatAsCurrency
+import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.databinding.ListitemAssetChooseBinding
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
@@ -29,9 +30,14 @@ class AssetReceiveChooserAdapter(private val imageLoader: ImageLoader) :
                 with(binding) {
                     val configuration = item.token.configuration
 
+                    if (item.showValues) {
+                        tvTokenAmount.text = item.total.formatTokenAmount(configuration.symbol)
+                        tvAmount.text = item.dollarAmount?.formatAsCurrency()
+                    } else {
+                        tvTokenAmount.text = getString(R.string.value_hidden)
+                        tvAmount.text = getString(R.string.value_hidden)
+                    }
                     tvName.text = configuration.name
-                    tvTokenAmount.text = item.total.formatTokenAmount(configuration.symbol)
-                    tvAmount.text = item.dollarAmount?.formatAsCurrency()
                     imIconBig.load(configuration.iconUrl, imageLoader)
                     imNotNative.isVisible = !item.isNative()
                     if (!item.isNative()) {
@@ -58,6 +64,7 @@ class AssetReceiveChooserAdapter(private val imageLoader: ImageLoader) :
             return oldItem.total == newItem.total
                 && oldItem.available == newItem.available
                 && oldItem.dollarAmount == newItem.dollarAmount
+                && oldItem.showValues == newItem.showValues
         }
     }
 }

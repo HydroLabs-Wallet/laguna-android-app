@@ -8,6 +8,7 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.novafoundation.nova.common.utils.format
 import io.novafoundation.nova.common.utils.formatAsCurrency
+import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.databinding.ListitemAssetChooseBinding
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
@@ -31,7 +32,8 @@ class AssetChooseAdapter(private val imageLoader: ImageLoader) :
                     val configuration = item.token.configuration
 
                     tvName.text = configuration.name
-                    tvTokenAmount.text = item.total.formatTokenAmount(configuration.symbol)
+                    val amount = if (item.showValues) item.total.formatTokenAmount(configuration.symbol) else getString(R.string.value_hidden)
+                    tvTokenAmount.text = amount
                     tvAmount.text = item.dollarAmount?.formatAsCurrency()
                     imIconBig.load(configuration.iconUrl, imageLoader)
                     imNotNative.isVisible = !item.isNative()

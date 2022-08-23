@@ -39,7 +39,12 @@ class NetworksAdapter(private val imageLoader: ImageLoader) :
                 with(binding) {
                     tvTitle.text = item.chain.name
                     tvAddress.text = item.address?.ellipsis()
-                    tvAmount.text = item.groupBalanceFiat.formatAsCurrency()
+                    if (item.showValues) {
+                        tvAmount.text = item.groupBalanceFiat.formatAsCurrency()
+
+                    } else {
+                        tvAmount.text = getString(R.string.value_hidden)
+                    }
                     imIcon.load(item.chain.icon, imageLoader)
                     tvAssetQuantity.text = context.resources.getQuantityString(R.plurals.n_assets, item.chain.assets.size, item.chain.assets.size)
                     root.setOnClickListener {

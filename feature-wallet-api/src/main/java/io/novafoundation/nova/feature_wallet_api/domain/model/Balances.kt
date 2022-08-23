@@ -14,5 +14,6 @@ class AssetGroup(
     val chain: Chain,
     val groupBalanceFiat: BigDecimal,
     val zeroBalance: Boolean,
-    var address: String? = null
+    var address: String? = null,
+    var showValues: Boolean = true
 )

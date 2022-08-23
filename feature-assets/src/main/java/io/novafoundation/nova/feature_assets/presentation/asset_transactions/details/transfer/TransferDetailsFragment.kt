@@ -67,7 +67,7 @@ class TransferDetailsFragment : BaseFragment<TransactionDetailsPresenter>(), Tra
 
     }
 
-    override fun setTransaction(data: OperationParcelizeModel.Transfer) {
+    override fun setTransaction(data: OperationParcelizeModel.Transfer, showValue: Boolean) {
 
         with(binding) {
             holderDialog.isVisible = true
@@ -89,14 +89,25 @@ class TransferDetailsFragment : BaseFragment<TransactionDetailsPresenter>(), Tra
                 holderDetails.isVisible = true
 
             }
-            tvAmountCurrency.text = data.dollarAmount
-            tvAmountToken.text = data.amount
+            if (showValue) {
+                tvAmountCurrency.text = data.dollarAmount
+                tvAmountToken.text = data.amount
+                tvFeeToken.text = data.fee
+                tvFeeCurrency.text = data.dollarFee
+                tvTotalToken.text = data.totalAmount
+                tvTotalCurrency.text = data.totalDollarAmount
+            } else {
+                tvAmountCurrency.text = getString(R.string.value_hidden)
+                tvAmountToken.text = getString(R.string.value_hidden)
+                tvFeeToken.text = getString(R.string.value_hidden)
+                tvFeeCurrency.text = getString(R.string.value_hidden)
+                tvTotalToken.text = getString(R.string.value_hidden)
+                tvTotalCurrency.text = getString(R.string.value_hidden)
+            }
+
             vFrom.setData(true, data.sender)
             vTo.setData(false, data.receiver)
-            tvFeeToken.text = data.fee
-            tvFeeCurrency.text = data.dollarFee
-            tvTotalToken.text = data.totalAmount
-            tvTotalCurrency.text = data.totalDollarAmount
+
             tvStatus.setStatus(data.statusAppearance)
         }
     }

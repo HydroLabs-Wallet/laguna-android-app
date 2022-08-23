@@ -5,6 +5,7 @@ import coil.ImageLoader
 import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.databinding.ListitemAssetBinding
 import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback
 import io.novafoundation.nova.common.utils.format
@@ -36,8 +37,9 @@ class AssetAdapter(private val imageLoader: ImageLoader) :
                     val configuration = asset.token.configuration
                     tvTitle.text = configuration.name
                     imNotNative.isVisible = !item.isNative()
-                    tvTokenAmount.text = asset.total.formatTokenAmount(asset.token.configuration.symbol)
-                    tvAmount.text = asset.dollarAmount?.formatAsCurrency()
+                    val tokenAmount = if (item.showValues) asset.total.formatTokenAmount(configuration.symbol) else getString(R.string.value_hidden)
+                    tvTokenAmount.text = tokenAmount
+                    tvAmount.text = if (item.showValues) asset.dollarAmount?.formatAsCurrency() else getString(R.string.value_hidden)
                     imIcon.load(configuration.iconUrl, imageLoader)
                     if (!item.isNative()) {
                         imNotNative.load(item.chain.icon, imageLoader)

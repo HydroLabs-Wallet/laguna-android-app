@@ -3,6 +3,7 @@ package io.novafoundation.nova.feature_wallet_impl.data.repository
 import io.novafoundation.nova.common.data.model.CursorPage
 import io.novafoundation.nova.common.data.network.HttpExceptionHandler
 import io.novafoundation.nova.common.data.network.coingecko.PriceInfo
+import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.utils.asQueryParam
 import io.novafoundation.nova.common.utils.defaultOnNull
 import io.novafoundation.nova.common.utils.mapList
@@ -62,8 +63,13 @@ class WalletRepositoryImpl(
     private val coingeckoApi: CoingeckoApi,
     private val chainRegistry: ChainRegistry,
     private val tokenDao: TokenDao,
-    private val contactsDao: ContactsDao
+    private val contactsDao: ContactsDao,
+    private val preferences: Preferences
 ) : WalletRepository {
+
+    companion object {
+        const val PREF_ASSET_VALUE_VISIBLE = "ASSET_VALUE_VISIBLE"
+    }
 
     override fun assetsFlow(metaId: Long): Flow<List<Asset>> {
         return combine(
@@ -117,6 +123,15 @@ class WalletRepositoryImpl(
 
             assetCache.insertTokens(updatedTokens)
         }
+    }
+
+    override fun assetValueVisibleFlow(): Flow<Boolean> {
+        return preferences.observeBoolean(PREF_ASSET_VALUE_VISIBLE, true)
+    }
+
+    override suspend fun toggleValueVisible() {
+        val value = preferences.getBoolean(PREF_ASSET_VALUE_VISIBLE, true)
+        preferences.putBoolean(PREF_ASSET_VALUE_VISIBLE, !value)
     }
 
     override fun assetFlow(accountId: AccountId, chainAsset: Chain.Asset): Flow<Asset> {

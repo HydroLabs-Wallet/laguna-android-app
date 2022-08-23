@@ -11,12 +11,12 @@ import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.navigation.screens.Screens
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
 import io.novafoundation.nova.common.utils.postToUiThread
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
-import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
@@ -89,10 +89,18 @@ class Navigator(
         router.setResultListener(key, listener)
     }
 
+    override fun lockApp() {
+        router.newRootScreen(Screens.toLoginScreen())
+    }
+
     override fun toPasswordConfirm(data: ConfirmPayload) {
         router.navigateTo(Screens.toPasswordConfirm(data))
 
 
+    }
+
+    override fun toEditField(data: EditFieldPayload) {
+        router.navigateTo(Screens.toEditField(data))
     }
 
     // SplashScreen
@@ -155,6 +163,10 @@ class Navigator(
 
     override fun toDashboard() {
         router.navigateTo(Screens.toDashboardScreen())
+    }
+
+    override fun toMenu() {
+        router.navigateTo(Screens.toMenu())
     }
 
     override fun toChainsSettings() {

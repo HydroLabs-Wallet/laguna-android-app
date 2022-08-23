@@ -3,7 +3,10 @@ package io.novafoundation.nova.app.root.navigation.screens
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import io.novafoundation.nova.app.root.presentation.dashboard.DashboardFragment
 import io.novafoundation.nova.app.root.presentation.dashboard.сhain_setting.ChainSettingsFragment
+import io.novafoundation.nova.feature_account_impl.presentation.edit_field.EditFieldFragment
+import io.novafoundation.nova.app.root.presentation.menu.MenuNavDrawerFragment
 import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment
@@ -43,10 +46,10 @@ object Screens {
     fun toSplashScreen() = FragmentScreen { SplashFragment.getNewInstance() }
 
     //Onboarding and account creation
-    fun toOnboardingScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+    fun toOnboardingScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { OnboardingFragment.getNewInstance(payload) }
 
-    fun toSeedPromptScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+    fun toSeedPromptScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { SeedPromptFragment.getNewInstance(payload) }
 
     fun showSeedInfoDialog() =
@@ -55,27 +58,29 @@ object Screens {
     fun showSeedWarningDialog() =
         FragmentScreen(clearContainer = false) { SeedWarningFragment.getNewInstance() }
 
-    fun toSeedCreateScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+    fun toSeedCreateScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { SeedCreateFragment.getNewInstance(payload) }
 
     fun toSeedConfirmScreen(payload: AddAccountPayload) =
         FragmentScreen { SeedConfirmFragment.getNewInstance(payload) }
 
-    fun toAccountImportScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+    fun toAccountImportScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { AccountImportFragment.getNewInstance(payload) }
 
     fun toAccountImportInfoScreen() =
         FragmentScreen(clearContainer = false) { AccountImportInfoFragment.getNewInstance() }
 
-    fun toCreatePasswordScreen(payload:AddAccountPayload) = FragmentScreen { CreatePasswordFragment.getNewInstance(payload) }
-    fun toAccountCreatedScreen(payload:AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+    fun toCreatePasswordScreen(payload: AddAccountPayload) = FragmentScreen { CreatePasswordFragment.getNewInstance(payload) }
+    fun toAccountCreatedScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { AccountCreatedFragment.getNewInstance(payload) }
 
     // Login
     fun toLoginScreen() = FragmentScreen { LoginFragment.getNewInstance() }
 
     // Dashboard
+    fun toMenu() = FragmentScreen { MenuNavDrawerFragment.getNewInstance() }
     fun toPasswordConfirm(data: ConfirmPayload) = FragmentScreen(clearContainer = false) { PasswordConfirmFragment.getNewInstance(data) }
+    fun toEditField(data: EditFieldPayload) = FragmentScreen(clearContainer = false) { EditFieldFragment.getNewInstance(data) }
     fun toDashboardScreen() = FragmentScreen { DashboardFragment.getNewInstance() }
 
     fun toChainSettings() = FragmentScreen { ChainSettingsFragment.getNewInstance() }

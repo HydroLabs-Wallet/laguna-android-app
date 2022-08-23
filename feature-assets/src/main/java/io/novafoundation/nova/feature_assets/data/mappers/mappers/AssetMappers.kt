@@ -29,7 +29,7 @@ fun mapTokenToTokenModel(token: Token): TokenModel {
     }
 }
 
-fun mapAssetToAssetModel(chain: Chain, asset: Asset): AssetModel {
+fun mapAssetToAssetModel(chain: Chain, asset: Asset, valuesVisible: Boolean): AssetModel {
     return with(asset) {
         AssetModel(
             token = mapTokenToTokenModel(token),
@@ -41,7 +41,8 @@ fun mapAssetToAssetModel(chain: Chain, asset: Asset): AssetModel {
             redeemable = redeemable,
             unbonding = unbonding,
             dollarAmount = dollarAmount,
-            chain = chain
+            chain = chain,
+            showValues = valuesVisible
         )
     }
 }

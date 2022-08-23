@@ -56,10 +56,13 @@ class TransactionHistoryProvider(
     private val historyFiltersProviderAsync by lazyAsync {
         historyFiltersProviderFactory.get()
     }
-
-    override val state = domainState.map(::mapOperationHistoryStateToUi)
+    private val showValuesFlow = walletInteractor.assetValueVisibleFlow()
         .inBackground()
+    override val state = combine(domainState, showValuesFlow) { transactionState, showValues ->
+        mapOperationHistoryStateToUi(transactionState, showValues)
+    }.inBackground()
         .shareIn(this, started = SharingStarted.Eagerly, replay = 1)
+
 
     private val cachedPage = walletInteractor.operationsFirstPageFlow(chainId, assetId)
         .distinctUntilChangedBy { it.cursorPage }
@@ -175,13 +178,13 @@ class TransactionHistoryProvider(
         }
     }
 
-    private suspend fun mapOperationHistoryStateToUi(state: State): TransactionHistoryUi.State {
+    private suspend fun mapOperationHistoryStateToUi(state: State, showValues: Boolean): TransactionHistoryUi.State {
         val listState = when (state) {
             is State.Empty -> ListState.Empty
             is State.EmptyProgress -> ListState.EmptyProgress
-            is State.Data -> ListState.Data(transformDataToUi(state.data))
-            is State.FullData -> ListState.Data(transformDataToUi(state.data))
-            is State.NewPageProgress -> ListState.Data(transformDataToUi(state.data))
+            is State.Data -> ListState.Data(transformDataToUi(state.data, showValues))
+            is State.FullData -> ListState.Data(transformDataToUi(state.data, showValues))
+            is State.NewPageProgress -> ListState.Data(transformDataToUi(state.data, showValues))
         }
 
         return TransactionHistoryUi.State(
@@ -201,7 +204,7 @@ class TransactionHistoryProvider(
         return assetSource.history.availableOperationFilters(chainAssetAsync())
     }
 
-    private suspend fun transformDataToUi(data: List<Operation>): List<OperationMarker> {
+    private suspend fun transformDataToUi(data: List<Operation>, showValues: Boolean): List<OperationMarker> {
         val chain = chainAsync()
         val asset = chain.assets.first { it.id == assetId }
         val token = tokenRepository.getToken(asset)
@@ -211,7 +214,7 @@ class TransactionHistoryProvider(
                 val header = DayHeader(resourceManager.formatMonthDateLong(millis))
 
                 val operationModels = operationsPerDay.map { operation ->
-                    mapOperationToOperationModel(chain, operation, token, resourceManager)
+                    mapOperationToOperationModel(chain, operation, token, resourceManager, showValues)
                 }
 
                 listOf(header) + operationModels

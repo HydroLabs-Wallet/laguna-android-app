@@ -816,11 +816,22 @@
     <string name="max">Max</string>
     <string name="network_fee">Network fee</string>
     <string name="transferable_n">Transferable $s</string>
-    <string name="usd">USD</string>
     <string name="confirm_send">Confirm Send</string>
     <string name="add_note">Add note</string>
     <string name="conversion_rate">Conversion Rate</string>
     <string name="saved_to_csv">Saved to $s.csv in Downloads folder</string>
     <string name="transaction_copied_to_clip">Transaction copied to clipboard</string>
     <string name="seed_copied_to_clip">Seed copied to clipboard</string>
+    <string name="usd">USD</string>
+    <string name="currency">Currency</string>
+    <string name="backup_account">Backup Account</string>
+    <string name="language">Language</string>
+    <string name="biometric_authentication">Biometric authentication</string>
+    <string name="change_password">Change Password</string>
+    <string name="auto_lock_timer">Auto-Lock Timer</string>
+    <string name="connected_sites">Connected Sites</string>
+    <string name="address_book">Address Book</string>
+    <string name="log_out_skywalker">Log out \"%1$s\"</string>
+    <string name="value_hidden">*******</string>
+
 </resources>

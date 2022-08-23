@@ -9,7 +9,36 @@
       "client_info": {
         "mobilesdk_app_id": "1:627479304380:android:665f84a4078b70a3f958b9",
         "android_client_info": {
-          "package_name": "com.hydrogenex.lagunawallet.debug"
+          "package_name": "com.example.hydrogenx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627479304380-hsvnkfm5t8kgg74m75835ntka157cn65.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqZ-E-6QmBWDEZJUpW5u2DBfhr4lI5nnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627479304380-hsvnkfm5t8kgg74m75835ntka157cn65.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627479304380:android:ea218ca92f65512ef958b9",
+        "android_client_info": {
+          "package_name": "com.laguna.wallet.debug"
         }
       },
       "oauth_client": [

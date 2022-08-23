@@ -9,6 +9,7 @@ import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -19,6 +20,8 @@ interface WalletRepository {
     suspend fun getAssets(metaId: Long): List<Asset>
 
     suspend fun syncAssetsRates()
+    fun assetValueVisibleFlow(): Flow<Boolean>
+    suspend fun toggleValueVisible()
 
     fun assetFlow(
         accountId: AccountId,

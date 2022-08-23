@@ -187,7 +187,12 @@ class InputFieldView @JvmOverloads constructor(
     fun setText(@StringRes id: Int) {
         binding.tvText.setText(id)
     }
-
+    fun setHint(@StringRes id: Int) {
+        binding.tvText.setHint(id)
+    }
+    fun setHint(text: String?) {
+        binding.tvText.setHint(text)
+    }
     fun updateState(data: InputFieldData) {
         isError = data.isError
         isSuccess = data.isSuccess

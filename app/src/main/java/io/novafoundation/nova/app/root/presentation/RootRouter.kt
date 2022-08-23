@@ -8,6 +8,7 @@ interface RootRouter {
     fun setResult(key:String,data:Any)
     fun setResultListener(key:String, listener: ResultListener)
     fun backToDashBoard()
+    fun toMenu()
     fun returnToWallet()
 
     fun toDashboard()

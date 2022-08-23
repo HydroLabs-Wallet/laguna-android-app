@@ -3,11 +3,13 @@ package io.novafoundation.nova.app.root.di
 import dagger.Module
 import dagger.Provides
 import io.novafoundation.nova.app.root.domain.RootInteractor
+import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
 import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.di.scope.FeatureScope
 import io.novafoundation.nova.common.di.scope.ScreenScope
 import io.novafoundation.nova.core.updater.UpdateSystem
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
+import io.novafoundation.nova.feature_account_impl.domain.account.details.AccountDetailsInteractor
 import io.novafoundation.nova.feature_assets.data.repository.assetFilters.AssetFiltersRepository
 import io.novafoundation.nova.feature_assets.data.repository.assetFilters.PreferencesAssetFiltersRepository
 import io.novafoundation.nova.feature_assets.domain.WalletInteractor
@@ -39,6 +41,17 @@ class RootFeatureModule {
         nftRepository: NftRepository
     ) = AssetsListInteractor(accountRepository, nftRepository)
 
+    @Provides
+    @FeatureScope
+    fun provideAccountDetailsInteractor(
+        accountRepository: AccountRepository,
+        secretStoreV2: SecretStoreV2,
+        chainRegistry: ChainRegistry,
+    ) = AccountDetailsInteractor(
+        accountRepository,
+        secretStoreV2,
+        chainRegistry
+    )
 
     @Provides
     @FeatureScope

@@ -81,7 +81,7 @@ class SendConfirmPresenter @Inject constructor(
             val name = metaAccount.name.ifEmpty { metaAccount.defaultSubstrateAddress }
             val asset = walletInteractor.getCurrentAsset(payload.assetPayload.chainId, payload.assetPayload.chainAssetId)
             val chain = chainRegistry.getChain(payload.assetPayload.chainId)
-            val assetModel = mapAssetToAssetModel(chain, asset)
+            val assetModel = mapAssetToAssetModel(chain, asset,true)
             viewState.setReceiver(payload, assetModel, name)
             val commissionAssetFlow = walletInteractor.commissionAssetFlow(payload.assetPayload.chainId)
             sendPayLoad = AssetTransferPayload(

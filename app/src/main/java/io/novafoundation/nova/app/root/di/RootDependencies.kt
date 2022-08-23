@@ -4,6 +4,7 @@ import coil.ImageLoader
 import com.github.terrakok.cicerone.NavigatorHolder
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.data.network.AppLinksProvider
+import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
 import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.mixin.api.NetworkStateMixin
 import io.novafoundation.nova.common.resources.ResourceManager
@@ -35,7 +36,7 @@ interface RootDependencies {
     fun walletRepository(): WalletRepository
 
     fun appLinksProvider(): AppLinksProvider
-
+    fun secretStoreV2(): SecretStoreV2
     fun buyTokenRegistry(): BuyTokenRegistry
     fun addressIconGenerator(): AddressIconGenerator
     fun selectedAccountUseCase(): SelectedAccountUseCase

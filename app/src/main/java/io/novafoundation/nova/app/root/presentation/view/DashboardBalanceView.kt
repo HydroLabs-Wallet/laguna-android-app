@@ -26,9 +26,15 @@ class DashboardBalanceView @JvmOverloads constructor(
         }
     }
 
-    override fun setOnClickListener(l: OnClickListener?) {
+    fun setOnReceiveClickListener(l: OnClickListener?) {
         binding.btnReceive.setOnClickListener(l)
     }
+    fun setOnChangeVisibility(l:OnClickListener?){
+        binding.holderBalance.setOnClickListener(l)
+    }
+//    override fun setOnClickListener(l: OnClickListener?) {
+//        binding.btnReceive.setOnClickListener(l)
+//    }
 
     data class DashboardBalanceValue(
         val isHidden: Boolean,

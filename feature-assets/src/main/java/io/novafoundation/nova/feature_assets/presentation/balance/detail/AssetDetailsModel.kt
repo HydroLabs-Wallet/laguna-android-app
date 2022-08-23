@@ -7,5 +7,6 @@ class AssetDetailsModel(
     val token: TokenModel,
     val total: AmountModel,
     val transferable: AmountModel,
-    val locked: AmountModel
+    val locked: AmountModel,
+    val showValues: Boolean
 )

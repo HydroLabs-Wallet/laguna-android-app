@@ -82,7 +82,7 @@ class SendFillPresenter @Inject constructor(
         val assetFlow = walletInteractor.assetFlow(chainId = newPayload.assetPayload.chainId, chainAssetId = newPayload.assetPayload.chainAssetId)
             .map {
                 val chain = chainRegistry.getChain(newPayload.assetPayload.chainId)
-                mapAssetToAssetModel(chain, it)
+                mapAssetToAssetModel(chain, it,true)
             }
         validationFailureEvent.asFlow()
             .onEach {

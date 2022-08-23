@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semitransparent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_grey"
+            android:paddingTop="38dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="44dp"
+                android:gravity="center"
+                android:text="@string/confirm_operation"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/tvPassword" />
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_26"
+                android:src="@drawable/ic_size_24_arrow_left"
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTitle"
+
+                />
+
+            <io.novafoundation.nova.common.view.InputFieldView
+                android:id="@+id/tvPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="24dp"
+                app:if_text_hint="@string/password"
+                app:layout_constraintBottom_toTopOf="@+id/btnNext" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:rect_button_enabled="false"
+                app:rect_button_text="@string/confirm" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

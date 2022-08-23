@@ -1,12 +1,15 @@
 package io.novafoundation.nova.app.root.presentation.dashboard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.terrakok.cicerone.ResultListener
+import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.address.AddressIconGenerator
 import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
+import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.*
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
@@ -43,7 +46,8 @@ class DashboardPresenter @Inject constructor(
     private val router: WalletRouter,
     private val rootRouter: RootRouter,
     private val externalRequirements: MutableStateFlow<ChainConnection.ExternalRequirement>,
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val resourceManager: ResourceManager
 
 
 ) :
@@ -67,17 +71,25 @@ class DashboardPresenter @Inject constructor(
         .inBackground()
         .share()
 
-
-    val totalBalanceFlow = balancesFlow.map {
-        val hasHistoryRecord = it.assets.filterValues { value -> value.filter { it.hasHistoryRecord }.isNotEmpty() }.isNotEmpty()
-        TotalBalanceModel(
-            shouldShowPlaceholder = !hasHistoryRecord,
-            totalBalanceFiat = it.totalBalanceFiat.formatAsCurrency(),
-            lockedBalanceFiat = it.lockedBalanceFiat.formatAsCurrency(),
-            balances = it
-        )
-    }
+    private val valueVisibleFlow = interactor.assetValueVisibleFlow()
         .inBackground()
+        .share()
+
+    private val totalBalanceFlow = combine(balancesFlow, valueVisibleFlow) { balances, visible ->
+        with(balances) {
+            val hasHistoryRecord = assets.filterValues { value -> value.filter { it.hasHistoryRecord }.isNotEmpty() }.isNotEmpty()
+            TotalBalanceModel(
+                shouldShowPlaceholder = !hasHistoryRecord,
+                totalBalanceFiat = if (visible) totalBalanceFiat.formatAsCurrency() else {
+                    resourceManager.getString(R.string.value_hidden)
+                },
+                lockedBalanceFiat = if (visible) lockedBalanceFiat.formatAsCurrency() else {
+                    resourceManager.getString(R.string.value_hidden)
+                },
+                balances = this
+            )
+        }
+    }.inBackground()
         .share()
 
 
@@ -108,6 +120,10 @@ class DashboardPresenter @Inject constructor(
         rootRouter.toChainsSettings()
     }
 
+    fun onMenuClick() {
+        rootRouter.toMenu()
+    }
+
     fun onAvatarClicked() {
         val payload = SelectAccountPayload("Dashboard.selectAccount", true)
         val resultListener = ResultListener {
@@ -121,6 +137,11 @@ class DashboardPresenter @Inject constructor(
 
     fun onReceiveClicked() {
         router.toAssetSelectionToReceive()
+    }
+
+    fun onValueVisibilityToggle() {
+        Log.e("mcheck","onValueVisibilityToggle")
+        presenterScope.launch { interactor.toggleValueVisible() }
     }
 
     fun onSendReceivePopupScreen() {

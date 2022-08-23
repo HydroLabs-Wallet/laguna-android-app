@@ -1,17 +1,11 @@
 package io.novafoundation.nova.feature_account_impl.domain
 
-import android.text.SpannableString
-import io.novafoundation.nova.common.view.InputFieldView
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Node
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
-import io.novafoundation.nova.feature_account_api.domain.model.Account
-import io.novafoundation.nova.feature_account_api.domain.model.LightMetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccountOrdering
-import io.novafoundation.nova.feature_account_api.domain.model.PreferredCryptoType
+import io.novafoundation.nova.feature_account_api.domain.model.*
 import io.novafoundation.nova.feature_account_impl.domain.errors.NodeAlreadyExistsException
 import io.novafoundation.nova.feature_account_impl.domain.errors.UnsupportedNetworkException
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
@@ -67,6 +61,14 @@ class AccountInteractorImpl(
 
     override suspend fun setBiometricOff() {
         return accountRepository.setBiometricOff()
+    }
+
+    override suspend fun updateMetaAccountName(metaId: Long, name: String) {
+        accountRepository.updateMetaAccountName(metaId, name)
+    }
+
+    override suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String) {
+        accountRepository.updateMetaAccountIcon(metaId, resOrPath)
     }
 
     override suspend fun getMetaAccount(metaId: Long): MetaAccount {

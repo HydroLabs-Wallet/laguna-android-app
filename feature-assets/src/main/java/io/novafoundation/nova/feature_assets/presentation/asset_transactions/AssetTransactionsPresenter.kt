@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.common.utils.combine
+import kotlinx.coroutines.flow.combine
 import moxy.presenterScope
 import java.util.*
 import javax.inject.Inject
@@ -25,15 +27,13 @@ class AssetTransactionsPresenter @Inject constructor(
     private val interactor: WalletInteractor,
 ) :
     BasePresenter<AssetTransactionsView>(),
-    TransactionHistoryUi by transactionHistoryMixin, WithCoroutineScopeExtensions {
+    TransactionHistoryUi by transactionHistoryMixin {
 
-    override val coroutineScope = presenterScope
-
-
+    val assetFlow = interactor.assetFlow(payload.chainId, payload.chainAssetId).inBackground().share()
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         presenterScope.launch { transactionHistoryMixin.syncFirstOperationsPage() }
-        val assetFlow = interactor.assetFlow(payload.chainId, payload.chainAssetId).inBackground()
+
         assetFlow
             .onEach {
                 var name = it.token.configuration.priceId ?: it.token.configuration.name
@@ -41,6 +41,7 @@ class AssetTransactionsPresenter @Inject constructor(
                 viewState.setTitle(name)
             }
             .launchIn(presenterScope)
+
         state.onEach {
             when (val data = it.listState) {
                 is TransactionHistoryUi.State.ListState.Data -> viewState.submitList(data.items)

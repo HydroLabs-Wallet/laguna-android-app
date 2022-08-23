@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Nova</string>
+
+    <string name="enter_new_Account_name">Enter new account name</string>
+    <string name="your_account_name">You account name</string>
 </resources>

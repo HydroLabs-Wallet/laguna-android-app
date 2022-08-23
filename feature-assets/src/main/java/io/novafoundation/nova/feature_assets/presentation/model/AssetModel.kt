@@ -14,14 +14,15 @@ data class AssetModel(
     val redeemable: BigDecimal,
     val unbonding: BigDecimal,
     val available: BigDecimal,
-    val chain: Chain
+    val chain: Chain,
+    val showValues:Boolean
 ) : AssetMarker {
     override fun isItemSame(other: Any?): Boolean {
         return equalTo(other, { token.configuration.id }, { token.configuration.chainId })
     }
 
     override fun isContentSame(other: Any?): Boolean {
-        return equalTo(other, { total }, { dollarAmount })
+        return equalTo(other, { total }, { dollarAmount },{showValues})
 
     }
 

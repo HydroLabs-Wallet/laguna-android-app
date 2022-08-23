@@ -32,6 +32,9 @@ interface AccountInteractor {
 
     suspend fun getMetaAccount(metaId: Long): MetaAccount
 
+    suspend fun updateMetaAccountName(metaId: Long, name: String)
+    suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String)
+
     fun lightMetaAccountsFlow(): Flow<List<LightMetaAccount>>
 
     fun selectedMetaAccountFlow(): Flow<MetaAccount>
