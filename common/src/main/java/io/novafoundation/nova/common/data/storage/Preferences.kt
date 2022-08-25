@@ -36,4 +36,6 @@ interface Preferences {
         field: String,
         initialValueProducer: InitialValueProducer<String>? = null
     ): Flow<String?>
+
+    fun observeBoolean(key: String, initialValue: Boolean): Flow<Boolean>
 }

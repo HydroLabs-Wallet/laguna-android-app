@@ -2,11 +2,14 @@ package io.novafoundation.nova.common.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
+import android.view.View
+import android.widget.ImageView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -94,4 +97,20 @@ interface WithContextExtensions {
 
 fun WithContextExtensions(context: Context) = object : WithContextExtensions {
     override val providedContext: Context = context
+}
+@ColorInt
+fun Context.compatColor(@ColorRes id: Int): Int {
+    return ContextCompat.getColor(this, id)
+}
+
+fun Context.compatColorList(@ColorRes id: Int): ColorStateList? {
+    return ContextCompat.getColorStateList(this, id)
+}
+
+fun View.backgroundTint(@ColorRes id: Int) {
+    backgroundTintList = context.compatColorList(id)
+}
+
+fun ImageView.tint(@ColorRes id: Int) {
+    imageTintList = context.compatColorList(id)
 }

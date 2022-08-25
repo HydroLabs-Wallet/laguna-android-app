@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_staking_impl.presentation
 
 import androidx.lifecycle.Lifecycle
+import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.feature_staking_impl.presentation.payouts.confirm.model.ConfirmPayoutPayload
 import io.novafoundation.nova.feature_staking_impl.presentation.payouts.model.PendingPayoutParcelable
 import io.novafoundation.nova.feature_staking_impl.presentation.staking.bond.confirm.ConfirmBondMorePayload
@@ -12,6 +13,8 @@ import io.novafoundation.nova.feature_staking_impl.presentation.staking.unbond.c
 import io.novafoundation.nova.feature_staking_impl.presentation.validators.parcel.ValidatorDetailsParcelModel
 
 interface StakingRouter {
+    fun setResult(key:String,data:Any)
+    fun setResultListener(key:String, listener: ResultListener)
 
     fun openSetupStaking()
 

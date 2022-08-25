@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.hints.observeHints
 import io.novafoundation.nova.common.mixin.impl.observeRetries
@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.fragment_confirm_stake.confirmStakeValidat
 import kotlinx.android.synthetic.main.fragment_confirm_stake.confirmStakeWallet
 import kotlinx.android.synthetic.main.fragment_confirm_stake.stakingConfirmationContainer
 
-class ConfirmStakingFragment : BaseFragment<ConfirmStakingViewModel>() {
+class ConfirmStakingFragment : BaseFragmentOld<ConfirmStakingViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.view.setProgress
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_start_change_validators.startChan
 import kotlinx.android.synthetic.main.fragment_start_change_validators.startChangeValidatorsRecommended
 import kotlinx.android.synthetic.main.fragment_start_change_validators.startChangeValidatorsToolbar
 
-class StartChangeValidatorsFragment : BaseFragment<StartChangeValidatorsViewModel>() {
+class StartChangeValidatorsFragment : BaseFragmentOld<StartChangeValidatorsViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

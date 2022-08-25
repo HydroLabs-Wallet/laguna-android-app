@@ -61,4 +61,28 @@ class AssetCache(
     }
 
     suspend fun insertTokens(tokens: List<TokenLocal>) = tokenDao.insertTokens(tokens)
+
+    suspend fun setIncomeHistoryRecord(
+        metaId: Long,
+        chainAsset: Chain.Asset,
+        hasIncomeHistory: Boolean
+    ) {
+        val assetId = chainAsset.id
+        val chainId = chainAsset.chainId
+        assetUpdateMutex.withLock {
+            assetDao.setIncomeHistory(metaId, chainId, assetId, hasIncomeHistory)
+        }
+    }
+
+    suspend fun setIncomeHistoryRecord(
+        accountId: AccountId,
+        chainAsset: Chain.Asset,
+        hasIncomeHistory: Boolean
+    ) {
+        val applicableMetaAccount = accountRepository.findMetaAccount(accountId)
+
+        applicableMetaAccount?.let {
+            setIncomeHistoryRecord(it.id, chainAsset,  hasIncomeHistory)
+        }
+    }
 }

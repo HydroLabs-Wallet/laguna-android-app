@@ -24,7 +24,9 @@ android {
         buildConfigField "String", "MOONPAY_HOST", "\"buy-staging.moonpay.com\""
         buildConfigField "String", "MOONPAY_PUBLIC_KEY", "\"pk_test_DMRuyL6Nf1qc9OzjPBmCFBeCGkFwiZs0\""
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         release {
             buildConfigField "String", "RAMP_TOKEN", "\"6hrtmyabadyjf6q4jc6h45yv3k8h7s88ebgubscd\""
@@ -70,13 +72,19 @@ dependencies {
     implementation constraintDep
 
     implementation permissionsDep
-
+    implementation ciceroneDep
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
     implementation coroutinesDep
     implementation coroutinesAndroidDep
     implementation viewModelKtxDep
     implementation liveDataKtxDep
     implementation lifeCycleKtxDep
-
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
+    implementation qrGeneratorDep
     implementation daggerDep
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt daggerKapt

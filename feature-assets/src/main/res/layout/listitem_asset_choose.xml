@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_btn_rect_tertriary_active">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imIconBig"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/circle_black"
+                android:src="@drawable/bg_asset_secondary_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_asset_polkadot" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:padding="3dp"
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imIconBig"
+                app:layout_constraintTop_toTopOf="@+id/imIconBig"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/TextBodyBoldSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintStart_toEndOf="@id/imIconBig"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/tvTokenAmount"
+                tools:text="Polkadot" />
+
+            <TextView
+                android:id="@+id/tvTokenAmount"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintStart_toEndOf="@id/imIconBig"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="weqwe...eqweqwe" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                style="@style/TextBodyBoldSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imIconBig"
+                tools:text="1.26 DOT" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.splash.R
 import io.novafoundation.nova.splash.di.SplashFeatureApi
 import io.novafoundation.nova.splash.di.SplashFeatureComponent
 import javax.inject.Inject
 
-class SplashFragment : BaseFragment<SplashViewModel>() {
+class SplashFragment : BaseFragmentOld<SplashViewModel>() {
 
-    @Inject lateinit var splashViewModel: SplashViewModel
+    companion object {
+        fun getNewInstance(): SplashFragment = SplashFragment()
+    }
+
+    @Inject
+    lateinit var splashViewModel: SplashViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

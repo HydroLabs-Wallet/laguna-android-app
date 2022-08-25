@@ -8,13 +8,11 @@ import java.math.BigDecimal
 
 @Parcelize
 class TransferDraft(
-    val amount: BigDecimal,
-    val fee: BigDecimal,
-    val assetPayload: AssetPayload,
-    val recipientAddress: String
+    var amount: BigDecimal,
+    var fee: BigDecimal,
+    var assetPayload: AssetPayload,
+    var contact: ContactUi
 ) : Parcelable {
-    @IgnoredOnParcel
-    val totalTransaction = amount + fee
-
-    fun totalAfterTransfer(currentTotal: BigDecimal) = currentTotal - totalTransaction
+    fun getTotal(): BigDecimal = amount + fee
+    fun totalAfterTransfer(currentTotal: BigDecimal) = currentTotal - getTotal()
 }

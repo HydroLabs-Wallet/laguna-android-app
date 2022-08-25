@@ -2,9 +2,9 @@ package io.novafoundation.nova.app.root.navigation.dApp
 
 import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.navigation.BaseNavigator
-import io.novafoundation.nova.app.root.navigation.NavigationHolder
+import io.novafoundation.nova.app.root.navigation.NavigationHolderOld
 import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountChosenNavDirection
-import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountListFragment
+import io.novafoundation.nova.feature_account_impl.presentation.list.AccountListFragment
 import io.novafoundation.nova.feature_dapp_impl.DAppRouter
 import io.novafoundation.nova.feature_dapp_impl.presentation.addToFavourites.AddToFavouritesFragment
 import io.novafoundation.nova.feature_dapp_impl.presentation.addToFavourites.AddToFavouritesPayload
@@ -14,7 +14,7 @@ import io.novafoundation.nova.feature_dapp_impl.presentation.search.DappSearchFr
 import io.novafoundation.nova.feature_dapp_impl.presentation.search.SearchPayload
 
 class DAppNavigator(
-    navigationHolder: NavigationHolder,
+    navigationHolder: NavigationHolderOld,
 ) : BaseNavigator(navigationHolder), DAppRouter {
 
     override fun openChangeAccount() = performNavigation(

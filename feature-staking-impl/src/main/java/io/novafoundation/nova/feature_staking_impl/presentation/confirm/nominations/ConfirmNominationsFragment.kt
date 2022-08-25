@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_staking_api.di.StakingFeatureApi
 import io.novafoundation.nova.feature_staking_impl.R
@@ -14,7 +14,7 @@ import io.novafoundation.nova.feature_staking_impl.presentation.validators.chang
 import kotlinx.android.synthetic.main.fragment_confirm_nominations.confirmNominationsList
 import kotlinx.android.synthetic.main.fragment_confirm_nominations.confirmNominationsToolbar
 
-class ConfirmNominationsFragment : BaseFragment<ConfirmNominationsViewModel>(), ValidatorsAdapter.ItemHandler {
+class ConfirmNominationsFragment : BaseFragmentOld<ConfirmNominationsViewModel>(), ValidatorsAdapter.ItemHandler {
 
     lateinit var adapter: ValidatorsAdapter
 

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/bg_brand_2">
+
+
+        <ImageView
+            android:id="@+id/im_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_laguna_symb_white"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/tvLogo"
+            style="@style/TextHeadingsH3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/welcome_back"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/tvPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <io.novafoundation.nova.common.view.InputFieldView
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="16dp"
+            app:if_show_title="false"
+            app:if_show_clear="false"
+            app:if_label_visible="false"
+            app:if_input_type="password"
+            app:if_text_hint="@string/enter_your_password"
+            app:layout_constraintBottom_toTopOf="@+id/btnNext" />
+
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/labelSecret"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rect_button_ic_end="@drawable/ic_size_24_arrow_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rect_button_text="@string/unlock" />
+
+
+        <TextView
+            android:id="@+id/labelSecret"
+            style="@style/TextBodyRegularMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="28dp"
+            android:gravity="center"
+            android:text="@string/or"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintBottom_toTopOf="@id/labelSupport"
+            app:layout_constraintEnd_toStartOf="@+id/tvSecret"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSecret"
+            style="@style/TextBodyBoldMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/import_using_secret"
+            android:textColor="@color/indigo500"
+
+            app:layout_constraintBottom_toBottomOf="@id/labelSecret"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/labelSecret"
+            app:layout_constraintTop_toTopOf="@id/labelSecret" />
+
+        <TextView
+            android:id="@+id/labelSupport"
+            style="@style/TextBodyRegularSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/need_help"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvSupport"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSupport"
+            style="@style/TextCaptionRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/contact_support"
+            android:textColor="@color/indigo500"
+
+            app:layout_constraintBottom_toBottomOf="@id/labelSupport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/labelSupport"
+            app:layout_constraintTop_toTopOf="@id/labelSupport" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

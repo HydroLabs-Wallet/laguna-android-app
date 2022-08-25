@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setTextColorRes
 import io.novafoundation.nova.common.utils.toggle
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_review_custom_validators.reviewCu
 import kotlinx.android.synthetic.main.fragment_review_custom_validators.reviewCustomValidatorsNext
 import kotlinx.android.synthetic.main.fragment_review_custom_validators.reviewCustomValidatorsToolbar
 
-class ReviewCustomValidatorsFragment : BaseFragment<ReviewCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
+class ReviewCustomValidatorsFragment : BaseFragmentOld<ReviewCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
 
     private val adapter: ValidatorsAdapter by lazy(LazyThreadSafetyMode.NONE) {
         ValidatorsAdapter(this)

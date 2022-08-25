@@ -16,7 +16,6 @@ interface AccountInteractor {
     suspend fun generateMnemonic(): Mnemonic
 
     fun getCryptoTypes(): List<CryptoType>
-
     suspend fun getPreferredCryptoType(chainId: ChainId? = null): PreferredCryptoType
 
     suspend fun isCodeSet(): Boolean
@@ -32,6 +31,9 @@ interface AccountInteractor {
     suspend fun setBiometricOff()
 
     suspend fun getMetaAccount(metaId: Long): MetaAccount
+
+    suspend fun updateMetaAccountName(metaId: Long, name: String)
+    suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String)
 
     fun lightMetaAccountsFlow(): Flow<List<LightMetaAccount>>
 

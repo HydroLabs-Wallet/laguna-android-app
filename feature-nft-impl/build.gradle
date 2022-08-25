@@ -14,7 +14,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -47,6 +49,14 @@ dependencies {
     implementation androidDep
     implementation materialDep
     implementation constraintDep
+    implementation ciceroneDep
+    implementation ciceroneDep
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
 
     implementation coroutinesDep
     implementation coroutinesAndroidDep

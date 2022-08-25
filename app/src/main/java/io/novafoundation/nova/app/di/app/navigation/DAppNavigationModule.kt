@@ -2,7 +2,7 @@ package io.novafoundation.nova.app.di.app.navigation
 
 import dagger.Module
 import dagger.Provides
-import io.novafoundation.nova.app.root.navigation.NavigationHolder
+import io.novafoundation.nova.app.root.navigation.NavigationHolderOld
 import io.novafoundation.nova.app.root.navigation.dApp.DAppNavigator
 import io.novafoundation.nova.app.root.navigation.dApp.DAppSearchCommunicatorImpl
 import io.novafoundation.nova.app.root.navigation.dApp.DAppSignCommunicatorImpl
@@ -16,17 +16,17 @@ class DAppNavigationModule {
 
     @ApplicationScope
     @Provides
-    fun provideRouter(navigationHolder: NavigationHolder): DAppRouter = DAppNavigator(navigationHolder)
+    fun provideRouter(navigationHolder: NavigationHolderOld): DAppRouter = DAppNavigator(navigationHolder)
 
     @ApplicationScope
     @Provides
-    fun provideSignExtrinsicCommunicator(navigationHolder: NavigationHolder): DAppSignCommunicator {
+    fun provideSignExtrinsicCommunicator(navigationHolder: NavigationHolderOld): DAppSignCommunicator {
         return DAppSignCommunicatorImpl(navigationHolder)
     }
 
     @ApplicationScope
     @Provides
-    fun provideSearchDappCommunicator(navigationHolder: NavigationHolder): DAppSearchCommunicator {
+    fun provideSearchDappCommunicator(navigationHolder: NavigationHolderOld): DAppSearchCommunicator {
         return DAppSearchCommunicatorImpl(navigationHolder)
     }
 }

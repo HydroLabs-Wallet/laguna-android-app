@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeRetries
 import io.novafoundation.nova.common.mixin.impl.observeValidations
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_confirm_payout.confirmPayoutConta
 import kotlinx.android.synthetic.main.fragment_confirm_payout.confirmPayoutExtrinsicInformation
 import kotlinx.android.synthetic.main.fragment_confirm_payout.confirmPayoutToolbar
 
-class ConfirmPayoutFragment : BaseFragment<ConfirmPayoutViewModel>() {
+class ConfirmPayoutFragment : BaseFragmentOld<ConfirmPayoutViewModel>() {
 
     companion object {
         private const val KEY_PAYOUTS = "payouts"

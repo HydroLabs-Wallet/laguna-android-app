@@ -1,9 +1,13 @@
 package io.novafoundation.nova.app.di.app.navigation
 
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import dagger.Module
 import dagger.Provides
-import io.novafoundation.nova.app.root.navigation.NavigationHolder
+import io.novafoundation.nova.app.root.navigation.NavigationHolderOld
 import io.novafoundation.nova.app.root.navigation.Navigator
+import io.novafoundation.nova.app.root.presentation.LocalCiceroneHolder
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.di.scope.ApplicationScope
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
@@ -23,13 +27,14 @@ class NavigationModule {
 
     @ApplicationScope
     @Provides
-    fun provideNavigatorHolder(): NavigationHolder = NavigationHolder()
+    fun provideNavigatorHolderOld(): NavigationHolderOld = NavigationHolderOld()
 
     @ApplicationScope
     @Provides
     fun provideNavigator(
-        navigatorHolder: NavigationHolder
-    ): Navigator = Navigator(navigatorHolder)
+        navigatorHolder: NavigationHolderOld,
+        router: Router
+    ): Navigator = Navigator(navigatorHolder, router)
 
     @Provides
     @ApplicationScope
@@ -54,4 +59,22 @@ class NavigationModule {
     @ApplicationScope
     @Provides
     fun provideCrowdloanRouter(navigator: Navigator): CrowdloanRouter = navigator
+
+    private val cicerone: Cicerone<Router> = Cicerone.create()
+
+    @ApplicationScope
+    @Provides
+    fun provideRouter(): Router {
+        return cicerone.router
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideNavigatorHolder(): NavigatorHolder {
+        return cicerone.getNavigatorHolder()
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideLocalNavigationHolder(): LocalCiceroneHolder = LocalCiceroneHolder()
 }

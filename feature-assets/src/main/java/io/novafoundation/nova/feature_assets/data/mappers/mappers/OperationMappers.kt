@@ -2,20 +2,21 @@ package io.novafoundation.nova.feature_assets.data.mappers.mappers
 
 import androidx.annotation.DrawableRes
 import io.novafoundation.nova.common.resources.ResourceManager
-import io.novafoundation.nova.common.utils.images.asIcon
-import io.novafoundation.nova.feature_account_api.presenatation.account.AddressDisplayUseCase
+import io.novafoundation.nova.common.utils.ellipsis
+import io.novafoundation.nova.common.utils.formatAsCurrency
+import io.novafoundation.nova.common.utils.orZero
 import io.novafoundation.nova.feature_assets.R
 import io.novafoundation.nova.feature_assets.presentation.model.OperationModel
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.model.OperationStatusAppearance
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
+import io.novafoundation.nova.feature_wallet_api.domain.model.Token
 import io.novafoundation.nova.feature_wallet_api.domain.model.amountFromPlanks
-import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatPlanks
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
-import io.novafoundation.nova.runtime.ext.commissionAsset
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import java.math.BigInteger
+import java.util.*
 
 private val Operation.Type.operationStatus
     get() = when (this) {
@@ -24,13 +25,16 @@ private val Operation.Type.operationStatus
         is Operation.Type.Transfer -> status
     }
 
-private fun Chain.Asset.formatPlanksSigned(planks: BigInteger, negative: Boolean): String {
+private fun Chain.Asset.formatPlanksSigned(planks: BigInteger): String {
     val amount = amountFromPlanks(planks)
 
-    val withoutSign = amount.formatTokenAmount(this)
-    val sign = if (negative) '-' else '+'
+    return amount.formatTokenAmount(this)
+}
 
-    return sign + withoutSign
+private fun Chain.Asset.formatDollarPlanksSigned(planks: BigInteger, token: Token, negative: Boolean): String {
+    val amount = amountFromPlanks(planks)
+    val raw = amount.multiply(token.dollarRate?.orZero())
+    return raw.formatAsCurrency()
 }
 
 private val Operation.Type.Transfer.isIncome
@@ -39,16 +43,20 @@ private val Operation.Type.Transfer.isIncome
 private val Operation.Type.Transfer.displayAddress
     get() = if (isIncome) sender else receiver
 
-private fun formatAmount(chainAsset: Chain.Asset, transfer: Operation.Type.Transfer): String {
-    return chainAsset.formatPlanksSigned(transfer.amount, negative = !transfer.isIncome)
+private fun formatAmount(chainAsset: Chain.Asset, transfer: Operation.Type): String {
+    return when (transfer) {
+        is Operation.Type.Extrinsic -> chainAsset.formatPlanksSigned(transfer.fee)
+        is Operation.Type.Reward -> chainAsset.formatPlanksSigned(transfer.amount)
+        is Operation.Type.Transfer -> chainAsset.formatPlanksSigned(transfer.amount)
+    }
 }
 
-private fun formatAmount(chainAsset: Chain.Asset, reward: Operation.Type.Reward): String {
-    return chainAsset.formatPlanksSigned(reward.amount, negative = !reward.isReward)
-}
-
-private fun formatFee(chainAsset: Chain.Asset, extrinsic: Operation.Type.Extrinsic): String {
-    return chainAsset.formatPlanksSigned(extrinsic.fee, negative = true)
+private fun formatDollarAmount(chainAsset: Chain.Asset, token: Token, transfer: Operation.Type): String {
+    return when (transfer) {
+        is Operation.Type.Extrinsic -> chainAsset.formatDollarPlanksSigned(transfer.fee, token, negative = true)
+        is Operation.Type.Reward -> chainAsset.formatDollarPlanksSigned(transfer.amount, token, negative = !transfer.isReward)
+        is Operation.Type.Transfer -> chainAsset.formatDollarPlanksSigned(transfer.amount, token, negative = !transfer.isIncome)
+    }
 }
 
 private fun mapStatusToStatusAppearance(status: Operation.Status): OperationStatusAppearance {
@@ -74,61 +82,66 @@ private fun Operation.Type.Transfer.transferDirectionIcon(): Int {
 suspend fun mapOperationToOperationModel(
     chain: Chain,
     operation: Operation,
-    nameIdentifier: AddressDisplayUseCase.Identifier,
+    token: Token,
     resourceManager: ResourceManager,
+    showValues: Boolean
 ): OperationModel {
     val statusAppearance = mapStatusToStatusAppearance(operation.type.operationStatus)
-    val formattedTime = resourceManager.formatTime(operation.time)
+    val formattedTime = resourceManager.formatMonthDateShort(operation.time)
+    val isNotNative = chain.name.lowercase() != operation.chainAsset.priceId
 
     return with(operation) {
         when (val operationType = type) {
             is Operation.Type.Reward -> {
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
+                    operation = operation,
                     formattedTime = formattedTime,
-                    amount = formatAmount(chainAsset, operationType),
-                    amountColorRes = if (operationType.isReward) R.color.green else R.color.white,
-                    header = resourceManager.getString(
-                        if (operationType.isReward) R.string.staking_reward else R.string.staking_slash
-                    ),
-                    statusAppearance = statusAppearance,
-                    operationIcon = resourceManager.getDrawable(R.drawable.ic_staking_filled).asIcon(),
-                    subHeader = resourceManager.getString(R.string.tabbar_staking_title),
+                    icon = operation.chainAsset.iconUrl ?: chain.icon,
+                    notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
+                    title = operation.chainAsset.name,
+                    subtitle = operationType.validator.orEmpty().ellipsis(),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
+                    statusAppearance = statusAppearance
                 )
             }
 
             is Operation.Type.Transfer -> {
-                val amountColor = when {
-                    operationType.status == Operation.Status.FAILED -> R.color.gray2
-                    operationType.isIncome -> R.color.green
-                    else -> R.color.white
-                }
-
+                var name = token.configuration.priceId ?: token.configuration.name
+                name = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
+                    operation = operation,
                     formattedTime = formattedTime,
-                    amount = formatAmount(chainAsset, operationType),
-                    amountColorRes = amountColor,
-                    header = nameIdentifier.nameOrAddress(operationType.displayAddress),
-                    statusAppearance = statusAppearance,
-                    operationIcon = resourceManager.getDrawable(operationType.transferDirectionIcon()).asIcon(),
-                    subHeader = resourceManager.getString(R.string.transfer_title),
+                    icon = operation.chainAsset.iconUrl ?: chain.icon,
+                    notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
+                    title = name,
+                    subtitle = operationType.receiver.ellipsis(),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
+                    statusAppearance = statusAppearance
                 )
             }
 
             is Operation.Type.Extrinsic -> {
-
-                val amountColor = if (operationType.status == Operation.Status.FAILED) R.color.gray2 else R.color.white
-
+                val amount = if (showValues) formatAmount(chainAsset, operationType) else resourceManager.getString(R.string.value_hidden)
+                val dollarAmount = if (showValues) formatDollarAmount(chainAsset, token, operationType) else resourceManager.getString(R.string.value_hidden)
                 OperationModel(
                     id = id,
+                    operation = operation,
                     formattedTime = formattedTime,
-                    amount = formatFee(chainAsset, operationType),
-                    amountColorRes = amountColor,
-                    header = operationType.formattedCall(),
-                    statusAppearance = statusAppearance,
-                    operationIcon = chain.icon.asIcon(),
-                    subHeader = operationType.formattedModule()
+                    icon = operation.chainAsset.iconUrl ?: chain.icon,
+                    notNativeIcon = if (isNotNative) operation.chainAsset.iconUrl else null,
+                    title = resourceManager.getString(R.string.wallet_filters_extrinsics),
+                    subtitle = resourceManager.getString(R.string.common_unknown),
+                    amount = amount,
+                    dollarAmount = dollarAmount,
+                    statusAppearance = statusAppearance
                 )
             }
         }
@@ -137,30 +150,42 @@ suspend fun mapOperationToOperationModel(
 
 suspend fun mapOperationToParcel(
     operation: Operation,
+    token: Token,
     chainRegistry: ChainRegistry,
     resourceManager: ResourceManager,
 ): OperationParcelizeModel {
     with(operation) {
-        return when (val operationType = operation.type) {
+        return when (val operationType = type) {
             is Operation.Type.Transfer -> {
                 val chain = chainRegistry.getChain(chainAsset.chainId)
 
-                val feeFormatted = operationType.fee?.formatPlanks(chain.commissionAsset)
-                    ?: resourceManager.getString(R.string.common_unknown)
+                val isNotNative = chain.name.lowercase() != chainAsset.priceId
+                var name = token.configuration.priceId ?: token.configuration.name
+                name = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
+                val amount = operation.chainAsset.amountFromPlanks(operationType.amount)
+                val fee = operation.chainAsset.amountFromPlanks(operationType.fee.orZero())
+                val total = fee.add(amount)
                 OperationParcelizeModel.Transfer(
-                    chainId = operation.chainAsset.chainId,
-                    assetId = operation.chainAsset.id,
-                    time = time,
-                    address = address,
                     hash = operationType.hash,
-                    amount = formatAmount(operation.chainAsset, operationType),
-                    receiver = operationType.receiver,
-                    sender = operationType.sender,
-                    fee = feeFormatted,
-                    isIncome = operationType.isIncome,
+
+                    chainId = chainAsset.chainId,
+                    assetId = chainAsset.id,
+                    icon = chainAsset.iconUrl ?: chain.icon,
+                    notNativeIcon = if (isNotNative) chainAsset.iconUrl else null,
+                    name = name,
+                    time = resourceManager.formatDateTime(time),
                     statusAppearance = mapStatusToStatusAppearance(operationType.operationStatus),
-                    transferDirectionIcon = operationType.transferDirectionIcon()
+                    amount = amount.formatTokenAmount(operation.chainAsset),
+                    dollarAmount = formatDollarAmount(chainAsset, token, operationType),
+                    fee = fee.formatTokenAmount(operation.chainAsset),
+                    dollarFee = fee.multiply(token.dollarRate.orZero()).formatAsCurrency(),
+                    totalAmount = total.formatTokenAmount(operation.chainAsset),
+                    totalDollarAmount = total.multiply(token.dollarRate.orZero()).formatAsCurrency(),
+                    sender = operationType.sender,
+                    receiver = operationType.receiver,
+                    address = address,
+                    isIncome = operationType.isIncome
                 )
             }
 
@@ -172,7 +197,7 @@ suspend fun mapOperationToParcel(
                     eventId = id,
                     address = address,
                     time = time,
-                    amount = formatAmount(chainAsset, operationType),
+                    amount = formatAmount(operation.chainAsset, operationType),
                     type = resourceManager.getString(typeRes),
                     era = resourceManager.getString(R.string.staking_era_index_no_prefix, operationType.era),
                     validator = operationType.validator,
@@ -188,7 +213,7 @@ suspend fun mapOperationToParcel(
                     hash = operationType.hash,
                     module = operationType.formattedModule(),
                     call = operationType.formattedCall(),
-                    fee = formatFee(chainAsset, operationType),
+                    fee = formatAmount(chainAsset, operationType),
                     statusAppearance = mapStatusToStatusAppearance(operationType.operationStatus)
                 )
             }

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import io.novafoundation.nova.feature_assets.R
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.view.bindFromMap
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_asset_filters.assetsFilterSwitchZ
 import kotlinx.android.synthetic.main.fragment_asset_filters.assetsFilterToolbar
 import javax.inject.Inject
 
-class AssetFiltersFragment : BaseFragment<AssetFiltersViewModel>() {
+class AssetFiltersFragment : BaseFragmentOld<AssetFiltersViewModel>() {
 
     @Inject
     lateinit var imageLoader: ImageLoader

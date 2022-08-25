@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
 import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -32,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_advanced_encryption.advancedEncry
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class AdvancedEncryptionFragment : BaseFragment<AdvancedEncryptionViewModel>() {
+class AdvancedEncryptionFragment : BaseFragmentOld<AdvancedEncryptionViewModel>() {
 
     companion object {
 

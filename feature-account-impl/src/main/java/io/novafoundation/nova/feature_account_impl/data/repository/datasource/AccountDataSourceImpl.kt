@@ -209,6 +209,10 @@ class AccountDataSourceImpl(
         metaAccountDao.updateName(metaId, newName)
     }
 
+    override suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteMetaAccount(metaId: Long) {
         val joinedMetaAccountInfo = metaAccountDao.getJoinedMetaAccountInfo(metaId)
         val chainAccountIds = joinedMetaAccountInfo.chainAccounts.map(ChainAccountLocal::accountId)

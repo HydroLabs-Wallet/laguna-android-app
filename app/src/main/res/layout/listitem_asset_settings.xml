@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        tools:background="@color/red400">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_btn_rect_tertriary_active">
+
+            <ImageView
+                android:id="@+id/imIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/bg_asset_secondary_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:backgroundTint="@color/indigo500"
+                android:padding="3dp"
+                android:rotation="90"
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imIcon"
+
+                app:layout_constraintTop_toTopOf="@+id/imIcon"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@id/tvTokenAmount"
+                app:layout_constraintStart_toEndOf="@+id/imIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Polkadot" />
+
+            <TextView
+                android:id="@+id/tvTokenAmount"
+                style="@style/TextCaptionRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="1.26 DOT" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/vSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:checked="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbTint="@color/switch_thumb_color"
+                app:trackTint="@color/neutral200" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

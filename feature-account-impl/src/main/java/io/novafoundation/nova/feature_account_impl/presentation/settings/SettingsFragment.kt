@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_profile.settingsWallets
 import kotlinx.android.synthetic.main.fragment_profile.settingsWebsite
 import kotlinx.android.synthetic.main.fragment_profile.settingsYoutube
 
-class SettingsFragment : BaseFragment<SettingsViewModel>() {
+class SettingsFragment : BaseFragmentOld<SettingsViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

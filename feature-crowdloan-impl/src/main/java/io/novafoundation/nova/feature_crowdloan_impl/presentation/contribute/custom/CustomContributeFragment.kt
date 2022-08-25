@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.view.ButtonState
 import io.novafoundation.nova.feature_crowdloan_api.di.CrowdloanFeatureApi
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 private const val KEY_PAYLOAD = "KEY_PAYLOAD"
 
-class CustomContributeFragment : BaseFragment<CustomContributeViewModel>() {
+class CustomContributeFragment : BaseFragmentOld<CustomContributeViewModel>() {
 
     @Inject
     protected lateinit var contributionManager: CustomContributeManager

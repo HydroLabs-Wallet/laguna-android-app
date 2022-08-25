@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_assets.presentation.transaction.history.mixin
 
 import io.novafoundation.nova.feature_assets.presentation.model.OperationModel
+import io.novafoundation.nova.feature_assets.presentation.transaction.history.model.OperationMarker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
@@ -17,7 +18,7 @@ interface TransactionHistoryUi {
 
             object EmptyProgress : State.ListState()
 
-            class Data(val items: List<Any>) : State.ListState()
+            class Data(val items: List<OperationMarker>) : State.ListState()
         }
     }
 

@@ -2,7 +2,7 @@ package io.novafoundation.nova.feature_account_impl.presentation.common.mixin.im
 
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.utils.onTextChanged
 import io.novafoundation.nova.common.utils.setVisible
@@ -10,7 +10,7 @@ import io.novafoundation.nova.common.view.InputField
 import io.novafoundation.nova.feature_account_impl.presentation.common.mixin.api.AccountNameChooserMixin
 import io.novafoundation.nova.feature_account_impl.presentation.common.mixin.api.WithAccountNameChooserMixin
 
-fun <V> BaseFragment<V>.setupAccountNameChooserUi(
+fun <V> BaseFragmentOld<V>.setupAccountNameChooserUi(
     viewModel: V,
     ui: InputField,
     additionalViewsToControlVisibility: List<View> = emptyList(),

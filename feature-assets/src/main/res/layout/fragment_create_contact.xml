@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semitransparent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_grey"
+            android:backgroundTint="@color/white"
+            android:paddingTop="38dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="26dp"
+                android:gravity="center"
+
+                android:text="@string/new_contact"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/holder_contact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:id="@+id/btnClose"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_size_24_cross"
+                app:tint="@color/contentPrimary"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTitle" />
+            <LinearLayout
+                android:id="@+id/holder_contact"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvName"
+                android:layout_marginStart="@dimen/margin_24"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="@dimen/margin_24"
+                android:background="@drawable/bg_rounded_8_black"
+                android:backgroundTint="@color/neutral100"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+               >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/bg_asset_primary" />
+
+                <TextView
+                    android:id="@+id/tvContact"
+                    style="@style/TextBodyRegularMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/contentPrimary"
+                    tools:text="42342342343" />
+            </LinearLayout>
+
+            <io.novafoundation.nova.common.view.InputFieldView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="32dp"
+                app:if_title="@string/contact_name"
+
+                app:if_text_hint="@string/enter_name"
+                app:layout_constraintBottom_toTopOf="@+id/btnNext" />
+
+            <io.novafoundation.nova.common.view.RectButtonView
+                android:id="@id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_26"
+                android:layout_marginEnd="@dimen/margin_26"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:rect_button_text="@string/save_to_contact" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

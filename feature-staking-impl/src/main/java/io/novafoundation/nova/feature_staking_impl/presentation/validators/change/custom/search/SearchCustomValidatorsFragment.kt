@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.bindTo
 import io.novafoundation.nova.common.utils.setVisible
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_search_custom_validators.searchCu
 import kotlinx.android.synthetic.main.fragment_search_custom_validators.searchCustomValidatorsPlaceholder
 import kotlinx.android.synthetic.main.fragment_search_custom_validators.searchCustomValidatorsToolbar
 
-class SearchCustomValidatorsFragment : BaseFragment<SearchCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
+class SearchCustomValidatorsFragment : BaseFragmentOld<SearchCustomValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
 
     private val adapter: ValidatorsAdapter by lazy(LazyThreadSafetyMode.NONE) {
         ValidatorsAdapter(this)

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.utils.bindTo
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 private const val PAYLOAD_KEY = "DAppSignExtrinsicFragment.Payload"
 
-class AddToFavouritesFragment : BaseFragment<AddToFavouritesViewModel>() {
+class AddToFavouritesFragment : BaseFragmentOld<AddToFavouritesViewModel>() {
 
     companion object {
 

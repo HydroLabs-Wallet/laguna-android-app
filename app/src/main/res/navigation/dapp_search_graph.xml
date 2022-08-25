@@ -14,10 +14,7 @@
         <action
             android:id="@+id/action_dappSearchFragment_to_dapp_browser_graph"
             app:destination="@id/dapp_browser_graph"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
+
             app:popUpTo="@id/dapp_search_graph"
             app:popUpToInclusive="true" />
     </fragment>

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.presentation.LoadingState
 import io.novafoundation.nova.common.utils.makeGone
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_current_validators.currentValidat
 import kotlinx.android.synthetic.main.fragment_current_validators.currentValidatorsProgress
 import kotlinx.android.synthetic.main.fragment_current_validators.currentValidatorsToolbar
 
-class CurrentValidatorsFragment : BaseFragment<CurrentValidatorsViewModel>(), CurrentValidatorsAdapter.Handler {
+class CurrentValidatorsFragment : BaseFragmentOld<CurrentValidatorsViewModel>(), CurrentValidatorsAdapter.Handler {
 
     lateinit var adapter: CurrentValidatorsAdapter
 

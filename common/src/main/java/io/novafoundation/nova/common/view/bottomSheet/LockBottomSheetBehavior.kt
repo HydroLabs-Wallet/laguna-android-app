@@ -25,7 +25,6 @@ class LockBottomSheetBehavior<V : View> @JvmOverloads constructor(
         }
     }
 
-    var isDraggable = true
 
     override fun onInterceptTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
         return if (isDraggable) super.onInterceptTouchEvent(parent, child, event) else false

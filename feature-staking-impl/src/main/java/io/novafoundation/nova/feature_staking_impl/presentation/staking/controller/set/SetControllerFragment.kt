@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_set_controller_account.setControl
 import kotlinx.android.synthetic.main.fragment_set_controller_account.setControllerSwitchToStashWarning
 import kotlinx.android.synthetic.main.fragment_set_controller_account.setControllerToolbar
 
-class SetControllerFragment : BaseFragment<SetControllerViewModel>() {
+class SetControllerFragment : BaseFragmentOld<SetControllerViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

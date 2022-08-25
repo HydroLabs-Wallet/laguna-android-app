@@ -31,6 +31,7 @@ data class AssetLocal(
     val bondedInPlanks: BigInteger,
     val redeemableInPlanks: BigInteger,
     val unbondingInPlanks: BigInteger,
+    val hasIncomeHistory: Boolean
 ) {
     companion object {
         fun createEmpty(
@@ -46,7 +47,8 @@ data class AssetLocal(
             frozenInPlanks = BigInteger.ZERO,
             bondedInPlanks = BigInteger.ZERO,
             redeemableInPlanks = BigInteger.ZERO,
-            unbondingInPlanks = BigInteger.ZERO
+            unbondingInPlanks = BigInteger.ZERO,
+            hasIncomeHistory = false
         )
     }
 }

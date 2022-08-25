@@ -3,6 +3,7 @@ package io.novafoundation.nova.runtime.multiNetwork.chain.model
 import io.novafoundation.nova.common.utils.Identifiable
 import io.novafoundation.nova.runtime.multiNetwork.ChainGradientParser
 import java.math.BigInteger
+import java.util.*
 
 typealias ChainId = String
 typealias StringTemplate = String
@@ -56,6 +57,8 @@ data class Chain(
         val type: Type,
         val name: String,
     ) : Identifiable {
+        val assetName: String = (priceId ?: name)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
         sealed class Type {
             object Native : Type()

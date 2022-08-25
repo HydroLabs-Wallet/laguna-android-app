@@ -9,6 +9,8 @@ import io.novafoundation.nova.common.utils.daysFromMillis
 import io.novafoundation.nova.common.utils.formatDateTime
 import io.novafoundation.nova.common.utils.getDrawableCompat
 import io.novafoundation.nova.common.utils.readText
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.time.ExperimentalTime
 import kotlin.time.milliseconds
 
@@ -25,6 +27,10 @@ class ResourceManagerImpl(
 
     override fun getString(res: Int): String {
         return contextManager.getContext().getString(res)
+    }
+
+    override fun getStringArray(res: Int): Array<String> {
+        return contextManager.getContext().resources.getStringArray(res)
     }
 
     override fun getString(res: Int, vararg arguments: Any): String {
@@ -55,6 +61,21 @@ class ResourceManagerImpl(
 
     override fun formatTime(timestamp: Long): String {
         return DateUtils.formatDateTime(contextManager.getContext(), timestamp, DateUtils.FORMAT_SHOW_TIME)
+    }
+
+    override fun formatMonthDateShort(timestamp: Long): String {
+        val df = SimpleDateFormat("MMM dd")
+        return df.format(Date(timestamp))
+    }
+
+    override fun formatMonthDateLong(timestamp: Long): String {
+        val df = SimpleDateFormat("MMMM, dd")
+        return df.format(Date(timestamp))
+    }
+
+    override fun formatDateTime(timestamp: Long): String {
+        val df = SimpleDateFormat("MMMM dd 'at' h:mm a")
+        return df.format(Date(timestamp))
     }
 
     @OptIn(ExperimentalTime::class)

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        tools:background="@color/red400">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_btn_rect_tertriary_active">
+
+            <ImageView
+                android:id="@+id/imIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/circle_black"
+                android:src="@drawable/bg_asset_secondary_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:backgroundTint="@color/indigo500"
+                android:padding="3dp"
+                android:rotation="90"
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imIcon"
+
+                app:layout_constraintTop_toTopOf="@+id/imIcon"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBodyBoldMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintBottom_toTopOf="@id/tvAddress"
+                app:layout_constraintStart_toEndOf="@+id/imIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Polkadot" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                style="@style/TextCaptionRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvAssetQuantity"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="1.26 DOT" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                style="@style/TextBodyBoldMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="end"
+                android:textColor="@color/contentPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle"
+                tools:text="$4,200.04" />
+
+            <TextView
+                android:id="@+id/tvAssetQuantity"
+                style="@style/TextCaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="@id/tvTokenAmount"
+                app:layout_constraintEnd_toEndOf="@id/tvAmount"
+                app:layout_constraintTop_toTopOf="@id/tvAddress"
+                tools:text="- 0.423 %" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

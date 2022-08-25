@@ -14,10 +14,7 @@
         <action
             android:id="@+id/action_importAccountFragment_to_pincodeFragment"
             app:destination="@id/pincodeFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
+
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true">
 
@@ -40,9 +37,6 @@
     <action
         android:id="@+id/action_open_advancedEncryptionFragment"
         app:destination="@+id/advancedEncryptionFragment"
-        app:enterAnim="@anim/fragment_open_enter"
-        app:exitAnim="@anim/fragment_open_exit"
-        app:popEnterAnim="@anim/fragment_close_enter"
-        app:popExitAnim="@anim/fragment_close_exit" />
+        />
 
 </navigation>

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.lifecycle.lifecycleScope
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.bindTo
 import io.novafoundation.nova.common.view.ButtonState
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_custom_validators_settings.custom
 import kotlinx.android.synthetic.main.fragment_custom_validators_settings.customValidatorSettingsSortTotalStake
 import kotlinx.android.synthetic.main.fragment_custom_validators_settings.customValidatorSettingsToolbar
 
-class CustomValidatorsSettingsFragment : BaseFragment<CustomValidatorsSettingsViewModel>() {
+class CustomValidatorsSettingsFragment : BaseFragmentOld<CustomValidatorsSettingsViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -2,7 +2,7 @@ package io.novafoundation.nova.app.di.app.navigation
 
 import dagger.Module
 import dagger.Provides
-import io.novafoundation.nova.app.root.navigation.NavigationHolder
+import io.novafoundation.nova.app.root.navigation.NavigationHolderOld
 import io.novafoundation.nova.app.root.navigation.Navigator
 import io.novafoundation.nova.app.root.navigation.account.AdvancedEncryptionCommunicatorImpl
 import io.novafoundation.nova.common.di.scope.ApplicationScope
@@ -15,7 +15,7 @@ class AccountNavigationModule {
     @Provides
     @ApplicationScope
     fun provideAdvancedEncryptionCommunicator(
-        navigationHolder: NavigationHolder
+        navigationHolder: NavigationHolderOld
     ): AdvancedEncryptionCommunicator = AdvancedEncryptionCommunicatorImpl(navigationHolder)
 
     @ApplicationScope

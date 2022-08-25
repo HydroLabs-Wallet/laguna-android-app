@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.mixin.impl.observeValidations
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_redeem.redeemToolbar
 
 private const val PAYLOAD_KEY = "PAYLOAD_KEY"
 
-class RedeemFragment : BaseFragment<RedeemViewModel>() {
+class RedeemFragment : BaseFragmentOld<RedeemViewModel>() {
 
     companion object {
 

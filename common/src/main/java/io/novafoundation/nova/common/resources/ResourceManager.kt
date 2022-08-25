@@ -10,7 +10,7 @@ interface ResourceManager {
     fun loadRawString(@RawRes res: Int): String
 
     fun getString(res: Int): String
-
+    fun getStringArray(res: Int): Array<String>
     fun getString(res: Int, vararg arguments: Any): String
 
     fun getColor(res: Int): Int
@@ -23,6 +23,9 @@ interface ResourceManager {
     fun formatDate(timestamp: Long): String
     fun formatDuration(elapsedTime: Long): String
     fun formatTime(timestamp: Long): String
+    fun formatMonthDateShort(timestamp: Long): String
+    fun formatMonthDateLong(timestamp: Long): String
+    fun formatDateTime(timestamp: Long): String
 
     fun getDrawable(@DrawableRes id: Int): Drawable
 }

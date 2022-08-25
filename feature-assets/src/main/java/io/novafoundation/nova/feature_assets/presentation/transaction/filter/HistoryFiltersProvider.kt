@@ -18,6 +18,7 @@ class HistoryFiltersProviderFactory(
     suspend fun get(lifecycle: Lifecycle) = computationalCache.useCache(FILTERS__PROVIDER_TAG, lifecycle) {
         HistoryFiltersProvider()
     }
+    suspend fun get()= HistoryFiltersProvider()
 }
 
 class HistoryFiltersProvider {

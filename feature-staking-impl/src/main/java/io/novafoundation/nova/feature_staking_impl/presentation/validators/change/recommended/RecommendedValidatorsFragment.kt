@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.feature_staking_api.di.StakingFeatureApi
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_recommended_validators.recommende
 import kotlinx.android.synthetic.main.fragment_recommended_validators.recommendedValidatorsProgress
 import kotlinx.android.synthetic.main.fragment_recommended_validators.recommendedValidatorsToolbar
 
-class RecommendedValidatorsFragment : BaseFragment<RecommendedValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
+class RecommendedValidatorsFragment : BaseFragmentOld<RecommendedValidatorsViewModel>(), ValidatorsAdapter.ItemHandler {
 
     lateinit var adapter: ValidatorsAdapter
 

@@ -6,11 +6,7 @@ import dagger.Subcomponent
 import io.novafoundation.nova.app.root.presentation.RootActivity
 import io.novafoundation.nova.common.di.scope.ScreenScope
 
-@Subcomponent(
-    modules = [
-        RootActivityModule::class
-    ]
-)
+@Subcomponent()
 @ScreenScope
 interface RootActivityComponent {
 

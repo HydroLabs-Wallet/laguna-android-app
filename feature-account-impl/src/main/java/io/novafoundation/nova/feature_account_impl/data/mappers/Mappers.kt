@@ -18,7 +18,6 @@ import io.novafoundation.nova.feature_account_api.domain.model.addressIn
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.R
 import io.novafoundation.nova.feature_account_impl.presentation.common.mixin.api.AccountNameChooserMixin
-import io.novafoundation.nova.feature_account_impl.presentation.node.model.NodeModel
 import io.novafoundation.nova.feature_account_impl.presentation.view.advanced.encryption.model.CryptoTypeModel
 import io.novafoundation.nova.feature_account_impl.presentation.view.advanced.network.model.NetworkModel
 import io.novafoundation.nova.runtime.ext.addressOf
@@ -58,20 +57,7 @@ fun mapCryptoTypeToCryptoTypeModel(
     return CryptoTypeModel(name, encryptionType)
 }
 
-fun mapNodeToNodeModel(node: Node): NodeModel {
-    val networkModelType = mapNetworkTypeToNetworkModel(node.networkType)
 
-    return with(node) {
-        NodeModel(
-            id = id,
-            name = name,
-            link = link,
-            networkModelType = networkModelType.networkTypeUI,
-            isDefault = isDefault,
-            isActive = isActive
-        )
-    }
-}
 
 fun mapNodeLocalToNode(nodeLocal: NodeLocal): Node {
     return with(nodeLocal) {
@@ -173,7 +159,7 @@ fun mapAddAccountPayloadToAddAccountType(
     accountNameState: AccountNameChooserMixin.State,
 ): AddAccountType {
     return when (payload) {
-        AddAccountPayload.MetaAccount -> {
+        is AddAccountPayload.MetaAccount -> {
             require(accountNameState is AccountNameChooserMixin.State.Input) { "Name input should be present for meta account" }
 
             AddAccountType.MetaAccount(accountNameState.value)

@@ -5,42 +5,26 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.asFlow
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import com.github.terrakok.cicerone.ResultListener
+import com.github.terrakok.cicerone.Router
 import io.novafoundation.nova.app.R
+import io.novafoundation.nova.app.root.navigation.screens.Screens
 import io.novafoundation.nova.app.root.presentation.RootRouter
+import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.EditFieldPayload
+import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
 import io.novafoundation.nova.common.utils.postToUiThread
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
-import io.novafoundation.nova.feature_account_api.presenatation.account.add.ImportAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
-import io.novafoundation.nova.feature_account_impl.presentation.account.create.CreateAccountFragment
-import io.novafoundation.nova.feature_account_impl.presentation.account.details.AccountDetailsFragment
-import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountChosenNavDirection
-import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountListFragment
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.ExportPayload
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.confirm.ExportJsonConfirmFragment
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.confirm.ExportJsonConfirmPayload
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.password.ExportJsonPasswordFragment
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.seed.ExportSeedFragment
-import io.novafoundation.nova.feature_account_impl.presentation.importing.ImportAccountFragment
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.backup.BackupMnemonicFragment
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.backup.BackupMnemonicPayload
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.ConfirmMnemonicFragment
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.ConfirmMnemonicPayload
-import io.novafoundation.nova.feature_account_impl.presentation.node.details.NodeDetailsFragment
-import io.novafoundation.nova.feature_account_impl.presentation.pincode.PinCodeAction
-import io.novafoundation.nova.feature_account_impl.presentation.pincode.PincodeFragment
-import io.novafoundation.nova.feature_account_impl.presentation.pincode.ToolbarConfiguration
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
-import io.novafoundation.nova.feature_assets.presentation.balance.detail.BalanceDetailFragment
+import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.receive.ReceiveFragment
+import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
-import io.novafoundation.nova.feature_assets.presentation.send.amount.SelectSendFragment
-import io.novafoundation.nova.feature_assets.presentation.send.confirm.ConfirmSendFragment
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.extrinsic.ExtrinsicDetailFragment
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.reward.RewardDetailFragment
-import io.novafoundation.nova.feature_assets.presentation.transaction.detail.transfer.TransferDetailFragment
+import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.CrowdloanRouter
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.confirm.ConfirmContributeFragment
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.contribute.confirm.parcel.ConfirmContributePayload
@@ -83,7 +67,8 @@ import kotlinx.coroutines.flow.Flow
 class NavComponentDelayedNavigation(val globalActionId: Int, val extras: Bundle? = null) : DelayedNavigation
 
 class Navigator(
-    private val navigationHolder: NavigationHolder,
+    private val navigationHolder: NavigationHolderOld,
+    private val router: Router
 ) :
     SplashRouter,
     OnboardingRouter,
@@ -96,18 +81,162 @@ class Navigator(
     private val navController: NavController?
         get() = navigationHolder.navController
 
-    override fun openAddFirstAccount() {
-        navController?.navigate(R.id.action_splash_to_onboarding, WelcomeFragment.bundle(false))
+    override fun setResult(key: String, data: Any) {
+        router.sendResult(key, data)
+    }
+
+    override fun setResultListener(key: String, listener: ResultListener) {
+        router.setResultListener(key, listener)
+    }
+
+    override fun lockApp() {
+        router.newRootScreen(Screens.toLoginScreen())
+    }
+
+    override fun toPasswordConfirm(data: ConfirmPayload) {
+        router.navigateTo(Screens.toPasswordConfirm(data))
+
+
+    }
+
+    override fun toEditField(data: EditFieldPayload) {
+        router.navigateTo(Screens.toEditField(data))
+    }
+
+    // SplashScreen
+    override fun toSplashScreen() {
+        router.navigateTo(Screens.toSplashScreen())
+    }
+
+    //Onboarding and account creation
+    override fun toSeedPromptScreen(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedPromptScreen(payload))
+    }
+
+    override fun toSeedCreate(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedCreateScreen(payload))
+    }
+
+    override fun toSeedInfo() {
+        router.navigateTo(Screens.showSeedInfoDialog())
+    }
+
+    override fun toSeedWarning() {
+        router.navigateTo(Screens.showSeedWarningDialog())
+
+    }
+
+    override fun toAccountImport(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAccountImportScreen(payload))
+    }
+
+    override fun toAccountImportInfo() {
+        router.navigateTo(Screens.toAccountImportInfoScreen())
+    }
+
+
+    override fun toCreatePassword(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toCreatePasswordScreen(payload))
+    }
+
+    override fun toAccountComplete(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAccountCreatedScreen(payload))
+    }
+
+    override fun toSeedConfirm(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toSeedConfirmScreen(payload))
+    }
+
+    override fun toOnboardingScreen() {
+        router.navigateTo(Screens.toOnboardingScreen(AddAccountPayload.MetaAccount(true)))
+    }
+
+    // Login
+    override fun toLoginScreen() {
+        router.navigateTo(Screens.toLoginScreen())
+    }
+
+    // Dashboard
+    override fun backToDashBoard() {
+        router.backTo(Screens.toDashboardScreen())
+    }
+
+    override fun toDashboard() {
+        router.navigateTo(Screens.toDashboardScreen())
+    }
+
+    override fun toMenu() {
+        router.navigateTo(Screens.toMenu())
+    }
+
+    override fun toChainsSettings() {
+        router.navigateTo(Screens.toChainSettings())
+    }
+
+    override fun toSelectAccount(data: SelectAccountPayload) {
+        router.navigateTo(Screens.toSelectAccountScreen(data))
+    }
+
+    // assets
+
+    override fun toAssetSelectionToReceive() {
+        router.navigateTo(Screens.toAssetChooseScreen())
+    }
+
+    override fun toAssetReceive(assetPayload: AssetPayload) {
+        router.navigateTo(Screens.toAssetReceiveScreen(assetPayload))
+    }
+
+    override fun toAssetReceiveChooser(payload: AssetReceivePayload) {
+        router.navigateTo(Screens.toAssetReceiveChooserScreen(payload))
+    }
+
+    override fun toAssetDetails(data: AssetPayload) {
+        router.navigateTo(Screens.toAssetDetails(data))
+    }
+
+    override fun showSendReceiveDialog(data: SendReceivePayload) {
+        router.navigateTo(Screens.toSendReceivePopupScreen(data))
+    }
+
+    // transactions
+    override fun toAssetTransaction(data: AssetPayload) {
+        router.navigateTo(Screens.toAssetTransactions(data))
+    }
+
+    override fun toTransferDetails(data: OperationParcelizeModel.Transfer) {
+        router.navigateTo(Screens.toTransferDetails(data))
+    }
+
+    //send
+    override fun toSendAssetChooser() {
+        router.navigateTo(Screens.toSendAssetChooser())
+    }
+
+    override fun toSendAddressChooser(data: AssetPayload) {
+        router.navigateTo(Screens.toSendAddressChooser(data))
+    }
+
+    override fun toSendFill(data: TransferDraft) {
+        router.navigateTo(Screens.toSendFill(data))
+    }
+
+    override fun toSendConfirm(data: TransferDraft) {
+        router.navigateTo(Screens.toSendConfirm(data))
+    }
+
+    override fun toCreateContact(data: ContactPayload) {
+        router.navigateTo(Screens.toCreateContact(data))
     }
 
     override fun openInitialCheckPincode() {
-        val action = PinCodeAction.Check(NavComponentDelayedNavigation(R.id.action_open_main), ToolbarConfiguration())
-        val bundle = PincodeFragment.getPinCodeBundle(action)
-        navController?.navigate(R.id.action_splash_to_pin, bundle)
+//        val action = PinCodeAction.Check(NavComponentDelayedNavigation(R.id.action_open_main), ToolbarConfiguration())
+//        val bundle = PincodeFragment.getPinCodeBundle(action)
+//        navController?.navigate(R.id.action_splash_to_pin, bundle)
     }
 
     override fun openCreateAccount(addAccountPayload: AddAccountPayload.MetaAccount) {
-        navController?.navigate(R.id.action_welcomeFragment_to_createAccountFragment, CreateAccountFragment.getBundle(addAccountPayload))
+//        navController?.navigate(R.id.action_welcomeFragment_to_createAccountFragment, CreateAccountFragment.getBundle(addAccountPayload))
     }
 
     override fun openMain() {
@@ -119,54 +248,42 @@ class Navigator(
 
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.pincodeFragment, true)
-            .setEnterAnim(R.anim.fragment_open_enter)
-            .setExitAnim(R.anim.fragment_open_exit)
-            .setPopEnterAnim(R.anim.fragment_close_enter)
-            .setPopExitAnim(R.anim.fragment_close_exit)
             .build()
 
         navController?.navigate(delayedNavigation.globalActionId, delayedNavigation.extras, navOptions)
     }
 
-    override fun openCreatePincode() {
-        val bundle = buildCreatePinBundle()
+//    override fun openCreatePincode() {
+//        val bundle = buildCreatePinBundle()
+//
+//        when (navController?.currentDestination?.id) {
+//            R.id.splashFragment -> navController?.navigate(R.id.action_splash_to_pin, bundle)
+//            R.id.importAccountFragment -> navController?.navigate(R.id.action_importAccountFragment_to_pincodeFragment, bundle)
+//            R.id.confirmMnemonicFragment -> navController?.navigate(R.id.action_confirmMnemonicFragment_to_pincodeFragment, bundle)
+//        }
+//    }
 
-        when (navController?.currentDestination?.id) {
-            R.id.splashFragment -> navController?.navigate(R.id.action_splash_to_pin, bundle)
-            R.id.importAccountFragment -> navController?.navigate(R.id.action_importAccountFragment_to_pincodeFragment, bundle)
-            R.id.confirmMnemonicFragment -> navController?.navigate(R.id.action_confirmMnemonicFragment_to_pincodeFragment, bundle)
-        }
-    }
 
-    override fun openConfirmMnemonicOnCreate(confirmMnemonicPayload: ConfirmMnemonicPayload) {
-        val bundle = ConfirmMnemonicFragment.getBundle(confirmMnemonicPayload)
-
-        navController?.navigate(
-            R.id.action_backupMnemonicFragment_to_confirmMnemonicFragment,
-            bundle
-        )
-    }
-
-    override fun openImportAccountScreen(payload: ImportAccountPayload) {
-        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
-            R.id.welcomeFragment -> R.id.action_welcomeFragment_to_import_nav_graph
-            R.id.accountDetailsFragment -> R.id.action_accountDetailsFragment_to_import_nav_graph
-            else -> throw IllegalArgumentException("Unknown current destination to open import account screen: $currentDestinationId")
-        }
-
-        navController?.navigate(destination, ImportAccountFragment.getBundle(payload))
-    }
+//    override fun openImportAccountScreen(payload: ImportAccountPayload) {
+//        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
+//            R.id.welcomeFragment -> R.id.action_welcomeFragment_to_import_nav_graph
+//            R.id.accountDetailsFragment -> R.id.action_accountDetailsFragment_to_import_nav_graph
+//            else -> throw IllegalArgumentException("Unknown current destination to open import account screen: $currentDestinationId")
+//        }
+//
+//        navController?.navigate(destination, ImportAccountFragment.getBundle(payload))
+//    }
 
     override fun openMnemonicScreen(accountName: String?, addAccountPayload: AddAccountPayload) {
-        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
-            R.id.welcomeFragment -> R.id.action_welcomeFragment_to_mnemonic_nav_graph
-            R.id.createAccountFragment -> R.id.action_createAccountFragment_to_mnemonic_nav_graph
-            R.id.accountDetailsFragment -> R.id.action_accountDetailsFragment_to_mnemonic_nav_graph
-            else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
-        }
-
-        val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
-        navController?.navigate(destination, BackupMnemonicFragment.getBundle(payload))
+//        val destination = when (val currentDestinationId = navController?.currentDestination?.id) {
+//            R.id.welcomeFragment -> R.id.action_welcomeFragment_to_mnemonic_nav_graph
+//            R.id.createAccountFragment -> R.id.action_createAccountFragment_to_mnemonic_nav_graph
+//            R.id.accountDetailsFragment -> R.id.action_accountDetailsFragment_to_mnemonic_nav_graph
+//            else -> throw IllegalArgumentException("Unknown current destination to open mnemonic screen: $currentDestinationId")
+//        }
+//
+//        val payload = BackupMnemonicPayload.Create(accountName, addAccountPayload)
+//        navController?.navigate(destination, BackupMnemonicFragment.getBundle(payload))
     }
 
     override fun openSetupStaking() {
@@ -248,7 +365,7 @@ class Navigator(
     }
 
     override fun back() {
-        navigationHolder.executeBack()
+        router.exit()
     }
 
     override fun openCustomRebond() {
@@ -333,42 +450,25 @@ class Navigator(
     }
 
     override fun openSend(assetPayload: AssetPayload, initialRecipientAddress: String?) {
-        val extras = SelectSendFragment.getBundle(assetPayload, initialRecipientAddress)
-
-        navController?.navigate(R.id.action_open_send, extras)
+//        val extras = SelectSendFragment.getBundle(assetPayload, initialRecipientAddress)
+//
+//        navController?.navigate(R.id.action_open_send, extras)
     }
 
     override fun openConfirmTransfer(transferDraft: TransferDraft) {
-        val bundle = ConfirmSendFragment.getBundle(transferDraft)
-
-        navController?.navigate(R.id.action_chooseAmountFragment_to_confirmTransferFragment, bundle)
+//        val bundle = ConfirmSendFragment.getBundle(transferDraft)
+//
+//        navController?.navigate(R.id.action_chooseAmountFragment_to_confirmTransferFragment, bundle)
     }
 
     override fun finishSendFlow() {
         navController?.navigate(R.id.finish_send_flow)
     }
 
-    override fun openTransferDetail(transaction: OperationParcelizeModel.Transfer) {
-        val bundle = TransferDetailFragment.getBundle(transaction)
 
-        navController?.navigate(R.id.open_transfer_detail, bundle)
-    }
-
-    override fun openRewardDetail(reward: OperationParcelizeModel.Reward) {
-        val bundle = RewardDetailFragment.getBundle(reward)
-
-        navController?.navigate(R.id.open_reward_detail, bundle)
-    }
-
-    override fun openExtrinsicDetail(extrinsic: OperationParcelizeModel.Extrinsic) {
-        val bundle = ExtrinsicDetailFragment.getBundle(extrinsic)
-
-        navController?.navigate(R.id.open_extrinsic_detail, bundle)
-    }
-
-    override fun openAccounts(accountChosenNavDirection: AccountChosenNavDirection) {
-        navController?.navigate(R.id.action_open_accounts, AccountListFragment.getBundle(accountChosenNavDirection))
-    }
+//    override fun openAccounts(accountChosenNavDirection: AccountChosenNavDirection) {
+//        navController?.navigate(R.id.action_open_accounts, AccountListFragment.getBundle(accountChosenNavDirection))
+//    }
 
     override fun openNodes() {
         navController?.navigate(R.id.action_mainFragment_to_nodesFragment)
@@ -379,7 +479,7 @@ class Navigator(
     }
 
     override fun openChangeAccount() {
-        openAccounts(AccountChosenNavDirection.BACK)
+//        openAccounts(AccountChosenNavDirection.BACK)
     }
 
     override fun openReceive(assetPayload: AssetPayload) {
@@ -402,9 +502,9 @@ class Navigator(
     }
 
     override fun openAccountDetails(metaAccountId: Long) {
-        val extras = AccountDetailsFragment.getBundle(metaAccountId)
+//        val extras = AccountDetailsFragment.getBundle(metaAccountId)
 
-        navController?.navigate(R.id.action_open_account_details, extras)
+//        navController?.navigate(R.id.action_open_account_details, extras)
     }
 
     override fun openEditAccounts() {
@@ -416,13 +516,13 @@ class Navigator(
     }
 
     override fun openNodeDetails(nodeId: Int) {
-        navController?.navigate(R.id.action_nodesFragment_to_nodeDetailsFragment, NodeDetailsFragment.getBundle(nodeId))
+//        navController?.navigate(R.id.action_nodesFragment_to_nodeDetailsFragment, NodeDetailsFragment.getBundle(nodeId))
     }
 
     override fun openAssetDetails(assetPayload: AssetPayload) {
-        val bundle = BalanceDetailFragment.getBundle(assetPayload)
-
-        navController?.navigate(R.id.action_mainFragment_to_balanceDetailFragment, bundle)
+//        val bundle = BalanceDetailFragment.getBundle(assetPayload)
+//
+//        navController?.navigate(R.id.action_mainFragment_to_balanceDetailFragment, bundle)
     }
 
     override fun openAddNode() {
@@ -437,60 +537,60 @@ class Navigator(
         navController?.navigate(R.id.action_mainFragment_to_userContributionsFragment)
     }
 
-    override fun exportMnemonicAction(exportPayload: ExportPayload): DelayedNavigation {
-        val payload = BackupMnemonicPayload.Confirm(exportPayload.chainId, exportPayload.metaId)
-        val extras = BackupMnemonicFragment.getBundle(payload)
+//    override fun exportMnemonicAction(exportPayload: ExportPayload): DelayedNavigation {
+////        val payload = BackupMnemonicPayload.Confirm(exportPayload.chainId, exportPayload.metaId)
+////        val extras = BackupMnemonicFragment.getBundle(payload)
+//
+//        return NavComponentDelayedNavigation(R.id.action_open_mnemonic_nav_graph, bundleOf())
+//    }
 
-        return NavComponentDelayedNavigation(R.id.action_open_mnemonic_nav_graph, extras)
-    }
-
-    override fun exportSeedAction(exportPayload: ExportPayload): DelayedNavigation {
-        val extras = ExportSeedFragment.getBundle(exportPayload)
-
-        return NavComponentDelayedNavigation(R.id.action_export_seed, extras)
-    }
-
-    override fun exportJsonPasswordAction(exportPayload: ExportPayload): DelayedNavigation {
-        val extras = ExportJsonPasswordFragment.getBundle(exportPayload)
-
-        return NavComponentDelayedNavigation(R.id.action_export_json, extras)
-    }
-
-    override fun openExportJsonConfirm(payload: ExportJsonConfirmPayload) {
-        val extras = ExportJsonConfirmFragment.getBundle(payload)
-
-        navController?.navigate(R.id.action_exportJsonPasswordFragment_to_exportJsonConfirmFragment, extras)
-    }
+//    override fun exportSeedAction(exportPayload: ExportPayload): DelayedNavigation {
+//        val extras = ExportSeedFragment.getBundle(exportPayload)
+//
+//        return NavComponentDelayedNavigation(R.id.action_export_seed, extras)
+//    }
+//
+//    override fun exportJsonPasswordAction(exportPayload: ExportPayload): DelayedNavigation {
+//        val extras = ExportJsonPasswordFragment.getBundle(exportPayload)
+//
+//        return NavComponentDelayedNavigation(R.id.action_export_json, extras)
+//    }
+//
+//    override fun openExportJsonConfirm(payload: ExportJsonConfirmPayload) {
+//        val extras = ExportJsonConfirmFragment.getBundle(payload)
+//
+//        navController?.navigate(R.id.action_exportJsonPasswordFragment_to_exportJsonConfirmFragment, extras)
+//    }
 
     override fun finishExportFlow() {
         navController?.navigate(R.id.finish_export_flow)
     }
 
-    override fun openChangePinCode() {
-        val action = PinCodeAction.Change
-        val bundle = PincodeFragment.getPinCodeBundle(action)
-        navController?.navigate(R.id.action_mainFragment_to_pinCodeFragment, bundle)
-    }
+//    override fun openChangePinCode() {
+//        val action = PinCodeAction.Change
+//        val bundle = PincodeFragment.getPinCodeBundle(action)
+//        navController?.navigate(R.id.action_mainFragment_to_pinCodeFragment, bundle)
+//    }
 
-    override fun withPinCodeCheckRequired(
-        delayedNavigation: DelayedNavigation,
-        createMode: Boolean,
-        pinCodeTitleRes: Int?,
-    ) {
-        val action = if (createMode) {
-            PinCodeAction.Create(delayedNavigation)
-        } else {
-            PinCodeAction.Check(delayedNavigation, ToolbarConfiguration(pinCodeTitleRes, true))
-        }
-
-        val extras = PincodeFragment.getPinCodeBundle(action)
-
-        navController?.navigate(R.id.open_pincode_check, extras)
-    }
-
-    private fun buildCreatePinBundle(): Bundle {
-        val delayedNavigation = NavComponentDelayedNavigation(R.id.action_open_main)
-        val action = PinCodeAction.Create(delayedNavigation)
-        return PincodeFragment.getPinCodeBundle(action)
-    }
+//    override fun withPinCodeCheckRequired(
+//        delayedNavigation: DelayedNavigation,
+//        createMode: Boolean,
+//        pinCodeTitleRes: Int?,
+//    ) {
+//        val action = if (createMode) {
+//            PinCodeAction.Create(delayedNavigation)
+//        } else {
+//            PinCodeAction.Check(delayedNavigation, ToolbarConfiguration(pinCodeTitleRes, true))
+//        }
+//
+//        val extras = PincodeFragment.getPinCodeBundle(action)
+//
+//        navController?.navigate(R.id.open_pincode_check, extras)
+//    }
+//
+//    private fun buildCreatePinBundle(): Bundle {
+//        val delayedNavigation = NavComponentDelayedNavigation(R.id.action_open_main)
+//        val action = PinCodeAction.Create(delayedNavigation)
+//        return PincodeFragment.getPinCodeBundle(action)
+//    }
 }

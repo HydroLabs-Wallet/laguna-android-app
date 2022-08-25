@@ -72,9 +72,9 @@ interface BaseFragmentMixin<T : BaseViewModel> : WithContextExtensions {
     }
 
     fun <V> Flow<V>.observe(collector: suspend (V) -> Unit) {
-        fragment.lifecycleScope.launchWhenResumed {
-            collect(collector)
-        }
+//        fragment.lifecycleScope.launchWhenResumed {
+//            collect(collector)
+//        }
     }
 
     fun <V> LiveData<V>.observe(observer: (V) -> Unit) {

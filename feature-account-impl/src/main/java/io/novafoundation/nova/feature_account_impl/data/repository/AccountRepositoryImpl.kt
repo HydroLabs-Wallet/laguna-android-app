@@ -16,15 +16,7 @@ import io.novafoundation.nova.core_db.model.AccountLocal
 import io.novafoundation.nova.core_db.model.NodeLocal
 import io.novafoundation.nova.feature_account_api.data.secrets.keypair
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
-import io.novafoundation.nova.feature_account_api.domain.model.Account
-import io.novafoundation.nova.feature_account_api.domain.model.AuthType
-import io.novafoundation.nova.feature_account_api.domain.model.LightMetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccountOrdering
-import io.novafoundation.nova.feature_account_api.domain.model.accountIdIn
-import io.novafoundation.nova.feature_account_api.domain.model.addressIn
-import io.novafoundation.nova.feature_account_api.domain.model.multiChainEncryptionIn
-import io.novafoundation.nova.feature_account_api.domain.model.publicKeyIn
+import io.novafoundation.nova.feature_account_api.domain.model.*
 import io.novafoundation.nova.feature_account_impl.data.mappers.mapNodeLocalToNode
 import io.novafoundation.nova.feature_account_impl.data.network.blockchain.AccountSubstrateSource
 import io.novafoundation.nova.feature_account_impl.data.repository.datasource.AccountDataSource
@@ -132,6 +124,10 @@ class AccountRepositoryImpl(
 
     override suspend fun updateMetaAccountName(metaId: Long, newName: String) {
         return accountDataSource.updateMetaAccountName(metaId, newName)
+    }
+
+    override suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String) {
+        return accountDataSource.updateMetaAccountIcon(metaId, resOrPath)
     }
 
     override suspend fun isAccountSelected(): Boolean {

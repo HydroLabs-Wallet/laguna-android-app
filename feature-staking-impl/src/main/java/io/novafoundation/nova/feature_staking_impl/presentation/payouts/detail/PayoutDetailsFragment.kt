@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.chrisbanes.insetter.applyInsetter
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setTextColorRes
 import io.novafoundation.nova.common.view.startTimer
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_payout_details.payoutDetailsSubmi
 import kotlinx.android.synthetic.main.fragment_payout_details.payoutDetailsToolbar
 import kotlinx.android.synthetic.main.fragment_payout_details.payoutDetailsValidator
 
-class PayoutDetailsFragment : BaseFragment<PayoutDetailsViewModel>() {
+class PayoutDetailsFragment : BaseFragmentOld<PayoutDetailsViewModel>() {
 
     companion object {
         private const val KEY_PAYOUT = "payout"

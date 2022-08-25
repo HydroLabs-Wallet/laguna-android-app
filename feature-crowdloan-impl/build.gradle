@@ -27,7 +27,9 @@ android {
         buildConfigField "String", "MOONBEAM_TEST_AUTH_TOKEN", readSecret("MOONBEAM_TEST_AUTH_TOKEN")
         buildConfigField "String", "MOONBEAM_PROD_AUTH_TOKEN", readSecret("MOONBEAM_PROD_AUTH_TOKEN")
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -71,6 +73,16 @@ dependencies {
     implementation lifeCycleKtxDep
 
     implementation insetterDep
+    implementation ciceroneDep
+    implementation ciceroneDep
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
+    implementation androidxCoreDep
+
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
 
     implementation daggerDep
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

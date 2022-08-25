@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_assets.di
 
 import android.content.ContentResolver
+import android.content.Context
 import coil.ImageLoader
 import com.google.gson.Gson
 import io.novafoundation.nova.common.address.AddressIconGenerator
@@ -15,6 +16,7 @@ import io.novafoundation.nova.common.mixin.actionAwaitable.ActionAwaitableMixin
 import io.novafoundation.nova.common.resources.ClipboardManager
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.QrCodeGenerator
+import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
 import io.novafoundation.nova.common.validation.ValidationExecutor
 import io.novafoundation.nova.feature_account_api.data.extrinsic.ExtrinsicService
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
@@ -25,6 +27,7 @@ import io.novafoundation.nova.feature_account_api.presenatation.actions.External
 import io.novafoundation.nova.feature_account_api.presenatation.mixin.addressInput.AddressInputMixinFactory
 import io.novafoundation.nova.feature_nft_api.data.repository.NftRepository
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
+import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TokenRepository
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletConstants
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletRepository
 import io.novafoundation.nova.feature_wallet_api.presentation.mixin.amountChooser.AmountChooserMixin
@@ -57,6 +60,7 @@ interface AssetsFeatureDependencies {
     fun accountRepository(): AccountRepository
 
     fun networkCreator(): NetworkApiCreator
+    fun context(): Context
 
     fun signer(): Signer
 
@@ -97,7 +101,7 @@ interface AssetsFeatureDependencies {
     fun eventsRepository(): EventsRepository
 
     fun walletRepository(): WalletRepository
-
+    fun tokenRepository():TokenRepository
     fun feeLoaderMixinFactory(): FeeLoaderMixin.Factory
 
     fun amountChooserFactory(): AmountChooserMixin.Factory
@@ -117,4 +121,6 @@ interface AssetsFeatureDependencies {
     val computationalCache: ComputationalCache
 
     val actionAwaitableMixinFactory: ActionAwaitableMixin.Factory
+    val systemCallExecutor: SystemCallExecutor
+
 }

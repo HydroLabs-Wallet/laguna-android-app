@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.lifecycle.lifecycleScope
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.invoke
 import io.novafoundation.nova.common.view.ButtonState
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_transactions_filter.transactionsF
 import kotlinx.android.synthetic.main.fragment_transactions_filter.transactionsFilterSwitchTransfers
 import kotlinx.android.synthetic.main.fragment_transactions_filter.transactionsFilterToolbar
 
-class TransactionHistoryFilterFragment : BaseFragment<TransactionHistoryFilterViewModel>() {
+class TransactionHistoryFilterFragment : BaseFragmentOld<TransactionHistoryFilterViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

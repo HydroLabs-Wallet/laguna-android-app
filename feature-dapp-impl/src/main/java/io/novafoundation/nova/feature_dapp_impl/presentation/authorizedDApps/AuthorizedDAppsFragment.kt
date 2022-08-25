@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.ImageLoader
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.applyStatusBarInsets
 import io.novafoundation.nova.common.utils.setVisible
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_authorized_dapps.authorizedPlaceh
 import kotlinx.android.synthetic.main.fragment_authorized_dapps.authorizedPlaceholderSpacerTop
 import javax.inject.Inject
 
-class AuthorizedDAppsFragment : BaseFragment<AuthorizedDAppsViewModel>(), AuthorizedDAppAdapter.Handler {
+class AuthorizedDAppsFragment : BaseFragmentOld<AuthorizedDAppsViewModel>(), AuthorizedDAppAdapter.Handler {
 
     @Inject
     lateinit var imageLoader: ImageLoader

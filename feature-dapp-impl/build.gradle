@@ -15,7 +15,9 @@ android {
 
         buildConfigField "String", "DAPP_METADATAS_URL", "\"https://raw.githubusercontent.com/nova-wallet/nova-utils/master/dapps/dapps_dev.json\""
     }
-
+    buildFeatures {
+        dataBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -61,6 +63,15 @@ dependencies {
     implementation project(':runtime')
 
     implementation kotlinDep
+    implementation ciceroneDep
+    implementation ciceroneDep
+    implementation moxyDep
+    implementation androidMoxyDep
+    implementation moxyKapt
+    implementation moxyScopeDep
+    implementation adapterDelegateDep
+    implementation adapterDelegateBindingDep
+    implementation androidxCoreDep
 
     implementation androidDep
     implementation materialDep

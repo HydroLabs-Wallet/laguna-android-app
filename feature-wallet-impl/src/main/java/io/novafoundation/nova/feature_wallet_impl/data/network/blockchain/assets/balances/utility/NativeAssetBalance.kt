@@ -63,6 +63,7 @@ class NativeAssetBalance(
         return subscriptionBuilder.subscribe(key)
             .map { change ->
                 val accountInfo = bindAccountInfoOrDefault(change.value, runtime)
+                assetCache.setIncomeHistoryRecord(metaAccount.id, chain.utilityAsset, change.value != null)
                 val assetChanged = assetCache.updateAsset(metaAccount.id, chain.utilityAsset, accountInfo)
 
                 change.block.takeIf { assetChanged }

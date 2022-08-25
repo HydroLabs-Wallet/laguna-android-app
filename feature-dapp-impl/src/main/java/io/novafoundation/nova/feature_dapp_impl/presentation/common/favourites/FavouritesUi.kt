@@ -1,13 +1,13 @@
 package io.novafoundation.nova.feature_dapp_impl.presentation.common.favourites
 
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.mixin.actionAwaitable.ConfirmationAwaitable
 import io.novafoundation.nova.common.view.dialog.warningDialog
 import io.novafoundation.nova.feature_dapp_impl.R
 
 typealias RemoveFavouritesPayload = String // dApp title
 
-fun BaseFragment<*>.setupRemoveFavouritesConfirmation(awaitableMixin: ConfirmationAwaitable<RemoveFavouritesPayload>) {
+fun BaseFragmentOld<*>.setupRemoveFavouritesConfirmation(awaitableMixin: ConfirmationAwaitable<RemoveFavouritesPayload>) {
     awaitableMixin.awaitableActionLiveData.observeEvent {
         warningDialog(
             context = requireContext(),

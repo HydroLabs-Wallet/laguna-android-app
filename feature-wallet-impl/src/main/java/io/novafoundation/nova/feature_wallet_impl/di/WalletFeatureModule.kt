@@ -8,10 +8,7 @@ import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.di.scope.FeatureScope
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.core.updater.UpdateSystem
-import io.novafoundation.nova.core_db.dao.AssetDao
-import io.novafoundation.nova.core_db.dao.OperationDao
-import io.novafoundation.nova.core_db.dao.PhishingAddressDao
-import io.novafoundation.nova.core_db.dao.TokenDao
+import io.novafoundation.nova.core_db.dao.*
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_account_api.domain.updaters.AccountUpdateScope
 import io.novafoundation.nova.feature_wallet_api.data.cache.AssetCache
@@ -107,20 +104,24 @@ class WalletFeatureModule {
         cursorStorage: TransferCursorStorage,
         chainRegistry: ChainRegistry,
         tokenDao: TokenDao,
+        contactsDao: ContactsDao,
+        preferences: Preferences
     ): WalletRepository = WalletRepositoryImpl(
-        substrateSource,
-        operationsDao,
-        subQueryOperationsApi,
-        httpExceptionHandler,
-        phishingApi,
-        accountRepository,
-        assetCache,
-        walletConstants,
-        phishingAddressDao,
-        cursorStorage,
-        coingeckoApi,
-        chainRegistry,
-        tokenDao
+        substrateSource = substrateSource,
+        operationDao = operationsDao,
+        walletOperationsApi = subQueryOperationsApi,
+        httpExceptionHandler = httpExceptionHandler,
+        phishingApi = phishingApi,
+        accountRepository = accountRepository,
+        assetCache = assetCache,
+        walletConstants = walletConstants,
+        phishingAddressDao = phishingAddressDao,
+        cursorStorage = cursorStorage,
+        coingeckoApi = coingeckoApi,
+        chainRegistry = chainRegistry,
+        tokenDao = tokenDao,
+        contactsDao = contactsDao,
+        preferences = preferences
     )
 
     @Provides

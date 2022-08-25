@@ -19,7 +19,8 @@ interface WalletInteractor {
     suspend fun syncNfts(metaAccount: MetaAccount)
 
     fun assetFlow(chainId: ChainId, chainAssetId: Int): Flow<Asset>
-
+    fun assetValueVisibleFlow(): Flow<Boolean>
+    suspend fun toggleValueVisible()
     fun commissionAssetFlow(chainId: ChainId): Flow<Asset>
 
     suspend fun getCurrentAsset(chainId: ChainId, chainAssetId: Int): Asset

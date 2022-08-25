@@ -10,13 +10,13 @@ import jp.co.soramitsu.fearless_utils.runtime.RuntimeSnapshot
 suspend fun AssetCache.updateAsset(
     metaId: Long,
     chainAsset: Chain.Asset,
-    accountInfo: AccountInfo,
+    accountInfo: AccountInfo
 ) = updateAsset(metaId, chainAsset, nativeBalanceUpdater(accountInfo))
 
 suspend fun AssetCache.updateAsset(
     accountId: AccountId,
     chainAsset: Chain.Asset,
-    accountInfo: AccountInfo,
+    accountInfo: AccountInfo
 ) = updateAsset(accountId, chainAsset, nativeBalanceUpdater(accountInfo))
 
 private fun nativeBalanceUpdater(accountInfo: AccountInfo) = { asset: AssetLocal ->

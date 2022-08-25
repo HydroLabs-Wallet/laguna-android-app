@@ -2,7 +2,7 @@ package io.novafoundation.nova.feature_assets.presentation.balance.assetActions.
 
 import android.view.View
 import androidx.lifecycle.LiveData
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.mixin.actionAwaitable.ChooseOneOfManyAwaitable
 import io.novafoundation.nova.common.utils.Event
 import io.novafoundation.nova.feature_assets.data.buyToken.BuyTokenRegistry
@@ -24,7 +24,7 @@ interface BuyMixin {
     interface Presentation : BuyMixin
 }
 
-fun BaseFragment<*>.setupBuyIntegration(
+fun BaseFragmentOld<*>.setupBuyIntegration(
     mixin: BuyMixin,
     buyButton: View,
 ) {

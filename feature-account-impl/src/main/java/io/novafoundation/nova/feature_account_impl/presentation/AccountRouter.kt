@@ -1,28 +1,34 @@
 package io.novafoundation.nova.feature_account_impl.presentation
 
-import io.novafoundation.nova.common.navigation.DelayedNavigation
-import io.novafoundation.nova.common.navigation.PinRequired
+import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.common.navigation.SecureRouter
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
-import io.novafoundation.nova.feature_account_api.presenatation.account.add.ImportAccountPayload
-import io.novafoundation.nova.feature_account_impl.presentation.account.list.AccountChosenNavDirection
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.ExportPayload
-import io.novafoundation.nova.feature_account_impl.presentation.exporting.json.confirm.ExportJsonConfirmPayload
-import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.ConfirmMnemonicPayload
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
 
 interface AccountRouter : SecureRouter {
+    fun setResult(key: String, data: Any)
+    fun setResultListener(key: String, listener: ResultListener)
+    fun toOnboardingScreen()
 
+    fun toSeedCreate(payload:AddAccountPayload)
+    fun toSeedInfo()
+    fun toSeedWarning()
+    fun toSeedConfirm(payload:AddAccountPayload)
+    fun toCreatePassword(payload:AddAccountPayload)
+    fun toAccountComplete(payload:AddAccountPayload)
+
+    fun toAccountImport(payload:AddAccountPayload)
+    fun toAccountImportInfo()
     fun openMain()
+    fun toLoginScreen()
 
-    fun openCreatePincode()
+    fun toDashboard()
+//    fun openCreatePincode()
 
     fun openMnemonicScreen(accountName: String?, payload: AddAccountPayload)
 
-    fun openConfirmMnemonicOnCreate(confirmMnemonicPayload: ConfirmMnemonicPayload)
 
     fun back()
-
-    fun openAccounts(accountChosenNavDirection: AccountChosenNavDirection)
 
     fun openNodes()
 
@@ -39,23 +45,23 @@ interface AccountRouter : SecureRouter {
     fun openNodeDetails(nodeId: Int)
 
     fun openAddNode()
+//
+//    @PinRequired
+//    fun exportMnemonicAction(exportPayload: ExportPayload): DelayedNavigation
+//
+//    @PinRequired
+//    fun exportSeedAction(exportPayload: ExportPayload): DelayedNavigation
+//
+//    @PinRequired
+//    fun exportJsonPasswordAction(exportPayload: ExportPayload): DelayedNavigation
+//
+//    fun openExportJsonConfirm(payload: ExportJsonConfirmPayload)
 
-    @PinRequired
-    fun exportMnemonicAction(exportPayload: ExportPayload): DelayedNavigation
-
-    @PinRequired
-    fun exportSeedAction(exportPayload: ExportPayload): DelayedNavigation
-
-    @PinRequired
-    fun exportJsonPasswordAction(exportPayload: ExportPayload): DelayedNavigation
-
-    fun openExportJsonConfirm(payload: ExportJsonConfirmPayload)
-
-    fun openImportAccountScreen(payload: ImportAccountPayload)
+//    fun openImportAccountScreen(payload: ImportAccountPayload)
 
     fun returnToWallet()
 
     fun finishExportFlow()
 
-    fun openChangePinCode()
+//    fun openChangePinCode()
 }

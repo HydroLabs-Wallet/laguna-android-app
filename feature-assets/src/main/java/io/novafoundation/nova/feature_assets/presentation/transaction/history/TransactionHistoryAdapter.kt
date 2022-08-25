@@ -55,29 +55,29 @@ class TransactionHistoryAdapter(
 class TransactionHolder(view: View, private val imageLoader: ImageLoader) : GroupedListHolder(view) {
 
     fun bind(item: OperationModel, handler: TransactionHistoryAdapter.Handler) {
-        with(containerView) {
-            with(item) {
-                itemTransactionHeader.text = header
-
-                itemTransactionAmount.setTextColorRes(amountColorRes)
-                itemTransactionAmount.text = amount
-
-                itemTransactionTime.text = formattedTime
-
-                itemTransactionSubHeader.text = subHeader
-
-                if (statusAppearance != OperationStatusAppearance.COMPLETED) {
-                    itemTransactionStatus.makeVisible()
-                    itemTransactionStatus.setImageResource(statusAppearance.icon)
-                } else {
-                    itemTransactionStatus.makeGone()
-                }
-
-                setOnClickListener { handler.transactionClicked(this) }
-            }
-
-            itemTransactionIcon.setIcon(item.operationIcon, imageLoader)
-        }
+//        with(containerView) {
+//            with(item) {
+//                itemTransactionHeader.text = header
+//
+//                itemTransactionAmount.setTextColorRes(amountColorRes)
+//                itemTransactionAmount.text = amount
+//
+//                itemTransactionTime.text = formattedTime
+//
+//                itemTransactionSubHeader.text = subHeader
+//
+//                if (statusAppearance != OperationStatusAppearance.COMPLETED) {
+//                    itemTransactionStatus.makeVisible()
+//                    itemTransactionStatus.setImageResource(statusAppearance.icon)
+//                } else {
+//                    itemTransactionStatus.makeGone()
+//                }
+//
+//                setOnClickListener { handler.transactionClicked(this) }
+//            }
+//
+//            itemTransactionIcon.setIcon(item.assetIcon, imageLoader)
+//        }
     }
 
     override fun unbind() {
@@ -88,14 +88,14 @@ class TransactionHolder(view: View, private val imageLoader: ImageLoader) : Grou
 class DayHolder(view: View) : GroupedListHolder(view) {
     fun bind(item: DayHeader) {
         with(containerView) {
-            itemDayHeader.text = item.daysSinceEpoch.formatDaysSinceEpoch(context)
+//            itemDayHeader.text = item.daysSinceEpoch.formatDaysSinceEpoch(context)
         }
     }
 }
 
 object TransactionHistoryDiffCallback : BaseGroupedDiffCallback<DayHeader, OperationModel>(DayHeader::class.java) {
     override fun areGroupItemsTheSame(oldItem: DayHeader, newItem: DayHeader): Boolean {
-        return oldItem.daysSinceEpoch == oldItem.daysSinceEpoch
+        return true
     }
 
     override fun areGroupContentsTheSame(oldItem: DayHeader, newItem: DayHeader): Boolean {
@@ -107,9 +107,9 @@ object TransactionHistoryDiffCallback : BaseGroupedDiffCallback<DayHeader, Opera
     }
 
     override fun areChildContentsTheSame(oldItem: OperationModel, newItem: OperationModel): Boolean {
-        return oldItem.statusAppearance == newItem.statusAppearance &&
-            oldItem.header == newItem.header &&
-            oldItem.subHeader == newItem.subHeader &&
-            oldItem.amount == newItem.amount
+        return true
+//            oldItem.header == newItem.header &&
+//            oldItem.subHeader == newItem.subHeader &&
+//            oldItem.amount == newItem.amount
     }
 }

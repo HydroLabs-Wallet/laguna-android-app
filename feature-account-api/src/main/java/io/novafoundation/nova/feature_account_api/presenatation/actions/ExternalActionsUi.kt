@@ -1,11 +1,11 @@
 package io.novafoundation.nova.feature_account_api.presenatation.actions
 
 import android.content.Context
-import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.base.BaseFragmentOld
 import io.novafoundation.nova.common.base.BaseViewModel
 import io.novafoundation.nova.common.mixin.impl.observeBrowserEvents
 
-fun <T> BaseFragment<T>.setupExternalActions(viewModel: T) where T : BaseViewModel, T : ExternalActions {
+fun <T> BaseFragmentOld<T>.setupExternalActions(viewModel: T) where T : BaseViewModel, T : ExternalActions {
     setupExternalActions(viewModel) { context, payload ->
         ExternalActionsSheet(
             context,
@@ -16,7 +16,7 @@ fun <T> BaseFragment<T>.setupExternalActions(viewModel: T) where T : BaseViewMod
     }
 }
 
-inline fun <T> BaseFragment<T>.setupExternalActions(
+inline fun <T> BaseFragmentOld<T>.setupExternalActions(
     viewModel: T,
     crossinline customSheetCreator: (Context, ExternalActions.Payload) -> ExternalActionsSheet,
 ) where T : BaseViewModel, T : ExternalActions {

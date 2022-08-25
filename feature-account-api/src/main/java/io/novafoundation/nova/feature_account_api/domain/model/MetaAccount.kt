@@ -99,6 +99,8 @@ fun MetaAccount.requireAddressIn(chain: Chain): String = addressIn(chain) ?: thr
 
 val MetaAccount.defaultSubstrateAddress
     get() = substrateAccountId.toAddress(SS58Encoder.DEFAULT_PREFIX)
+val LightMetaAccount.defaultSubstrateAddress
+    get() = substrateAccountId.toAddress(SS58Encoder.DEFAULT_PREFIX)
 
 fun MetaAccount.accountIdIn(chain: Chain): ByteArray? {
     return when {

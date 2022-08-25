@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainView"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/drawable_background_image">
+    android:background="@drawable/bg_brand_2">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/navHost"
-        android:name="io.novafoundation.nova.app.root.navigation.NovaNavHostFragment"
+    <FrameLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:navGraph="@navigation/root_nav_graph"
-        app:defaultNavHost="true" />
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/rootNetworkBar"
+        style="@style/TextAppearance.NovaFoundation.Body2"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
         android:background="@color/colorAccent"
-        android:text="@string/network_status_connecting"
         android:gravity="center"
         android:paddingTop="16dp"
-        android:visibility="gone"
         android:paddingBottom="2dp"
-        style="@style/TextAppearance.NovaFoundation.Body2"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top" />
+        android:text="@string/network_status_connecting"
+        android:visibility="gone" />
 
 
 </FrameLayout>

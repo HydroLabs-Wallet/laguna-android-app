@@ -1,5 +1,7 @@
 package io.novafoundation.nova.feature_assets.presentation.model
 
+import io.novafoundation.nova.common.utils.equalTo
+import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import java.math.BigDecimal
 
 data class AssetModel(
@@ -11,5 +13,20 @@ data class AssetModel(
     val reserved: BigDecimal,
     val redeemable: BigDecimal,
     val unbonding: BigDecimal,
-    val available: BigDecimal
-)
+    val available: BigDecimal,
+    val chain: Chain,
+    val showValues:Boolean
+) : AssetMarker {
+    override fun isItemSame(other: Any?): Boolean {
+        return equalTo(other, { token.configuration.id }, { token.configuration.chainId })
+    }
+
+    override fun isContentSame(other: Any?): Boolean {
+        return equalTo(other, { total }, { dollarAmount },{showValues})
+
+    }
+
+    fun isNative(): Boolean {
+        return token.configuration.priceId == null || token.configuration.priceId == token.configuration.name.lowercase()
+    }
+}

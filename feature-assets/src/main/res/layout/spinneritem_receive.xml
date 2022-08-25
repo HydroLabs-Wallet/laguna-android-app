@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:background="@drawable/circle_black"
+                android:src="@drawable/bg_asset_secondary_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_asset_polkadot" />
+
+            <ImageView
+                android:id="@+id/imNotNative"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="-18dp"
+                android:background="@drawable/circle_black"
+                android:padding="3dp"
+                android:src="@drawable/ic_size_16_link"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imgIcon"
+                app:layout_constraintTop_toTopOf="@+id/imgIcon"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#18191A"
+                android:textSize="16sp"
+                android:ellipsize="marquee"
+                android:textAlignment="inherit"
+                android:layout_marginStart="@dimen/margin_8"
+                tools:text="asset name here"
+                app:layout_constraintStart_toEndOf="@id/imgIcon"
+                app:layout_constraintTop_toTopOf="@+id/imgIcon"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

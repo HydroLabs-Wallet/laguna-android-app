@@ -1,13 +1,20 @@
 package io.novafoundation.nova.feature_assets.domain.send
 
+import io.novafoundation.nova.common.resources.ResourceManager
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
+import io.novafoundation.nova.feature_assets.R
+import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
+import io.novafoundation.nova.feature_assets.presentation.send.ContactUiHeader
+import io.novafoundation.nova.feature_assets.presentation.send.ContactUiMarker
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransfer
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletRepository
-import io.novafoundation.nova.feature_wallet_api.domain.model.RecipientSearchResult
+import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
-import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -16,31 +23,27 @@ class SendInteractor(
     private val chainRegistry: ChainRegistry,
     private val walletRepository: WalletRepository,
     private val assetSourceRegistry: AssetSourceRegistry,
+    private val accountRepository: AccountRepository,
+    private val resourceManager: ResourceManager
 ) {
 
-    // TODO wallet
-    suspend fun getRecipients(query: String, chainId: ChainId): RecipientSearchResult {
-//        val metaAccount = accountRepository.getSelectedMetaAccount()
-//        val chain = chainRegistry.getChain(chainId)
-//        val accountId = metaAccount.accountIdIn(chain)!!
-//
-//        val contacts = walletRepository.getContacts(accountId, chain, query)
-//        val myAccounts = accountRepository.getMyAccounts(query, chain.id)
-//
-//        return withContext(Dispatchers.Default) {
-//            val contactsWithoutMyAccounts = contacts - myAccounts.map { it.address }
-//            val myAddressesWithoutCurrent = myAccounts - metaAccount
-//
-//            RecipientSearchResult(
-//                myAddressesWithoutCurrent.toList().map { mapAccountToWalletAccount(chain, it) },
-//                contactsWithoutMyAccounts.toList()
-//            )
-//        }
+    suspend fun saveContact(data: Contact) {
+        walletRepository.createContact(data)
+    }
 
-        return RecipientSearchResult(
-            myAccounts = emptyList(),
-            contacts = emptyList()
-        )
+    fun getContacts(): Flow<List<ContactUiMarker>> {
+
+        val contacts = walletRepository.getContacts()
+            .map { list ->
+                val newList = mutableListOf<ContactUiMarker>()
+                if (list.isNotEmpty()) {
+                    val header = ContactUiHeader(resourceManager.getString(R.string.contacts))
+                    newList.add(header)
+                }
+                newList.addAll(list.map { ContactUi(name = it.name, address = it.address) })
+                newList
+            }
+        return contacts
     }
 
     // TODO wallet phishing

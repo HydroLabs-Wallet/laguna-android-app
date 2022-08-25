@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_assets.domain
 
 import io.novafoundation.nova.common.data.model.CursorPage
+import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.list.GroupedList
 import io.novafoundation.nova.common.utils.applyFilters
 import io.novafoundation.nova.common.utils.sumByBigDecimal
@@ -83,6 +84,14 @@ class WalletInteractorImpl(
         nftRepository.initialNftSync(metaAccount, forceOverwrite = false)
     }
 
+    override fun assetValueVisibleFlow(): Flow<Boolean> {
+        return walletRepository.assetValueVisibleFlow()
+    }
+
+    override suspend fun toggleValueVisible() {
+        walletRepository.toggleValueVisible()
+    }
+
     override fun assetFlow(chainId: ChainId, chainAssetId: Int): Flow<Asset> {
         return accountRepository.selectedMetaAccountFlow().flatMapLatest { metaAccount ->
             val (_, chainAsset) = chainRegistry.chainWithAsset(chainId, chainAssetId)
@@ -161,17 +170,17 @@ class WalletInteractorImpl(
         groupedAssets: GroupedList<AssetGroup, Asset>
     ):
         Balances {
-            val (totalFiat, lockedFiat) = assets.fold(BigDecimal.ZERO to BigDecimal.ZERO) { (total, locked), asset ->
-                val assetTotalFiat = asset.token.fiatAmount(asset.total)
-                val assetLockedFiat = asset.token.fiatAmount(asset.locked)
+        val (totalFiat, lockedFiat) = assets.fold(BigDecimal.ZERO to BigDecimal.ZERO) { (total, locked), asset ->
+            val assetTotalFiat = asset.token.fiatAmount(asset.total)
+            val assetLockedFiat = asset.token.fiatAmount(asset.locked)
 
-                (total + assetTotalFiat) to (locked + assetLockedFiat)
-            }
-
-            return Balances(
-                assets = groupedAssets,
-                totalBalanceFiat = totalFiat,
-                lockedBalanceFiat = lockedFiat
-            )
+            (total + assetTotalFiat) to (locked + assetLockedFiat)
         }
+
+        return Balances(
+            assets = groupedAssets,
+            totalBalanceFiat = totalFiat,
+            lockedBalanceFiat = lockedFiat
+        )
+    }
 }
