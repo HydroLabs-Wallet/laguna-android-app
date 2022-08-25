@@ -31,3 +31,10 @@ fun AddAccountPayload.setSeedWord(seed: List<SeedWord>) {
         is AddAccountPayload.MetaAccount -> this.seed = seed
     }
 }
+
+fun AddAccountPayload.getSeedWord(): List<SeedWord> {
+    return when (this) {
+        is AddAccountPayload.ChainAccount -> this.seed
+        is AddAccountPayload.MetaAccount -> this.seed
+    }
+}

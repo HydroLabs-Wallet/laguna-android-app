@@ -23,9 +23,7 @@ class SeedConfirmFragment : BaseFragment<SeedConfirmPresenter>(), SeedConfirmVie
 
         fun getNewInstance(payload: AddAccountPayload): SeedConfirmFragment =
             SeedConfirmFragment().apply {
-                arguments = bundleOf(
-                    EXTRA_IS_AUTH to payload
-                )
+                arguments = bundleOf(EXTRA_IS_AUTH to payload)
             }
     }
 

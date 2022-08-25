@@ -115,7 +115,12 @@ class AccountImportPresenter @Inject constructor(
         presenterScope.launch {
             var result = import()
             if (result.isSuccess) {
-                router.toCreatePassword(payload)
+                if (interactor.isCodeSet()) {
+
+                } else {
+                    router.toCreatePassword(payload)
+                }
+
             } else {
                 val throwable = result.exceptionOrNull()
                 val errorMessage = when (throwable) {

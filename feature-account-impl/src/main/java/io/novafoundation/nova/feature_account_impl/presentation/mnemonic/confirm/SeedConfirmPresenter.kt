@@ -19,6 +19,7 @@ import jp.co.soramitsu.fearless_utils.encrypt.junction.JunctionDecoder
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import io.novafoundation.nova.common.base.BasePresenter
+import io.novafoundation.nova.feature_account_api.presenatation.account.add.getSeedWord
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -34,7 +35,6 @@ class SeedConfirmPresenter  @Inject constructor(
 
 ) :
     BasePresenter<SeedConfirmView>() {
-    var seedList = mutableListOf<SeedWord>()
     var shuffledSeedList = mutableListOf<SeedWord>()
     private lateinit var initSelection: List<SeedWord>
     private var selection: MutableList<SeedWord> = mutableListOf()
@@ -45,7 +45,8 @@ class SeedConfirmPresenter  @Inject constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         shuffledSeedList.clear()
-        shuffledSeedList.addAll(seedList)
+
+        shuffledSeedList.addAll(payload.getSeedWord())
         shuffledSeedList.shuffle()
         createInitialSelection()
         viewState.setList(shuffledSeedList)
@@ -150,7 +151,7 @@ class SeedConfirmPresenter  @Inject constructor(
     private fun createAccount() {
 
         presenterScope.launch {
-            val mnemonicString = seedList.joinToString(" ") { it.word }
+            val mnemonicString = payload.getSeedWord().joinToString(" ") { it.word }
             val advancedEncryptionResponse = advancedEncryptionRequester.lastResponseOrDefault(payload, advancedEncryptionInteractor)
             val accountNameState = mapOptionalNameToNameChooserState("")
             val addAccountType = mapAddAccountPayloadToAddAccountType(payload, accountNameState)

@@ -7,7 +7,11 @@ import io.novafoundation.nova.common.di.scope.ScreenScope
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.SeedPromptFragment
 
-@Subcomponent()
+@Subcomponent(
+    modules = [
+        SeedPromptModule::class
+    ]
+)
 @ScreenScope
 interface SeedPromptComponent {
 
