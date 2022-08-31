@@ -12,6 +12,8 @@ import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddA
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.AccountImportInfoFragment
 import io.novafoundation.nova.feature_account_impl.presentation.login.LoginFragment
+import io.novafoundation.nova.feature_account_impl.presentation.menu.change_avatar.ChangeAvatarFragment
+import io.novafoundation.nova.feature_account_impl.presentation.menu.change_password.ChangePasswordFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.SeedConfirmFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.create.SeedCreateFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.prompt.SeedPromptFragment
@@ -77,8 +79,8 @@ object Screens {
     // Login
     fun toLoginScreen() = FragmentScreen { LoginFragment.getNewInstance() }
 
+
     // Dashboard
-    fun toMenu() = FragmentScreen { MenuNavDrawerFragment.getNewInstance() }
     fun toPasswordConfirm(data: ConfirmPayload) = FragmentScreen(clearContainer = false) { PasswordConfirmFragment.getNewInstance(data) }
     fun toEditField(data: EditFieldPayload) = FragmentScreen(clearContainer = false) { EditFieldFragment.getNewInstance(data) }
     fun toDashboardScreen() = FragmentScreen { DashboardFragment.getNewInstance() }
@@ -87,6 +89,10 @@ object Screens {
     fun toSelectAccountScreen(data: SelectAccountPayload) =
         FragmentScreen(clearContainer = false) { SelectAccountFragment.getNewInstance(data) }
 
+    // Menu
+    fun toMenu() = FragmentScreen { MenuNavDrawerFragment.getNewInstance() }
+    fun toChangePassword() = FragmentScreen { ChangePasswordFragment.getNewInstance() }
+    fun toChangeAvatar() = FragmentScreen { ChangeAvatarFragment.getNewInstance() }
 
     // Assets
     fun toAssetChooseScreen() = FragmentScreen { AssetChooseFragment.getNewInstance() }

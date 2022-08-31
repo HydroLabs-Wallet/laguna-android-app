@@ -1,13 +1,13 @@
 package io.novafoundation.nova.app.root.presentation.menu
 
 import io.novafoundation.nova.app.R
+import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.ellipsis
 import io.novafoundation.nova.common.utils.formatAsCurrency
 import io.novafoundation.nova.common.utils.inBackground
-import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
 import io.novafoundation.nova.feature_account_api.domain.interfaces.SelectedAccountUseCase
 import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
 import io.novafoundation.nova.feature_account_api.domain.model.defaultSubstrateAddress
@@ -26,6 +26,7 @@ import javax.inject.Inject
 @InjectViewState
 class NavDrawerPresenter @Inject constructor(
     private val router: WalletRouter,
+    private val rootRouter: RootRouter,
     private val accountInteractor: AccountDetailsInteractor,
     private val interactor: WalletInteractor,
     private val selectedAccountUseCase: SelectedAccountUseCase,
@@ -68,6 +69,7 @@ class NavDrawerPresenter @Inject constructor(
         selectedMetaAccount.onEach {
             this.metaAccount = it
             val name = it.name.ifEmpty { it.defaultSubstrateAddress.ellipsis() }
+            it.avatar?.let { viewState.setAvatar(it) }
             viewState.setName(name)
         }.launchIn(presenterScope)
         totalBalanceFlow.onEach {
@@ -81,11 +83,15 @@ class NavDrawerPresenter @Inject constructor(
         router.lockApp()
     }
 
+    fun onAvatarClick() {
+        rootRouter.toChangeAvatar()
+    }
+
     fun editName() {
         val tag = "NavDraverEditName"
         router.setResultListener(tag) {
             val text = it as String
-            presenterScope.launch { accountInteractor.updateName(metaAccount.id,text) }
+            presenterScope.launch { accountInteractor.updateName(metaAccount.id, text) }
         }
         val payload = EditFieldPayload(
             tag = tag,
@@ -95,6 +101,10 @@ class NavDrawerPresenter @Inject constructor(
 
         )
         router.toEditField(payload)
+    }
+
+    fun toChangePassword() {
+        rootRouter.toChangePassword()
     }
 
     fun onBackCommandClick() {

@@ -8,4 +8,5 @@ data class LightMetaAccountUi(
     val name: String,
     val isSelected: Boolean,
     val picture: IgnoredOnEquals<Drawable>,
+    val avatar: String?=null
 )

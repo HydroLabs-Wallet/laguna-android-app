@@ -52,6 +52,9 @@ interface MetaAccountDao {
     @Query("UPDATE meta_accounts SET isSelected = (id = :metaId)")
     suspend fun selectMetaAccount(metaId: Long)
 
+    @Query("UPDATE meta_accounts SET avatar = :avatar WHERE id = :metaId ")
+    suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String)
+
     @Update(entity = MetaAccountLocal::class)
     suspend fun updatePositions(updates: List<MetaAccountPositionUpdate>)
 

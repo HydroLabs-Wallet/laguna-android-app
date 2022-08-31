@@ -29,7 +29,8 @@ class AccountListingProvider(
             id = id,
             name = name,
             isSelected = isSelected,
-            picture = IgnoredOnEquals(icon)
+            picture = IgnoredOnEquals(icon),
+            avatar = avatar
         )
     }
 }

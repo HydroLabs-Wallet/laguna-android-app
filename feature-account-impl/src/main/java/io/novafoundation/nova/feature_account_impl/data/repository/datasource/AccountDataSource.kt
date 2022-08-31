@@ -46,6 +46,8 @@ interface AccountDataSource : SecretStoreV1 {
 
     fun lightMetaAccountsFlow(): Flow<List<LightMetaAccount>>
     suspend fun selectMetaAccount(metaId: Long)
+    suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String)
+
     suspend fun updateAccountPositions(accountOrdering: List<MetaAccountOrdering>)
 
     fun selectedNodeFlow(): Flow<Node>

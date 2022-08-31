@@ -7,6 +7,7 @@ import io.novafoundation.nova.common.data.secrets.v2.MetaAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
 import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.data.storage.encrypt.EncryptedPreferences
+import io.novafoundation.nova.common.utils.AvatarUtils
 import io.novafoundation.nova.common.utils.inBackground
 import io.novafoundation.nova.common.utils.mapList
 import io.novafoundation.nova.common.utils.substrateAccountId
@@ -18,16 +19,8 @@ import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.core_db.model.chain.ChainAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountPositionUpdate
-import io.novafoundation.nova.feature_account_api.domain.model.Account
-import io.novafoundation.nova.feature_account_api.domain.model.AuthType
-import io.novafoundation.nova.feature_account_api.domain.model.LightMetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccount
-import io.novafoundation.nova.feature_account_api.domain.model.MetaAccountOrdering
-import io.novafoundation.nova.feature_account_impl.data.mappers.mapChainAccountToAccount
-import io.novafoundation.nova.feature_account_impl.data.mappers.mapMetaAccountLocalToLightMetaAccount
-import io.novafoundation.nova.feature_account_impl.data.mappers.mapMetaAccountLocalToMetaAccount
-import io.novafoundation.nova.feature_account_impl.data.mappers.mapMetaAccountToAccount
-import io.novafoundation.nova.feature_account_impl.data.mappers.mapNodeLocalToNode
+import io.novafoundation.nova.feature_account_api.domain.model.*
+import io.novafoundation.nova.feature_account_impl.data.mappers.*
 import io.novafoundation.nova.feature_account_impl.data.repository.datasource.migration.AccountDataMigration
 import io.novafoundation.nova.runtime.ext.accountIdOf
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
@@ -38,13 +31,7 @@ import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import jp.co.soramitsu.fearless_utils.scale.EncodableStruct
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -179,6 +166,10 @@ class AccountDataSourceImpl(
         metaAccountDao.selectMetaAccount(metaId)
     }
 
+    override suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String) {
+        metaAccountDao.updateMetaAccountAvatar(metaId, avatar)
+    }
+
     override suspend fun updateAccountPositions(accountOrdering: List<MetaAccountOrdering>) = withContext(Dispatchers.Default) {
         val positionUpdates = accountOrdering.map {
             MetaAccountPositionUpdate(id = it.id, position = it.position)
@@ -237,7 +228,8 @@ class AccountDataSourceImpl(
             ethereumAddress = ethereumPublicKey?.asEthereumPublicKey()?.toAccountId()?.value,
             name = name,
             isSelected = false,
-            position = metaAccountDao.nextAccountPosition()
+            position = metaAccountDao.nextAccountPosition(),
+            avatar = AvatarUtils().randomAvatar()
         )
 
         val metaId = metaAccountDao.insertMetaAccount(metaAccountLocal)

@@ -122,6 +122,10 @@ class AccountRepositoryImpl(
         return accountDataSource.selectMetaAccount(metaId)
     }
 
+    override suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String) {
+        return accountDataSource.updateMetaAccountAvatar(metaId, avatar)
+    }
+
     override suspend fun updateMetaAccountName(metaId: Long, newName: String) {
         return accountDataSource.updateMetaAccountName(metaId, newName)
     }

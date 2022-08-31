@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.isDigitsOnly
+import coil.load
 import io.novafoundation.nova.app.databinding.FragmentMenuNavDrawerBinding
 import io.novafoundation.nova.app.root.di.RootApi
 import io.novafoundation.nova.app.root.di.RootComponent
@@ -50,6 +52,8 @@ class MenuNavDrawerFragment : BaseFragment<NavDrawerPresenter>(), NavDrawerView 
         binding.btnBack.setOnClickListener { presenter.onBackCommandClick() }
         binding.btnLock.setOnClickListener { presenter.onLockClicked() }
         binding.imEditName.setOnClickListener { presenter.editName() }
+        binding.imIconBig.setOnClickListener { presenter.onAvatarClick() }
+        binding.holderChangePassword.setOnClickListener { presenter.toChangePassword() }
     }
 
     override fun onBackPressed(): Boolean {
@@ -60,6 +64,14 @@ class MenuNavDrawerFragment : BaseFragment<NavDrawerPresenter>(), NavDrawerView 
     override fun setName(data: String) {
         binding.tvName.text = data
         binding.tvLogOut.text = getString(R.string.log_out_skywalker, data)
+    }
+
+    override fun setAvatar(data: String) {
+        if (data.isDigitsOnly()) {
+            binding.imIconBig.load(data.toInt())
+        } else {
+            binding.imIconBig.load(data)
+        }
     }
 
     override fun setBalance(data: String) {

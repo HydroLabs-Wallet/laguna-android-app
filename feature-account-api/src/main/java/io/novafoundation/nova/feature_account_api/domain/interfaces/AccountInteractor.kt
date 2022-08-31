@@ -40,7 +40,7 @@ interface AccountInteractor {
     fun selectedMetaAccountFlow(): Flow<MetaAccount>
 
     suspend fun selectMetaAccount(metaId: Long)
-
+    suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String)
     suspend fun deleteAccount(metaId: Long)
 
     suspend fun updateMetaAccountPositions(idsInNewOrder: List<Long>)

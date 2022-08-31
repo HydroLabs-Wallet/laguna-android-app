@@ -113,8 +113,9 @@ class DashboardFragment : BaseFragment<DashboardPresenter>(), DashboardView {
         binding.holderBalance.updateValue(balance)
     }
 
-    override fun setAccountName(text: String) {
+    override fun setAccountName(text: String, avatar: String?) {
         binding.toolbar.setName(text)
+        binding.toolbar.setAvatar(avatar)
     }
 
     override fun onBackPressed(): Boolean {

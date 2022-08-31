@@ -3,6 +3,8 @@ package io.novafoundation.nova.app.root.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.isDigitsOnly
+import coil.load
 import io.novafoundation.nova.app.databinding.ViewToolbarBinding
 import io.novafoundation.nova.common.utils.inflater
 
@@ -16,6 +18,16 @@ class ToolbarView @JvmOverloads constructor(
 
     fun setName(name: String) {
         binding.tvTitle.text = name
+    }
+
+    fun setAvatar(data: String?) {
+        data?.let {
+            if (data.isDigitsOnly()) {
+                binding.imAvatar.load(data.toInt())
+            } else {
+                binding.imAvatar.load(data)
+            }
+        }
     }
 
     fun setOnAvatarClickListener(l: OnClickListener?) {
