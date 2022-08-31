@@ -11,6 +11,6 @@ interface DashboardView: BaseView {
     fun showImportSnack()
     fun showSupportSnack()
     fun showContent(text: String)
-    fun setAccountName(text: String)
+    fun setAccountName(text: String, avatar:String?)
     fun submitBalanceModel(data: TotalBalanceModel)
 }

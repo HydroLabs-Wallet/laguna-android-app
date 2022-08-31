@@ -24,6 +24,7 @@ class MetaAccountLocal(
     val name: String,
     val isSelected: Boolean,
     val position: Int,
+    val avatar: String?
 ) {
 
     companion object Table {

@@ -169,6 +169,14 @@ class Navigator(
         router.navigateTo(Screens.toMenu())
     }
 
+    override fun toChangePassword() {
+        router.navigateTo(Screens.toChangePassword())
+    }
+
+    override fun toChangeAvatar() {
+        router.navigateTo(Screens.toChangeAvatar())
+    }
+
     override fun toChainsSettings() {
         router.navigateTo(Screens.toChainSettings())
     }

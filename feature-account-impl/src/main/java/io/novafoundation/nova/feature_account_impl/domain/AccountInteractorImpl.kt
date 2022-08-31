@@ -87,6 +87,10 @@ class AccountInteractorImpl(
         accountRepository.selectMetaAccount(metaId)
     }
 
+    override suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String) {
+        accountRepository.updateMetaAccountAvatar(metaId, avatar)
+    }
+
     override suspend fun deleteAccount(metaId: Long) = withContext(Dispatchers.Default) {
         accountRepository.deleteAccount(metaId)
     }

@@ -103,7 +103,7 @@ class DashboardPresenter @Inject constructor(
         }
         selectedMetaAccount.onEach {
             val name = it.name.ifEmpty { it.defaultSubstrateAddress.ellipsis() }
-            viewState.setAccountName(name)
+            viewState.setAccountName(name, it.avatar)
         }.launchIn(presenterScope)
         totalBalanceFlow.onEach {
             balanceModel = it
@@ -140,7 +140,7 @@ class DashboardPresenter @Inject constructor(
     }
 
     fun onValueVisibilityToggle() {
-        Log.e("mcheck","onValueVisibilityToggle")
+        Log.e("mcheck", "onValueVisibilityToggle")
         presenterScope.launch { interactor.toggleValueVisible() }
     }
 

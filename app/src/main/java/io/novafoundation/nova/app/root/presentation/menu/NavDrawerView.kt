@@ -8,6 +8,7 @@ import moxy.viewstate.strategy.StateStrategyType
 interface NavDrawerView : BaseView {
 
     fun setName(data: String)
+    fun setAvatar(data: String)
     fun setBalance(data: String)
     fun setContactNumbers(data: String)
     fun setShowValues(data: Boolean)

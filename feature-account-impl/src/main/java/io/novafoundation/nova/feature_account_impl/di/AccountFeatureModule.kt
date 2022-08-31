@@ -45,6 +45,7 @@ import io.novafoundation.nova.feature_account_impl.domain.account.details.Accoun
 import io.novafoundation.nova.feature_account_impl.presentation.AccountRouter
 import io.novafoundation.nova.feature_account_impl.presentation.common.mixin.addAccountChooser.AddAccountLauncherMixin
 import io.novafoundation.nova.feature_account_impl.presentation.common.mixin.addAccountChooser.AddAccountLauncherProvider
+import io.novafoundation.nova.feature_account_impl.presentation.menu.change_password.ValidatePasswordUseCase
 import io.novafoundation.nova.feature_account_impl.presentation.wallet.WalletUiUseCaseImpl
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
@@ -176,6 +177,12 @@ class AccountFeatureModule {
     fun provideAddressDisplayUseCase(
         accountRepository: AccountRepository,
     ) = AddressDisplayUseCase(accountRepository)
+
+    @Provides
+    @FeatureScope
+    fun providePasswordValidationUseCase(
+        resourceManager: ResourceManager
+    ) = ValidatePasswordUseCase(resourceManager)
 
     @Provides
     @FeatureScope

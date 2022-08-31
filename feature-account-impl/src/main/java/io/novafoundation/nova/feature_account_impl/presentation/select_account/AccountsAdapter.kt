@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_account_impl.presentation.select_account
 
+import androidx.core.text.isDigitsOnly
 import androidx.core.view.isVisible
 import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -26,7 +27,13 @@ class AccountsAdapter() :
         ) {
             bind {
                 with(binding) {
-
+                    item.avatar?.let {
+                        if (it.isDigitsOnly()) {
+                            binding.imIcon.load(it.toInt())
+                        } else {
+                            binding.imIcon.load(it)
+                        }
+                    }
                     tvTitle.text = item.name
                     imIcon.load(item.picture.value)
                     imCheck.isVisible = item.isSelected

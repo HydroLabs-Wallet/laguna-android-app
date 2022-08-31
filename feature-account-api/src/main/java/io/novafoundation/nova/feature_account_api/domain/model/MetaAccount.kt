@@ -1,4 +1,3 @@
-
 package io.novafoundation.nova.feature_account_api.domain.model
 
 import io.novafoundation.nova.common.data.mappers.mapCryptoTypeToEncryption
@@ -26,6 +25,7 @@ interface LightMetaAccount {
     val ethereumPublicKey: ByteArray?
     val isSelected: Boolean
     val name: String
+    val avatar: String?
 }
 
 fun LightMetaAccount(
@@ -37,6 +37,7 @@ fun LightMetaAccount(
     ethereumPublicKey: ByteArray?,
     isSelected: Boolean,
     name: String,
+    avatar: String?
 ) = object : LightMetaAccount {
     override val id: Long = id
     override val substratePublicKey: ByteArray = substratePublicKey
@@ -46,6 +47,7 @@ fun LightMetaAccount(
     override val ethereumPublicKey: ByteArray? = ethereumPublicKey
     override val isSelected: Boolean = isSelected
     override val name: String = name
+    override val avatar: String? = avatar
 }
 
 class MetaAccount(
@@ -58,6 +60,7 @@ class MetaAccount(
     override val ethereumPublicKey: ByteArray?,
     override val isSelected: Boolean,
     override val name: String,
+    override val avatar: String?
 ) : LightMetaAccount {
 
     class ChainAccount(

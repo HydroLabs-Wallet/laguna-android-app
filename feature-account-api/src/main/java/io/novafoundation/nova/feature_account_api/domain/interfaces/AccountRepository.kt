@@ -39,6 +39,7 @@ interface AccountRepository {
 
     fun lightMetaAccountsFlow(): Flow<List<LightMetaAccount>>
     suspend fun selectMetaAccount(metaId: Long)
+    suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String)
 
     suspend fun updateMetaAccountName(metaId: Long, name: String)
     suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String)

@@ -12,7 +12,7 @@ import io.novafoundation.nova.core_db.model.*
 import io.novafoundation.nova.core_db.model.chain.*
 
 @Database(
-    version = 15,
+    version = 16,
     entities = [
         AccountLocal::class,
         NodeLocal::class,
