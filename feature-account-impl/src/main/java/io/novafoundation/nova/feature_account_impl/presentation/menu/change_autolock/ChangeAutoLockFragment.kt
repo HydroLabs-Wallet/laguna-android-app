@@ -1,19 +1,16 @@
-package io.novafoundation.nova.feature_account_impl.presentation.login
+package io.novafoundation.nova.feature_account_impl.presentation.menu.change_autolock
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.view.CustomSnack
+import io.novafoundation.nova.common.utils.hideKeyboard
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
-import io.novafoundation.nova.feature_account_impl.R
-import io.novafoundation.nova.feature_account_impl.databinding.FragmentLoginBinding
+import io.novafoundation.nova.feature_account_impl.databinding.FragmentChangeAutolockBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
-import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportPresenter
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -22,24 +19,22 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
-    override val isAuthorisedContent=false
-
+class ChangeAutoLockFragment : BaseFragment<ChangeAutoLockPresenter>(), ChangeAutoLockView {
     companion object {
-        fun getNewInstance(): LoginFragment = LoginFragment()
+        fun getNewInstance(): ChangeAutoLockFragment = ChangeAutoLockFragment()
     }
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: LoginPresenter
+    lateinit var presenter: ChangeAutoLockPresenter
 
     @ProvidePresenter
     fun createPresenter() = presenter
 
-    lateinit var binding: FragmentLoginBinding
+    lateinit var binding: FragmentChangeAutolockBinding
     override fun inject() {
         FeatureUtils.getFeature<AccountFeatureComponent>(requireContext(), AccountFeatureApi::class.java)
-            .loginComponent()
+            .changeAutoLockComponentFactory()
             .create(
                 fragment = this,
             ).inject(this)
@@ -50,28 +45,28 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentChangeAutolockBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvSecret.setOnClickListener { presenter.onImportClick() }
-        binding.tvSupport.setOnClickListener { presenter.onSupportClick() }
-        binding.btnNext.setOnClickListener { presenter.onNextClick() }
-        binding.tvPassword.onTextChanges
+        binding.tvText.onTextChanges
             .debounce(300L)
             .distinctUntilChanged()
-            .onEach { presenter.onTextChanged(it) }
+            .onEach { presenter.onCurrentPasswordTextChange(it) }
             .launchIn(lifecycleScope)
+
+        binding.btnBack.setOnClickListener { presenter.onBackCommandClick() }
+        binding.btnCancel.setOnClickListener { presenter.onBackCommandClick() }
+        binding.btnNext.setOnClickListener {
+            hideKeyboard()
+            presenter.onNextClick()
+        }
     }
 
-    override fun showImportSnack() {
-        Snackbar.make(requireView(), "Import Wallet", Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showSupportSnack() {
-        Snackbar.make(requireView(), "Contact support", Snackbar.LENGTH_SHORT).show()
+    override fun setCurrentTime(data: String) {
+        binding.tvText.setText(data)
     }
 
     override fun enableButton(enable: Boolean) {
@@ -79,6 +74,7 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
     }
 
     override fun onBackPressed(): Boolean {
-        return false
+        presenter.onBackCommandClick()
+        return true
     }
 }

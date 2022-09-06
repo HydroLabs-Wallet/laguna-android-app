@@ -18,6 +18,7 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class SeedPromptFragment : BaseFragment<SeedPromptPresenter>(), SeedPromptView {
+    override val isAuthorisedContent=false
     companion object {
         const val RESULT_PROMPT = "result_prompt"
         private const val EXTRA_IS_AUTH = "isAuth"

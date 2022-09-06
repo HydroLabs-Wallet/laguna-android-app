@@ -116,7 +116,11 @@ class PreferencesImpl(
         return sharedPreferences.observeKey(key, initialValue)
     }
 
-    private inline fun <reified T> SharedPreferences.observeKey(key: String, default: T): Flow<T> {
+    override fun observeString(key: String, initialValue: String): Flow<String> {
+        return sharedPreferences.observeKey(key, initialValue)
+    }
+
+    inline fun <reified T> SharedPreferences.observeKey(key: String, default: T): Flow<T> {
         val flow = MutableStateFlow(getItem(key, default))
 
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, k ->
@@ -130,7 +134,7 @@ class PreferencesImpl(
             .onCompletion { unregisterOnSharedPreferenceChangeListener(listener) }
     }
 
-    private inline fun <reified T> SharedPreferences.getItem(key: String, default: T): T {
+    inline fun <reified T> SharedPreferences.getItem(key: String, default: T): T {
         @Suppress("UNCHECKED_CAST")
         return when (default) {
             is String -> getString(key, default) as T

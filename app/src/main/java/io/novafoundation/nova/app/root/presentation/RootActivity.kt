@@ -13,6 +13,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.di.RootApi
 import io.novafoundation.nova.app.root.di.RootComponent
+import io.novafoundation.nova.common.base.ChainHolder
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.setVisible
 import io.novafoundation.nova.common.utils.showToast
@@ -101,7 +102,7 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
     override fun onStart() {
         super.onStart()
 
-        presenter.noticeInForeground()
+        presenter.noticeInForeground(chain.lastOrNull()?.get())
     }
 
     fun subscribe() {

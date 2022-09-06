@@ -32,7 +32,8 @@ interface AccountRepository {
     suspend fun getSelectedMetaAccount(): MetaAccount
     suspend fun getMetaAccount(metaId: Long): MetaAccount
     fun selectedMetaAccountFlow(): Flow<MetaAccount>
-
+    fun getAutoLockTimer(): Flow<String>
+    suspend fun saveAutoLockTimer(data: String)
     suspend fun findMetaAccount(accountId: ByteArray): MetaAccount?
 
     suspend fun allMetaAccounts(): List<MetaAccount>

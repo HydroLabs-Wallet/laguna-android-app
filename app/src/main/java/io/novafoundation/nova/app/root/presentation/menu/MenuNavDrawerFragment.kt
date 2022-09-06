@@ -54,6 +54,7 @@ class MenuNavDrawerFragment : BaseFragment<NavDrawerPresenter>(), NavDrawerView 
         binding.imEditName.setOnClickListener { presenter.editName() }
         binding.imIconBig.setOnClickListener { presenter.onAvatarClick() }
         binding.holderChangePassword.setOnClickListener { presenter.toChangePassword() }
+        binding.holderChangeAutoLock.setOnClickListener { presenter.onAutoLockClick() }
     }
 
     override fun onBackPressed(): Boolean {

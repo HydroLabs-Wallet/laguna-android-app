@@ -839,5 +839,8 @@
     <string name="password_changed_successfully">Password changed successfully!</string>
     <string name="change_avatar">Change Avatar</string>
     <string name="avatar_changed">Avatar Changed!</string>
+    <string name="minutes">Minutes</string>
+    <string name="autolock_changed">Auto lock timer changed!</string>
+    <string name="error_auto_lock">You can’t add a timer for more than 24 hours</string>
 
 </resources>

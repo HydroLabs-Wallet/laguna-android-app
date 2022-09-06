@@ -62,7 +62,8 @@ interface AccountDataSource : SecretStoreV1 {
     suspend fun updateMetaAccountIcon(metaId: Long, resOrPath: String)
 
     suspend fun deleteMetaAccount(metaId: Long)
-
+    fun getAutoLockTimer(): Flow<String>
+    suspend fun saveAutoLockTimer(data: String)
     /**
      * @return id of inserted meta account
      */

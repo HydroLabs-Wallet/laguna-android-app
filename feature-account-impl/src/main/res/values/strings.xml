@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="autolock_hint">How many minutes should pass before the wallet automatically locks?</string>
+    <string name="auto_lock_timer">Auto lock timer</string>
 </resources>

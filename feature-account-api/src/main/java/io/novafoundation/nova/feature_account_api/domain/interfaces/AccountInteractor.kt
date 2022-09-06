@@ -39,6 +39,8 @@ interface AccountInteractor {
 
     fun selectedMetaAccountFlow(): Flow<MetaAccount>
 
+    fun getAutoLockTimer(): Flow<String>
+    suspend fun saveAutoLockTimer(data: String)
     suspend fun selectMetaAccount(metaId: Long)
     suspend fun updateMetaAccountAvatar(metaId: Long, avatar: String)
     suspend fun deleteAccount(metaId: Long)

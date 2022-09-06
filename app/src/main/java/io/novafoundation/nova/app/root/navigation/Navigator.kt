@@ -81,6 +81,7 @@ class Navigator(
     private val navController: NavController?
         get() = navigationHolder.navController
 
+
     override fun setResult(key: String, data: Any) {
         router.sendResult(key, data)
     }
@@ -175,6 +176,10 @@ class Navigator(
 
     override fun toChangeAvatar() {
         router.navigateTo(Screens.toChangeAvatar())
+    }
+
+    override fun toChangeAutoLock() {
+        router.navigateTo(Screens.toChangeAutoLock())
     }
 
     override fun toChainsSettings() {

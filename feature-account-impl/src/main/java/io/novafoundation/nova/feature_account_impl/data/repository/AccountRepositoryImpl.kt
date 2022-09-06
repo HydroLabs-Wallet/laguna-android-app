@@ -106,6 +106,14 @@ class AccountRepositoryImpl(
         return accountDataSource.selectedMetaAccountFlow()
     }
 
+    override fun getAutoLockTimer(): Flow<String> {
+        return accountDataSource.getAutoLockTimer()
+    }
+
+    override suspend fun saveAutoLockTimer(data: String) {
+        accountDataSource.saveAutoLockTimer(data)
+    }
+
     override suspend fun findMetaAccount(accountId: ByteArray): MetaAccount? {
         return accountDataSource.findMetaAccount(accountId)
     }

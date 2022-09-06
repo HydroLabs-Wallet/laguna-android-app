@@ -15,6 +15,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.edit_field.di.Ed
 import io.novafoundation.nova.feature_account_impl.presentation.language.di.LanguagesComponent
 import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
 import io.novafoundation.nova.feature_account_impl.presentation.login.di.LoginComponent
+import io.novafoundation.nova.feature_account_impl.presentation.menu.change_autolock.di.ChangeAutoLockComponent
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_avatar.di.ChangeAvatarComponent
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_password.di.ChangePasswordComponent
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.di.SeedConfirmComponent
@@ -56,8 +57,9 @@ interface AccountFeatureComponent : AccountFeatureApi {
 
     fun profileComponentFactory(): SettingsComponent.Factory
     fun editFieldComponentFactory(): EditFieldComponent.Factory
-    fun changePasswordComponentFactory():ChangePasswordComponent.Factory
-    fun changeAvatarComponentFactory():ChangeAvatarComponent.Factory
+    fun changePasswordComponentFactory(): ChangePasswordComponent.Factory
+    fun changeAvatarComponentFactory(): ChangeAvatarComponent.Factory
+    fun changeAutoLockComponentFactory(): ChangeAutoLockComponent.Factory
 
     fun languagesComponentFactory(): LanguagesComponent.Factory
 

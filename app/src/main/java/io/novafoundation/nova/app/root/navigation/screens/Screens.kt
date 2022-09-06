@@ -12,6 +12,7 @@ import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddA
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.AccountImportInfoFragment
 import io.novafoundation.nova.feature_account_impl.presentation.login.LoginFragment
+import io.novafoundation.nova.feature_account_impl.presentation.menu.change_autolock.ChangeAutoLockFragment
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_avatar.ChangeAvatarFragment
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_password.ChangePasswordFragment
 import io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm.SeedConfirmFragment
@@ -93,6 +94,7 @@ object Screens {
     fun toMenu() = FragmentScreen { MenuNavDrawerFragment.getNewInstance() }
     fun toChangePassword() = FragmentScreen { ChangePasswordFragment.getNewInstance() }
     fun toChangeAvatar() = FragmentScreen { ChangeAvatarFragment.getNewInstance() }
+    fun toChangeAutoLock() = FragmentScreen { ChangeAutoLockFragment.getNewInstance() }
 
     // Assets
     fun toAssetChooseScreen() = FragmentScreen { AssetChooseFragment.getNewInstance() }

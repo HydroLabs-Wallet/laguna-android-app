@@ -20,6 +20,8 @@ import javax.inject.Inject
 
 class OnboardingFragment : BaseFragment<OnboardingPresenter>(), OnboardingView {
 
+    override val isAuthorisedContent=false
+
     companion object {
         private const val EXTRA_IS_AUTH = "isAuth"
         fun getNewInstance(payload: AddAccountPayload): OnboardingFragment = OnboardingFragment().apply {

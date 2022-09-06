@@ -37,6 +37,7 @@ import kotlinx.coroutines.withContext
 
 private const val PREFS_AUTH_TYPE = "auth_type"
 private const val PREFS_PIN_CODE = "pin_code"
+private const val PREFS_AUTOLOCK = "auto_lock"
 
 class AccountDataSourceImpl(
     private val preferences: Preferences,
@@ -210,6 +211,14 @@ class AccountDataSourceImpl(
 
         metaAccountDao.delete(metaId)
         secretStoreV2.clearSecrets(metaId, chainAccountIds)
+    }
+
+    override fun getAutoLockTimer(): Flow<String> {
+        return preferences.observeString(PREFS_AUTOLOCK, "15")
+    }
+
+    override suspend fun saveAutoLockTimer(data: String) {
+        preferences.putString(PREFS_AUTOLOCK, data)
     }
 
     override suspend fun insertMetaAccount(

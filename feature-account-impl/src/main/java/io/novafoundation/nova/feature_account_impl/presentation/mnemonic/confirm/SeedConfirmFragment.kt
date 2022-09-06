@@ -18,6 +18,8 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class SeedConfirmFragment : BaseFragment<SeedConfirmPresenter>(), SeedConfirmView {
+    override val isAuthorisedContent=false
+
     companion object {
         private const val EXTRA_IS_AUTH = "isAuth"
 

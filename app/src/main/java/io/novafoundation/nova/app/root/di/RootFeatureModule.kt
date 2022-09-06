@@ -3,6 +3,7 @@ package io.novafoundation.nova.app.root.di
 import dagger.Module
 import dagger.Provides
 import io.novafoundation.nova.app.root.domain.RootInteractor
+import io.novafoundation.nova.app.root.presentation.AutoLockUseCase
 import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
 import io.novafoundation.nova.common.data.storage.Preferences
 import io.novafoundation.nova.common.di.scope.FeatureScope
@@ -33,6 +34,11 @@ class RootFeatureModule {
             walletUpdateSystem,
             walletRepository
         )
+    }
+    @Provides
+    @FeatureScope
+    fun provideAutoLockUseCase(accountRepository: AccountRepository):AutoLockUseCase{
+        return AutoLockUseCase(accountRepository)
     }
     @Provides
     @FeatureScope

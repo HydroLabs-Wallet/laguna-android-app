@@ -83,6 +83,14 @@ class AccountInteractorImpl(
         return accountRepository.selectedMetaAccountFlow()
     }
 
+    override fun getAutoLockTimer(): Flow<String> {
+        return accountRepository.getAutoLockTimer()
+    }
+
+    override suspend fun saveAutoLockTimer(data: String) {
+        return accountRepository.saveAutoLockTimer(data)
+    }
+
     override suspend fun selectMetaAccount(metaId: Long) {
         accountRepository.selectMetaAccount(metaId)
     }
