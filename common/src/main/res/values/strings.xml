@@ -768,8 +768,8 @@
     <string name="send">Send</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="choose_asset">Choose asset</string>
-    <string name="search_asset">Search asset</string>
+    <string name="choose_asset">Choose Asset</string>
+    <string name="search_asset">Search Asset</string>
     <string name="paste">Paste</string>
     <string name="save">Save</string>
     <string name="enter_ens">Enter address, ENS</string>

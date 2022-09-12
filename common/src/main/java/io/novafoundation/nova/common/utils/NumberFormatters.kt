@@ -67,7 +67,7 @@ fun Int.format(): String {
 }
 
 fun BigDecimal.formatAsChange(): String {
-    val prefix = if (isNonNegative) "+" else ""
+    val prefix = if (isNonNegative) "" else ""
 
     return prefix + formatAsPercentage()
 }

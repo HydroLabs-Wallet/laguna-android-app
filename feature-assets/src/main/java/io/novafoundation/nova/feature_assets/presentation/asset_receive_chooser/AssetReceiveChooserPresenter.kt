@@ -60,9 +60,9 @@ class AssetReceiveChooserPresenter @Inject constructor(
                 viewState.submitList(filteredAssets)
             } else {
                 val filtered = filteredAssets.filter {
-                    it.token.configuration.symbol == query ||
-                        it.token.configuration.chainId == query ||
-                        it.token.configuration.name == query
+                    it.token.configuration.symbol.lowercase().contains(query.lowercase()) ||
+                        it.token.configuration.chainId.lowercase().contains(query.lowercase()) ||
+                        it.token.configuration.name.lowercase().contains(query.lowercase())
                 }
                 viewState.submitList(filtered)
             }

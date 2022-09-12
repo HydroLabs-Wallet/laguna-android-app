@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/welcome_to_get_started"
+                android:textAllCaps="true"
                 android:textColor="@color/contentPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/tvDeposit"
                 app:layout_constraintEnd_toEndOf="parent"

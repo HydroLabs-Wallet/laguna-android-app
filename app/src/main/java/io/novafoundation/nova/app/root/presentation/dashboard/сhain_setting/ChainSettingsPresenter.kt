@@ -62,9 +62,9 @@ class ChainSettingsPresenter @Inject constructor(
             } else {
                 val filtered = assets.filter {
                     val configuration = it.token.configuration
-                    configuration.name == query ||
-                        configuration.symbol == query ||
-                        configuration.chainId == query
+                    configuration.name.lowercase().contains(query.lowercase()) ||
+                        configuration.symbol.lowercase().contains(query.lowercase()) ||
+                        configuration.chainId.lowercase().contains(query.lowercase())
                 }
                 viewState.submitList(filtered)
             }

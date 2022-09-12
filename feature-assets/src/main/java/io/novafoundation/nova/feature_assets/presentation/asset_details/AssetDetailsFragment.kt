@@ -78,7 +78,7 @@ class AssetDetailsFragment : BaseFragment<AssetDetailsPresenter>(), AssetDetails
             val fiatSymbol = data.token.configuration.symbol
             tvTokePrice.text = data.token.dollarRate.orZero().formatAsCurrency()
             val delta = data.token.recentRateChange
-            tvPriceChange.text = data.token.recentRateChange
+            tvPriceChange.text = data.token.dollarChange
             tvPriceDelta.text = data.token.recentRateChange
             tvTokenBalance.text = if (data.showValues) data.total.token else getString(R.string.value_hidden)
             tvCurrencyBalance.text = if (data.showValues) data.total.fiat else getString(R.string.value_hidden)
@@ -89,8 +89,8 @@ class AssetDetailsFragment : BaseFragment<AssetDetailsPresenter>(), AssetDetails
             btnSend.setOnClickListener { presenter.onSendClick() }
 
             if (delta.startsWith("-")) {
-                val redTextColor = requireContext().compatColor(R.color.red500)
-                val redBackgroundColor = R.color.red100
+                val redTextColor = requireContext().compatColor(R.color.neutral500)
+                val redBackgroundColor = R.color.neutral100
                 tvPriceDelta.setTextColor(redTextColor)
                 tvDeltaBalance.setTextColor(redTextColor)
                 tvPriceDelta.backgroundTint(redBackgroundColor)
