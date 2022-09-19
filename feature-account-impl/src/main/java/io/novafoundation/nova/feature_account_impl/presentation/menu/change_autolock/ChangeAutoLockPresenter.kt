@@ -38,7 +38,7 @@ class ChangeAutoLockPresenter @Inject constructor(
 
     fun onNextClick() {
         presenterScope.launch {
-            val time = newTime.filter { it.isDigit() }.toInt().absoluteValue
+            val time = newTime.filter { it.isDigit() }.toDouble().absoluteValue
             if (time / 60 > 24) {
                 showError(resourceManager.getString(R.string.error_auto_lock))
             } else {

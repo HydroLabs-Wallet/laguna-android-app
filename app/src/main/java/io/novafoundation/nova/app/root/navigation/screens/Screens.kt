@@ -3,7 +3,6 @@ package io.novafoundation.nova.app.root.navigation.screens
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import io.novafoundation.nova.app.root.presentation.dashboard.DashboardFragment
 import io.novafoundation.nova.app.root.presentation.dashboard.сhain_setting.ChainSettingsFragment
-import io.novafoundation.nova.feature_account_impl.presentation.edit_field.EditFieldFragment
 import io.novafoundation.nova.app.root.presentation.menu.MenuNavDrawerFragment
 import io.novafoundation.nova.common.data.model.ConfirmPayload
 import io.novafoundation.nova.common.data.model.EditFieldPayload
@@ -11,6 +10,9 @@ import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.AccountImportFragment
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.AccountImportInfoFragment
+import io.novafoundation.nova.feature_account_impl.presentation.add_existing_account_complete.AddToExistingAccountCompleteFragment
+import io.novafoundation.nova.feature_account_impl.presentation.add_to_existing.AddToExistingAccountFragment
+import io.novafoundation.nova.feature_account_impl.presentation.edit_field.EditFieldFragment
 import io.novafoundation.nova.feature_account_impl.presentation.login.LoginFragment
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_autolock.ChangeAutoLockFragment
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_avatar.ChangeAvatarFragment
@@ -52,6 +54,9 @@ object Screens {
     fun toOnboardingScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { OnboardingFragment.getNewInstance(payload) }
 
+    fun toAddExistingAccountScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { AddToExistingAccountFragment.getNewInstance(payload) }
+
     fun toSeedPromptScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { SeedPromptFragment.getNewInstance(payload) }
 
@@ -77,6 +82,9 @@ object Screens {
     fun toAccountCreatedScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
         FragmentScreen { AccountCreatedFragment.getNewInstance(payload) }
 
+    fun toAddToExistingCompletedScreen(payload: AddAccountPayload = AddAccountPayload.MetaAccount(true)) =
+        FragmentScreen { AddToExistingAccountCompleteFragment.getNewInstance(payload) }
+
     // Login
     fun toLoginScreen() = FragmentScreen { LoginFragment.getNewInstance() }
 
@@ -93,7 +101,7 @@ object Screens {
     // Menu
     fun toMenu() = FragmentScreen { MenuNavDrawerFragment.getNewInstance() }
     fun toChangePassword() = FragmentScreen { ChangePasswordFragment.getNewInstance() }
-    fun toChangeAvatar() = FragmentScreen { ChangeAvatarFragment.getNewInstance() }
+    fun toChangeAvatar() = FragmentScreen(clearContainer = false) { ChangeAvatarFragment.getNewInstance() }
     fun toChangeAutoLock() = FragmentScreen { ChangeAutoLockFragment.getNewInstance() }
 
     // Assets

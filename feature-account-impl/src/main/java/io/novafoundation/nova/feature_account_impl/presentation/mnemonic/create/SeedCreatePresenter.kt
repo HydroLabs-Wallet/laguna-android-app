@@ -33,7 +33,7 @@ class SeedCreatePresenter @Inject constructor(
         flowOf { interactor.generateMnemonic() }
             .onEach {
                 val list = it.wordList
-                seed = TextUtils.join(", ", list)
+                seed = TextUtils.join(" ", list)
                 seedWords = seedMapper.map(list)
                 viewState.setSeeds(seedWords)
             }

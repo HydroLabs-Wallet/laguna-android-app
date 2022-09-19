@@ -842,5 +842,9 @@
     <string name="minutes">Minutes</string>
     <string name="autolock_changed">Auto lock timer changed!</string>
     <string name="error_auto_lock">You can’t add a timer for more than 24 hours</string>
+    <string name="import_complete">Import Complete!</string>
+    <string name="unlock_the_power_of_polkadot">Unlock the Power of Polkadot</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="import_account">Import Account</string>
 
 </resources>

@@ -60,7 +60,7 @@ class SeedPromptPresenter @Inject constructor(
                         addAccountInteractor.createAccount(mnemonicString, advancedEncryption, addAccountType)
                             .onSuccess {
                                 if (interactor.isCodeSet()) {
-                                    router.toDashboard()
+                                    router.toAddToExistingComplete(payload)
 
                                 } else {
                                     router.toCreatePassword(payload)

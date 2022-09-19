@@ -103,6 +103,7 @@
                     android:layout_marginEnd="@dimen/margin_26"
                     app:if_ime_option="next"
                     app:if_input_type="text"
+                    app:if_show_clear="false"
                     app:if_show_title="false"
                     app:if_text_hint="15"
                     app:layout_constraintTop_toBottomOf="@+id/labelText" />
@@ -110,11 +111,12 @@
                 <TextView
                     style="@style/TextBodyRegularMedium"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:layout_marginEnd="16dp"
                     android:text="@string/minutes"
                     android:textColor="@color/neutral500"
-                    app:layout_constraintBottom_toBottomOf="@id/tvText"
                     app:layout_constraintEnd_toEndOf="@id/tvText"
                     app:layout_constraintTop_toTopOf="@id/tvText" />
 

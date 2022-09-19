@@ -144,12 +144,20 @@ class Navigator(
         router.navigateTo(Screens.toAccountCreatedScreen(payload))
     }
 
+    override fun toAddToExistingComplete(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAddToExistingCompletedScreen(payload))
+    }
+
     override fun toSeedConfirm(payload: AddAccountPayload) {
         router.navigateTo(Screens.toSeedConfirmScreen(payload))
     }
 
     override fun toOnboardingScreen() {
         router.navigateTo(Screens.toOnboardingScreen(AddAccountPayload.MetaAccount(true)))
+    }
+
+    override fun toAddExistingAccountScreen() {
+        router.navigateTo(Screens.toAddExistingAccountScreen(AddAccountPayload.MetaAccount(true)))
     }
 
     // Login

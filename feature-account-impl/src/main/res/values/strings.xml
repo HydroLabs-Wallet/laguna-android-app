@@ -3,4 +3,7 @@
 
     <string name="autolock_hint">How many minutes should pass before the wallet automatically locks?</string>
     <string name="auto_lock_timer">Auto lock timer</string>
+    <string name="upload_a_photo">Upload a photo</string>
+    <string name="save_changes">Save changes</string>
+    <string name="add_or_import_account">Add or Import Account</string>
 </resources>

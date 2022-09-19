@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_account_impl.presentation.select_account
 
+import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.utils.WithCoroutineScopeExtensions
 import io.novafoundation.nova.common.utils.inBackground
@@ -9,7 +10,6 @@ import io.novafoundation.nova.feature_account_impl.presentation.model.LightMetaA
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import moxy.InjectViewState
-import io.novafoundation.nova.common.base.BasePresenter
 import moxy.presenterScope
 import javax.inject.Inject
 
@@ -35,7 +35,7 @@ class SelectAccountPresenter @Inject constructor(
 
     fun onAddClick() {
         router.back()
-        router.toOnboardingScreen()
+        router.toAddExistingAccountScreen()
     }
 
     fun onItemClicked(account: LightMetaAccountUi) {

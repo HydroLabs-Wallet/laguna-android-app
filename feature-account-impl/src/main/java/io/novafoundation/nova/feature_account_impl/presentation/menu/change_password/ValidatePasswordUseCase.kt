@@ -38,7 +38,7 @@ class ValidatePasswordUseCase(private val resourceManager: ResourceManager) {
         Pattern.compile(".*[A-Z].*"),
         Pattern.compile(".*[a-z].*"),
         Pattern.compile(".*\\d.*"),
-        Pattern.compile(".*[~!].*"),
+        Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE),
     )
 
     private fun validatePasswordRules(text: String): Pair<Boolean, SpannableString> {
@@ -56,6 +56,7 @@ class ValidatePasswordUseCase(private val resourceManager: ResourceManager) {
             getColorSpan(resourceManager.getString(R.string.error_too_short), colorRed)
         } else {
             isValid = true
+
             passwordRegexes.forEach {
                 if (it.matcher(text).matches()) {
                     strength++

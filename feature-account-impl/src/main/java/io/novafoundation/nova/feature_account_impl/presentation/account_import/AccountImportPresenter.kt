@@ -116,7 +116,7 @@ class AccountImportPresenter @Inject constructor(
             var result = import()
             if (result.isSuccess) {
                 if (interactor.isCodeSet()) {
-
+                    router.toAddToExistingComplete(payload)
                 } else {
                     router.toCreatePassword(payload)
                 }
@@ -139,6 +139,7 @@ class AccountImportPresenter @Inject constructor(
                         result.exceptionOrNull()?.toString() ?: resourceManager.getString(R.string.unknown_error)
                     }
                 }
+                onBackCommandClick()
                 showError(errorMessage)
             }
             viewState.showProgress(false)
