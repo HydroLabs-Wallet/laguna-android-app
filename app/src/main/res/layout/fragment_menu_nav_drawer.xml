@@ -118,7 +118,36 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:background="@color/black_8" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_size_24_back_up"
+                app:tint="@color/contentTertiary" />
+
+            <TextView
+                style="@style/TextBodyRegularLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="@string/backup_account"
+                android:textColor="@color/contentPrimary" />
+
+            <ImageView
+                android:id="@+id/valueBackUp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_checkmark_circle_16"
+                app:tint="@color/green500" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -134,6 +163,7 @@
                 app:tint="@color/contentTertiary" />
 
             <TextView
+                android:id="@+id/holderAddressBook"
                 style="@style/TextBodyRegularLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -340,36 +370,7 @@
                 android:textColor="@color/contentTertiary" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_size_24_back_up"
-                app:tint="@color/contentTertiary" />
-
-            <TextView
-                style="@style/TextBodyRegularLarge"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:text="@string/backup_account"
-                android:textColor="@color/contentPrimary" />
-
-            <ImageView
-                android:id="@+id/valueBackUp"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_checkmark_circle_16"
-                app:tint="@color/green500" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -383,7 +384,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_size_24_cross_circle"
-                app:tint="@color/red500" />
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/tvLogOut"
@@ -393,7 +394,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:text="@string/log_out_skywalker"
-                android:textColor="@color/red800" />
+                android:textColor="@color/contentPrimary" />
         </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

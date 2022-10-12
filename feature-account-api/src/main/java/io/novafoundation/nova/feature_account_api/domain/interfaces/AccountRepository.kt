@@ -1,5 +1,7 @@
 package io.novafoundation.nova.feature_account_api.domain.interfaces
 
+import io.novafoundation.nova.common.data.model.Contact
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Node
@@ -106,4 +108,8 @@ interface AccountRepository {
     ): String
 
     suspend fun isAccountExists(accountId: AccountId): Boolean
+
+    fun getContacts(): Flow<List<Contact>>
+    suspend fun createContact(data: Contact)
+    suspend fun deleteContact(id:String)
 }

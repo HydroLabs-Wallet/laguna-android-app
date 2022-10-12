@@ -53,7 +53,6 @@ class AssetReceiveChooserPresenter @Inject constructor(
                 val nameSame = it.token.configuration.name.lowercase() == payload.priceId
                 val priceIdSame = payload.priceId != null && it.token.configuration.priceId == payload.priceId
                 val filtered = nameSame || priceIdSame
-                Log.e("mcheck", "name $filtered")
                 filtered
             }
             if (query.isEmpty()) {

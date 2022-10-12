@@ -6,4 +6,6 @@
     <string name="upload_a_photo">Upload a photo</string>
     <string name="save_changes">Save changes</string>
     <string name="add_or_import_account">Add or Import Account</string>
+    <string name="contact_memo_hint">Search here...</string>
+    <string name="address_will_be_reformated">Address will be reformatted to default substrate format</string>
 </resources>

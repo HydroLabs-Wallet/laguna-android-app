@@ -1,6 +1,7 @@
 package io.novafoundation.nova.feature_account_impl.presentation
 
 import com.github.terrakok.cicerone.ResultListener
+import io.novafoundation.nova.common.data.model.ContactPayload
 import io.novafoundation.nova.common.navigation.SecureRouter
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
@@ -25,6 +26,8 @@ interface AccountRouter : SecureRouter {
     fun toAccountImportInfo()
     fun openMain()
     fun toLoginScreen()
+    fun toCreateContact(data: ContactPayload)
+    fun toAddressBookContact(data: ContactPayload)
 
     fun toDashboard()
 //    fun openCreatePincode()

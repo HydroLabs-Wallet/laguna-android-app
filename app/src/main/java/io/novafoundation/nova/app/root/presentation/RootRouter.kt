@@ -12,6 +12,7 @@ interface RootRouter {
     fun toChangePassword()
     fun toChangeAvatar()
     fun toChangeAutoLock()
+    fun toAddressBook()
     fun returnToWallet()
     fun toLoginScreen()
 

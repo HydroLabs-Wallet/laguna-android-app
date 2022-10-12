@@ -13,6 +13,8 @@ import io.novafoundation.nova.feature_account_impl.presentation.account_import.d
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.di.AccountImportInfoComponent
 import io.novafoundation.nova.feature_account_impl.presentation.add_existing_account_complete.di.AddToExistingAccountCompleteComponent
 import io.novafoundation.nova.feature_account_impl.presentation.add_to_existing.di.AddToExistingAccountComponent
+import io.novafoundation.nova.feature_account_impl.presentation.address_book.di.AddressBookComponent
+import io.novafoundation.nova.feature_account_impl.presentation.address_book_contact.di.AddressBookContactComponent
 import io.novafoundation.nova.feature_account_impl.presentation.edit_field.di.EditFieldComponent
 import io.novafoundation.nova.feature_account_impl.presentation.language.di.LanguagesComponent
 import io.novafoundation.nova.feature_account_impl.presentation.list.di.AccountListComponent
@@ -62,11 +64,14 @@ interface AccountFeatureComponent : AccountFeatureApi {
 
     fun loginComponent(): LoginComponent.Factory
 
+    // menu
     fun profileComponentFactory(): SettingsComponent.Factory
     fun editFieldComponentFactory(): EditFieldComponent.Factory
     fun changePasswordComponentFactory(): ChangePasswordComponent.Factory
     fun changeAvatarComponentFactory(): ChangeAvatarComponent.Factory
     fun changeAutoLockComponentFactory(): ChangeAutoLockComponent.Factory
+    fun addressBookComponentFactory(): AddressBookComponent.Factory
+    fun addressBookContactComponentFactory(): AddressBookContactComponent.Factory
 
     fun languagesComponentFactory(): LanguagesComponent.Factory
 

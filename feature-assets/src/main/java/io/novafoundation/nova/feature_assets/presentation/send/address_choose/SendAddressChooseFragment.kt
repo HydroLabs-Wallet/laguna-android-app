@@ -8,11 +8,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import io.novafoundation.nova.common.base.BaseFragment
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.ellipsis
 import io.novafoundation.nova.feature_assets.R
@@ -20,7 +20,6 @@ import io.novafoundation.nova.feature_assets.databinding.FragmentSendAddressChoo
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureApi
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureComponent
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiMarker
 import io.novafoundation.nova.feature_assets.presentation.send.address_choose.adapter.SendAddressChooseAdapter
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged

@@ -19,6 +19,7 @@ import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
 import io.novafoundation.nova.common.validation.ValidationExecutor
 import io.novafoundation.nova.common.vibration.DeviceVibrator
 import io.novafoundation.nova.core_db.dao.AccountDao
+import io.novafoundation.nova.core_db.dao.ContactsDao
 import io.novafoundation.nova.core_db.dao.MetaAccountDao
 import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.runtime.extrinsic.ExtrinsicBuilderFactory
@@ -47,7 +48,7 @@ interface AccountFeatureDependencies {
     fun deviceVibrator(): DeviceVibrator
 
     fun userDao(): AccountDao
-
+    fun contactsDao():ContactsDao
     fun nodeDao(): NodeDao
 
     fun languagesHolder(): LanguagesHolder

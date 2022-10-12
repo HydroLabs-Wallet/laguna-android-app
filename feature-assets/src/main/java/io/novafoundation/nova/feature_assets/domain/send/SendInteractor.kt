@@ -3,13 +3,13 @@ package io.novafoundation.nova.feature_assets.domain.send
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
 import io.novafoundation.nova.feature_assets.R
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiHeader
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiMarker
+import io.novafoundation.nova.common.data.model.ContactUi
+import io.novafoundation.nova.common.data.model.ContactUiHeader
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.AssetSourceRegistry
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransfer
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletRepository
-import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
+import io.novafoundation.nova.common.data.model.Contact
 import io.novafoundation.nova.runtime.multiNetwork.ChainRegistry
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +40,7 @@ class SendInteractor(
                     val header = ContactUiHeader(resourceManager.getString(R.string.contacts))
                     newList.add(header)
                 }
-                newList.addAll(list.map { ContactUi(name = it.name, address = it.address) })
+                newList.addAll(list.map { ContactUi(name = it.name, address = it.address, memo = it.memo,id=it.id!!) })
                 newList
             }
         return contacts

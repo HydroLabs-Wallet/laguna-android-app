@@ -5,6 +5,7 @@ import io.novafoundation.nova.app.root.presentation.dashboard.DashboardFragment
 import io.novafoundation.nova.app.root.presentation.dashboard.сhain_setting.ChainSettingsFragment
 import io.novafoundation.nova.app.root.presentation.menu.MenuNavDrawerFragment
 import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.ContactPayload
 import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
@@ -12,6 +13,8 @@ import io.novafoundation.nova.feature_account_impl.presentation.account_import.A
 import io.novafoundation.nova.feature_account_impl.presentation.account_import.info.AccountImportInfoFragment
 import io.novafoundation.nova.feature_account_impl.presentation.add_existing_account_complete.AddToExistingAccountCompleteFragment
 import io.novafoundation.nova.feature_account_impl.presentation.add_to_existing.AddToExistingAccountFragment
+import io.novafoundation.nova.feature_account_impl.presentation.address_book.AddressBookFragment
+import io.novafoundation.nova.feature_account_impl.presentation.address_book_contact.AddressBookContactFragment
 import io.novafoundation.nova.feature_account_impl.presentation.edit_field.EditFieldFragment
 import io.novafoundation.nova.feature_account_impl.presentation.login.LoginFragment
 import io.novafoundation.nova.feature_account_impl.presentation.menu.change_autolock.ChangeAutoLockFragment
@@ -35,7 +38,6 @@ import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.AssetTransactionsFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_transactions.details.transfer.TransferDetailsFragment
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
-import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send.address_choose.SendAddressChooseFragment
 import io.novafoundation.nova.feature_assets.presentation.send.asset_choose.SendAssetChooseFragment
@@ -103,6 +105,8 @@ object Screens {
     fun toChangePassword() = FragmentScreen { ChangePasswordFragment.getNewInstance() }
     fun toChangeAvatar() = FragmentScreen(clearContainer = false) { ChangeAvatarFragment.getNewInstance() }
     fun toChangeAutoLock() = FragmentScreen { ChangeAutoLockFragment.getNewInstance() }
+    fun toAddressBook() = FragmentScreen { AddressBookFragment.getNewInstance() }
+    fun toAddressBookContact(data:ContactPayload)= FragmentScreen{AddressBookContactFragment.getNewInstance(data)}
 
     // Assets
     fun toAssetChooseScreen() = FragmentScreen { AssetChooseFragment.getNewInstance() }

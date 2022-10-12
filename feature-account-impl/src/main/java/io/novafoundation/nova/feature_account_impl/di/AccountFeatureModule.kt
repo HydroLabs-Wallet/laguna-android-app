@@ -15,6 +15,7 @@ import io.novafoundation.nova.common.resources.LanguagesHolder
 import io.novafoundation.nova.common.resources.ResourceManager
 import io.novafoundation.nova.common.utils.systemCall.SystemCallExecutor
 import io.novafoundation.nova.core_db.dao.AccountDao
+import io.novafoundation.nova.core_db.dao.ContactsDao
 import io.novafoundation.nova.core_db.dao.MetaAccountDao
 import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.feature_account_api.data.extrinsic.ExtrinsicService
@@ -86,6 +87,7 @@ class AccountFeatureModule {
     fun provideAccountRepository(
         accountDataSource: AccountDataSource,
         accountDao: AccountDao,
+        contactsDao: ContactsDao,
         nodeDao: NodeDao,
         jsonSeedEncoder: JsonSeedEncoder,
         accountSubstrateSource: AccountSubstrateSource,
@@ -96,6 +98,7 @@ class AccountFeatureModule {
         return AccountRepositoryImpl(
             accountDataSource,
             accountDao,
+            contactsDao,
             nodeDao,
             jsonSeedEncoder,
             languagesHolder,

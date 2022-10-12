@@ -40,7 +40,7 @@ class RpcCalls(
 
         val feeResponse = socketFor(chainId).executeAsync(request, mapper = pojo<FeeResponse>().nonNull())
 
-        return feeResponse.partialFee
+        return feeResponse.partialFee.toBigInteger()
     }
 
     suspend fun submitExtrinsic(chainId: ChainId, extrinsic: String): String {

@@ -16,4 +16,7 @@ interface ContactsDao {
 
     @Query("select * from contacts")
     fun getContacts(): Flow<List<ContactLocal>>
+
+    @Query("DELETE FROM contacts WHERE id = :id")
+    suspend fun deleteContact(id: String)
 }

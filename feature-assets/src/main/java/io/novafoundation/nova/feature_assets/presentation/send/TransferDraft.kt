@@ -1,8 +1,8 @@
 package io.novafoundation.nova.feature_assets.presentation.send
 
 import android.os.Parcelable
+import io.novafoundation.nova.common.data.model.ContactUi
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
-import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import java.math.BigDecimal
 

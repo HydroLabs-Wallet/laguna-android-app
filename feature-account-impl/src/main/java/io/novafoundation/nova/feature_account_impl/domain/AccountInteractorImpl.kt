@@ -1,5 +1,9 @@
 package io.novafoundation.nova.feature_account_impl.domain
 
+import io.novafoundation.nova.common.data.model.Contact
+import io.novafoundation.nova.common.data.model.ContactUi
+import io.novafoundation.nova.common.data.model.ContactUiHeader
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Node
@@ -13,14 +17,16 @@ import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.encrypt.mnemonic.Mnemonic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class AccountInteractorImpl(
     private val chainRegistry: ChainRegistry,
-    private val accountRepository: AccountRepository,
+    private val accountRepository: AccountRepository
 ) : AccountInteractor {
 
     override suspend fun generateMnemonic(): Mnemonic {
+
         return accountRepository.generateMnemonic()
     }
 
@@ -61,6 +67,29 @@ class AccountInteractorImpl(
 
     override suspend fun setBiometricOff() {
         return accountRepository.setBiometricOff()
+    }
+
+    override suspend fun saveContact(data: Contact) {
+        accountRepository.createContact(data)
+    }
+
+    override fun getContacts(): Flow<List<ContactUiMarker>> {
+
+        val contacts = accountRepository.getContacts()
+            .map { list ->
+                val newList = mutableListOf<ContactUiMarker>()
+                val group = list.groupBy { it.name.first() }
+                group.forEach { char, subList ->
+                    newList.add(ContactUiHeader(char.toString()))
+                    newList.addAll(subList.map { ContactUi(id=it.id!!,name = it.name, address = it.address, memo = it.memo) })
+                }
+                newList
+            }
+        return contacts
+    }
+
+    override suspend fun deleteContact(id: String) {
+        accountRepository.deleteContact(id)
     }
 
     override suspend fun updateMetaAccountName(metaId: Long, name: String) {

@@ -1,4 +1,4 @@
-package io.novafoundation.nova.feature_assets.presentation.send.address_choose.adapter
+package io.novafoundation.nova.feature_account_impl.presentation.address_book.adapter
 
 import androidx.core.view.isVisible
 import coil.load
@@ -11,11 +11,12 @@ import io.novafoundation.nova.common.databinding.ListitemContactBinding
 import io.novafoundation.nova.common.databinding.ListitemContactHeaderBinding
 import io.novafoundation.nova.common.utils.AvatarUtils
 import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback
+import io.novafoundation.nova.feature_account_impl.R
 
-class SendAddressChooseAdapter() :
+class AddressBookAdapter() :
     AsyncListDifferDelegationAdapter<ContactUiMarker>(DefaultDiffUtilCallback()) {
     var onItemClick: ((ContactUi) -> Unit)? = null
-    private val avatarUtils = AvatarUtils()
+    val avatars = AvatarUtils()
 
     init {
         delegatesManager.addDelegate(contactDelegate())
@@ -31,9 +32,10 @@ class SendAddressChooseAdapter() :
         ) {
             bind {
                 with(binding) {
-                    imAvatar.setImageResource(avatarUtils.randomAvatar().toInt())
-                    tvMemo.isVisible=false
+                    imAvatar.setImageResource(avatars.randomAvatar().toInt())
                     tvName.text = item.name
+                    tvMemo.text = item.memo
+                    tvMemo.isVisible = false
                     root.setOnClickListener {
                         onItemClick?.invoke(item)
                     }
@@ -49,8 +51,7 @@ class SendAddressChooseAdapter() :
         ) {
             bind {
                 with(binding) {
-                    tvTitle.text = item.title
-
+                    tvTitle.text = item.title.uppercase()
                 }
             }
         }

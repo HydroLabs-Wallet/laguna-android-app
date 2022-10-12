@@ -161,6 +161,7 @@
     </declare-styleable>
     <declare-styleable name="InputFieldView">
         <attr name="if_title" format="string" />
+        <attr name="if_title_desc" format="string" />
         <attr name="if_text" format="string" />
         <attr name="if_text_hint" format="string" />
         <attr name="if_label_visible" format="boolean" />

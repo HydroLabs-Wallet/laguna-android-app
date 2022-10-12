@@ -7,7 +7,7 @@ import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
-import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
+import io.novafoundation.nova.common.data.model.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 

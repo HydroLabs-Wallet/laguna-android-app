@@ -36,9 +36,7 @@ abstract class BaseFragment<T : BasePresenter<*>> : MvpAppCompatFragment(), Back
         val activity = activity
         if (activity is ChainHolder) {
             activity.chain.add(WeakReference<Fragment>(this))
-            Log.e("mcheck", "chain ${activity.chain.size}")
         }else{
-            Log.e("mcheck", "chain not a holder")
         }
     }
 

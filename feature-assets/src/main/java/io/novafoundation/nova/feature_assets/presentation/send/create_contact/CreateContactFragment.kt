@@ -14,7 +14,7 @@ import io.novafoundation.nova.feature_assets.databinding.FragmentCreateContactBi
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureApi
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_receive.AssetReceiveAdapter
-import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
+import io.novafoundation.nova.common.data.model.ContactPayload
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn

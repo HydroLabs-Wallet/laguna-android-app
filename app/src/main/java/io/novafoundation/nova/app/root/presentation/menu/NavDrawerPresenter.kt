@@ -91,6 +91,10 @@ class NavDrawerPresenter @Inject constructor(
         rootRouter.toChangeAutoLock()
     }
 
+    fun onAddressBookClick() {
+        rootRouter.toAddressBook()
+    }
+
     fun editName() {
         val tag = "NavDraverEditName"
         router.setResultListener(tag) {

@@ -11,6 +11,7 @@ import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.navigation.screens.Screens
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.ContactPayload
 import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
@@ -22,7 +23,6 @@ import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.receive.ReceiveFragment
-import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.CrowdloanRouter
@@ -190,6 +190,10 @@ class Navigator(
         router.navigateTo(Screens.toChangeAutoLock())
     }
 
+    override fun toAddressBook() {
+        router.navigateTo(Screens.toAddressBook())
+    }
+
     override fun toChainsSettings() {
         router.navigateTo(Screens.toChainSettings())
     }
@@ -248,6 +252,10 @@ class Navigator(
 
     override fun toCreateContact(data: ContactPayload) {
         router.navigateTo(Screens.toCreateContact(data))
+    }
+
+    override fun toAddressBookContact(data: ContactPayload) {
+        router.navigateTo(Screens.toAddressBookContact(data))
     }
 
     override fun openInitialCheckPincode() {

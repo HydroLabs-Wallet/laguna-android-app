@@ -230,10 +230,12 @@ class RectButtonView @JvmOverloads constructor(
 
     fun setText(text: String?) {
         binding.tvTitle.text = text
+        invalidate()
     }
 
     fun setText(@StringRes id: Int) {
         binding.tvTitle.setText(id)
+        invalidate()
     }
 
     enum class RectButtonType { PRIMARY, SECONDARY, TERTIARY }

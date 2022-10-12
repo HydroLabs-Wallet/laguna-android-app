@@ -1,7 +1,7 @@
 package io.novafoundation.nova.feature_assets.presentation.send.fill
 
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
+import io.novafoundation.nova.common.data.model.ContactUi
 import io.novafoundation.nova.common.base.BaseView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

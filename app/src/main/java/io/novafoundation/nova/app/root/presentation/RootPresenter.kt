@@ -74,7 +74,6 @@ class RootPresenter @Inject constructor(
         val timeDiff = System.currentTimeMillis() - lastActive
         val timeMinutes = TimeUnit.MILLISECONDS.toMinutes(timeDiff)
         val isAuthorisedContent = if (fragment is BaseFragment<*>) fragment.isAuthorisedContent else false
-        Log.e("mcheck","timeMinutes $timeMinutes isAuthorised $isAuthorisedContent  fragment ${fragment?.javaClass?.simpleName}")
         if (lastActive != 0L && timeMinutes >= autoLockTimer && isAuthorisedContent) {
             router.toLoginScreen()
         }

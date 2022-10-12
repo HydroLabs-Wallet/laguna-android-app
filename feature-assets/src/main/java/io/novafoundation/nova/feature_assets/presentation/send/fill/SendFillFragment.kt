@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -17,9 +16,8 @@ import io.novafoundation.nova.feature_assets.databinding.FragmentSendFillBinding
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureApi
 import io.novafoundation.nova.feature_assets.di.AssetsFeatureComponent
 import io.novafoundation.nova.feature_assets.presentation.model.AssetModel
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
+import io.novafoundation.nova.common.data.model.ContactUi
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
-import io.novafoundation.nova.feature_assets.presentation.send.qr.SendQRView
 import io.novafoundation.nova.feature_wallet_api.presentation.formatters.formatTokenAmount
 import kotlinx.android.synthetic.main.fragment_send_fill.*
 import kotlinx.coroutines.flow.debounce

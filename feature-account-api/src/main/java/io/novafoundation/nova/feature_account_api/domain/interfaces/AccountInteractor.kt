@@ -1,5 +1,7 @@
 package io.novafoundation.nova.feature_account_api.domain.interfaces
 
+import io.novafoundation.nova.common.data.model.Contact
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.core.model.CryptoType
 import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Node
@@ -29,7 +31,9 @@ interface AccountInteractor {
     suspend fun setBiometricOn()
 
     suspend fun setBiometricOff()
-
+    suspend fun saveContact(data: Contact)
+    fun getContacts(): Flow<List<ContactUiMarker>>
+    suspend fun deleteContact(id: String)
     suspend fun getMetaAccount(metaId: Long): MetaAccount
 
     suspend fun updateMetaAccountName(metaId: Long, name: String)
