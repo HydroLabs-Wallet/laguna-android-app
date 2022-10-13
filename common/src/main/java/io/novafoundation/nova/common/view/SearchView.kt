@@ -44,6 +44,7 @@ class SearchView @JvmOverloads constructor(
                 ) = Unit
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    updateState()
                     trySend(s?.toString() ?: "")
                 }
             }
@@ -57,7 +58,15 @@ class SearchView @JvmOverloads constructor(
         binding.holderInput.setOnClickListener {
             binding.tvText.isVisible = true
             binding.tvText.forceKeyboardPan()
+            binding.imClear.setOnClickListener { binding.tvText.setText("") }
         }
+    }
+
+    private fun updateState() {
+        val isEmpty = binding.tvText.text.toString().isEmpty()
+//        binding.tvEnd.isVisible = isEmpty
+//        binding.imEnd.isVisible = isEmpty
+        binding.imClear.isVisible = !isEmpty
     }
 
     private fun applyAttributes(attrs: AttributeSet?) {
@@ -75,6 +84,7 @@ class SearchView @JvmOverloads constructor(
             val color = a.getColor(R.styleable.SearchView_sv_button_color_end, defColor)
             binding.tvEnd.setTextColor(color)
             binding.imEnd.setImageTint(color)
+            updateState()
             a.recycle()
         }
     }

@@ -3,6 +3,7 @@ package io.novafoundation.nova.feature_account_impl.presentation.account_import
 import android.net.Uri
 import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.resources.ResourceManager
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountAlreadyExistsException
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountInteractor
 import io.novafoundation.nova.feature_account_api.domain.model.AddAccountType
 import io.novafoundation.nova.feature_account_api.domain.model.ImportJsonMetaData
@@ -113,6 +114,7 @@ class AccountImportPresenter @Inject constructor(
         }
         viewState.showProgress(true)
         presenterScope.launch {
+
             var result = import()
             if (result.isSuccess) {
                 if (interactor.isCodeSet()) {
@@ -124,6 +126,9 @@ class AccountImportPresenter @Inject constructor(
             } else {
                 val throwable = result.exceptionOrNull()
                 val errorMessage = when (throwable) {
+                    is AccountAlreadyExistsException->{
+                        resourceManager.getString(R.string.account_add_already_exists_message)
+                    }
                     is JsonSeedDecodingException.InvalidJsonException -> {
                         resourceManager.getString(R.string.invalid_json)
                     }
@@ -150,6 +155,7 @@ class AccountImportPresenter @Inject constructor(
     private suspend fun import(
     ): Result<Unit> {
         val advancedEncryption = advancedEncryptionCommunicator.lastAdvancedEncryptionOrDefault(payload, advancedEncryptionInteractor)
+
         return when (mode) {
             AccountImportFragment.ImportMode.SEED -> addAccountInteractor.importFromMnemonic(seed, advancedEncryption, AddAccountType.MetaAccount(name))
             AccountImportFragment.ImportMode.JSON -> addAccountInteractor.importFromJson(json, password, AddAccountType.MetaAccount(name))

@@ -56,9 +56,8 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
     }
 
     override fun onDestroy() {
+        systemCallExecutor.detachActivity()
         super.onDestroy()
-        systemCallExecutor.attachActivity(this)
-
     }
 
     fun inject() {
@@ -88,6 +87,10 @@ class RootActivity : MvpAppCompatActivity(), SplashBackgroundHolder, ChainHolder
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        systemCallExecutor.onActivityResult(requestCode, resultCode, data)
+    }
     override fun onPause() {
         super.onPause()
         navigatorHolder.removeNavigator()

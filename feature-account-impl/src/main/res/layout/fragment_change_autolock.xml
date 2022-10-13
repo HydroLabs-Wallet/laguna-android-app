@@ -82,11 +82,11 @@
                 <TextView
                     android:id="@+id/labelText"
                     style="@style/TextBodyRegularLarge"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="48dp"
-                    android:layout_marginEnd="48dp"
+                    android:layout_marginEnd="24dp"
                     android:gravity="center"
                     android:text="@string/autolock_hint"
                     android:textColor="@color/contentPrimary"
@@ -136,7 +136,7 @@
                 android:layout_marginStart="@dimen/margin_26"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                app:rect_button_enabled="false"
+                app:rect_button_enabled="true"
                 app:rect_button_text="@string/common_cancel"
                 app:rect_button_type="secondary" />
 
@@ -151,7 +151,7 @@
                 android:layout_marginEnd="@dimen/margin_26"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                app:rect_button_enabled="false"
+                app:rect_button_enabled="true"
                 app:rect_button_text="@string/save" />
         </LinearLayout>
 

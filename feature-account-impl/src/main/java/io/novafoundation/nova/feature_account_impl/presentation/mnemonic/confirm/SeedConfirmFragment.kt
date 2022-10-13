@@ -1,6 +1,10 @@
 package io.novafoundation.nova.feature_account_impl.presentation.mnemonic.confirm
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +15,7 @@ import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.AddAccountPayload
 import io.novafoundation.nova.feature_account_api.presenatation.account.add.SeedWord
+import io.novafoundation.nova.feature_account_impl.R
 import io.novafoundation.nova.feature_account_impl.databinding.FragmentSeedConfirmBinding
 import io.novafoundation.nova.feature_account_impl.di.AccountFeatureComponent
 import moxy.presenter.InjectPresenter
@@ -18,7 +23,7 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class SeedConfirmFragment : BaseFragment<SeedConfirmPresenter>(), SeedConfirmView {
-    override val isAuthorisedContent=false
+    override val isAuthorisedContent = false
 
     companion object {
         private const val EXTRA_IS_AUTH = "isAuth"
@@ -61,8 +66,21 @@ class SeedConfirmFragment : BaseFragment<SeedConfirmPresenter>(), SeedConfirmVie
         super.onViewCreated(view, savedInstanceState)
         binding.seedView.onItemClick = { presenter.onSeedListItemClick(it) }
         binding.seedConfirm.setOnSelectionChangedListener { presenter.onSelectionChanged(it) }
-        binding.btnNext.setOnClickListener { presenter.onNextClick() }
+        binding.btnNext.setOnClickListener {
+            presenter.onNextClick()
+            clearClip()
+        }
         binding.progress.setOnClickListener { presenter.onBackCommandClick() }
+    }
+
+    private fun clearClip() {
+        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.primaryClip?.let {
+            if (it.description.label == getString(R.string.app_name)) {
+                val data = ClipData.newPlainText("", "");
+                clipboard.setPrimaryClip(data);
+            }
+        }
     }
 
     override fun setList(data: List<SeedWord>) {

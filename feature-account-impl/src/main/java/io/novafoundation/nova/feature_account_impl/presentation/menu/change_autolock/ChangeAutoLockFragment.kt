@@ -70,7 +70,7 @@ class ChangeAutoLockFragment : BaseFragment<ChangeAutoLockPresenter>(), ChangeAu
     }
 
     override fun enableButton(enable: Boolean) {
-        binding.btnNext.isEnabled = enable
+//        binding.btnNext.isEnabled = enable
     }
 
     override fun onBackPressed(): Boolean {

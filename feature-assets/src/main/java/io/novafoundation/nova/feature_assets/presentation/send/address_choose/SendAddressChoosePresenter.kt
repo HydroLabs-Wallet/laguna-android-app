@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_assets.presentation.send.address_choose
 
+import android.util.Log
 import com.github.terrakok.cicerone.ResultListener
 import io.novafoundation.nova.common.base.BasePresenter
 import io.novafoundation.nova.common.data.model.ContactPayload
@@ -127,8 +128,8 @@ class SendAddressChoosePresenter @Inject constructor(
         presenterScope.launch {
             systemCallExecutor.executeSystemCall(ScanQrCodeCall())
                 .onSuccess { address ->
-                    val contact = ContactUi(name = address.ellipsis(), address = address, memo = null, id = null)
-                    onItemClicked(contact)
+                    searchQueryFlow.value = address
+                    Log.e("mcheck","$address")
                 }.onSystemCallFailure {
                     viewState.showError(resourceManager.getString(io.novafoundation.nova.feature_account_api.R.string.invoice_scan_error_no_info))
                 }
@@ -136,10 +137,11 @@ class SendAddressChoosePresenter @Inject constructor(
     }
 
     fun onItemClicked(data: ContactUi) {
-        try {
 
 
-            presenterScope.launch {
+        presenterScope.launch {
+            try {
+
                 val decoded = SS58Encoder.decode(data.address)
                 val (chain, asset) = chainRegistry.chainWithAsset(payload.chainId, payload.chainAssetId)
                 val chainAddress = decoded.toAddress(chain.addressPrefix.toShort())
@@ -151,10 +153,11 @@ class SendAddressChoosePresenter @Inject constructor(
                     contact = newData
                 )
                 router.toSendFill(payload)
+            } catch (e: Exception) {
+                showError(resourceManager.getString(R.string.invalid_blockchain_address))
             }
-        } catch (e: Exception) {
-            showError(resourceManager.getString(R.string.invalid_blockchain_address))
         }
+
     }
 
     fun onBackCommandClick() {

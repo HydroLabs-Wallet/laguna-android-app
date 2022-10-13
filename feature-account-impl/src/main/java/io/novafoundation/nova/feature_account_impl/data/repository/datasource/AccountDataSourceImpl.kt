@@ -19,6 +19,7 @@ import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.core_db.model.chain.ChainAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountPositionUpdate
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountAlreadyExistsException
 import io.novafoundation.nova.feature_account_api.domain.model.*
 import io.novafoundation.nova.feature_account_impl.data.mappers.*
 import io.novafoundation.nova.feature_account_impl.data.repository.datasource.migration.AccountDataMigration
@@ -229,6 +230,11 @@ class AccountDataSourceImpl(
         val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
         val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
 
+        val isNew = metaAccountDao.getMetaAccounts().filter { it.substratePublicKey.contentEquals(substratePublicKey) }.isEmpty()
+
+        if (!isNew) {
+            throw AccountAlreadyExistsException()
+        }
         val metaAccountLocal = MetaAccountLocal(
             substratePublicKey = substratePublicKey,
             substrateCryptoType = substrateCryptoType,
