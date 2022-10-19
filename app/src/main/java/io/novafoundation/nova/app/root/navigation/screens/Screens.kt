@@ -30,6 +30,7 @@ import io.novafoundation.nova.feature_account_impl.presentation.password.CreateP
 import io.novafoundation.nova.feature_account_impl.presentation.password_confirm.PasswordConfirmFragment
 import io.novafoundation.nova.feature_account_impl.presentation.select_account.SelectAccountFragment
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
+import io.novafoundation.nova.feature_assets.presentation.all_transactions.AllTransactionsFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_choose.AssetChooseFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_details.AssetDetailsFragment
 import io.novafoundation.nova.feature_assets.presentation.asset_receive.AssetReceiveFragment
@@ -116,6 +117,8 @@ object Screens {
     fun toAssetReceiveChooserScreen(data: AssetReceivePayload) = FragmentScreen { AssetReceiveChooserFragment.getNewInstance(data) }
 
     //transactions
+
+    fun toAllTransactions()= FragmentScreen{AllTransactionsFragment.getNewInstance()}
     fun toAssetTransactions(payload: AssetPayload) =
         FragmentScreen { AssetTransactionsFragment.getNewInstance(payload, true) }
 

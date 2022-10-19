@@ -20,7 +20,9 @@ interface RootRouter {
     fun toChainsSettings()
     fun toSelectAccount(data: SelectAccountPayload)
 
+
     fun toAssetSelectionToReceive()
     fun toAssetReceive(assetPayload: AssetPayload)
     fun openAssetDetails(assetPayload: AssetPayload)
+    fun toAllActivities()
 }

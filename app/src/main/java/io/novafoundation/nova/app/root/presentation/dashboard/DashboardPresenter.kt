@@ -150,6 +150,10 @@ class DashboardPresenter @Inject constructor(
         router.showSendReceiveDialog(payload)
     }
 
+    fun onActivitiesClick() {
+        rootRouter.toAllActivities()
+    }
+
     private suspend fun syncWith(syncActions: List<SyncAction>, metaAccount: MetaAccount) = if (syncActions.size == 1) {
         val syncAction = syncActions.first()
         syncAction(metaAccount)

@@ -14,7 +14,6 @@ import io.novafoundation.nova.app.root.presentation.view.DashboardBalanceView
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
 import io.novafoundation.nova.common.utils.DoubleClickListener
-import io.novafoundation.nova.common.utils.showToast
 import io.novafoundation.nova.feature_assets.presentation.balance.list.model.TotalBalanceModel
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -73,21 +72,8 @@ class DashboardFragment : BaseFragment<DashboardPresenter>(), DashboardView {
                 presenter.onValueVisibilityToggle()
             }
         })
-        binding.bottomNavBarView.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_active -> {
-                    requireActivity().showToast("Active state")
-                }
-                R.id.nav_default -> {
-                    requireActivity().showToast("Default state")
-                }
-            }
-            true
-        }
-
-        binding.bottomNavBarView.actionButton.setOnClickListener {
-            presenter.onSendReceivePopupScreen()
-        }
+        binding.bottomNavBarView.imAllActivities.setOnClickListener { presenter.onActivitiesClick() }
+        binding.bottomNavBarView.imSendReceive.setOnClickListener { presenter.onSendReceivePopupScreen() }
         binding.holderBalance.setOnReceiveClickListener { presenter.onReceiveClicked() }
     }
 

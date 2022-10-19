@@ -7,6 +7,7 @@ import io.novafoundation.nova.common.di.scope.FeatureScope
 import io.novafoundation.nova.core_db.di.DbApi
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_assets.presentation.WalletRouter
+import io.novafoundation.nova.feature_assets.presentation.all_transactions.di.AllTransactionsComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_choose.di.AssetChooseComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_details.di.AssetDetailComponent
 import io.novafoundation.nova.feature_assets.presentation.asset_receive.di.AssetReceiveComponent
@@ -52,6 +53,7 @@ interface AssetsFeatureComponent : AssetsFeatureApi {
     fun assetDetailComponentFactory(): AssetDetailComponent.Factory
     fun sendReceiveComponentFactory(): SendReceiveComponent.Factory
     fun assetTransactionsComponentFactory(): AssetTransactionsComponent.Factory
+    fun allTransactionsComponentFactory(): AllTransactionsComponent.Factory
 
     //send
     fun sendAssetChooseComponentFactory(): SendAssetChooseComponent.Factory

@@ -41,7 +41,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Polkadot activity" />
+                    android:text="@string/activity" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
@@ -60,6 +60,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/holder_header">
 
+            <TextView
+                android:id="@+id/tvFilterLabel"
+                style="@style/TextBodyRegularSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:text="@string/common_network"
+                android:textColor="@color/contentTertiary"
+                app:layout_constraintBottom_toBottomOf="@id/btnFilter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnFilter" />
+
+            <io.novafoundation.nova.common.view.PillButtonView
+                android:id="@+id/btnFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:pill_button_ic_end="@drawable/ic_size_24_cheveron_down"
+                app:pill_button_size="small"
+                app:pill_button_text="Polkadot"
+                app:pill_button_type="secondary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvList"
@@ -70,7 +94,7 @@
                 android:layout_marginEnd="26dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnFilter"
                 tools:listitem="@layout/listitem_asset_transaction" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

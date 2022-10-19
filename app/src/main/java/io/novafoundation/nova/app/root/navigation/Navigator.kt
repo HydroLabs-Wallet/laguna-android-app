@@ -208,6 +208,10 @@ class Navigator(
         router.navigateTo(Screens.toAssetChooseScreen())
     }
 
+    override fun toAllActivities() {
+        router.navigateTo(Screens.toAllTransactions())
+    }
+
     override fun toAssetReceive(assetPayload: AssetPayload) {
         router.navigateTo(Screens.toAssetReceiveScreen(assetPayload))
     }
