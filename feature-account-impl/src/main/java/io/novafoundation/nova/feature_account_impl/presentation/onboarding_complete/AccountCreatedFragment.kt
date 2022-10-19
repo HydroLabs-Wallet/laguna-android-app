@@ -19,6 +19,8 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class AccountCreatedFragment : BaseFragment<AccountCreatedPresenter>(), AccountCreatedView {
+    override val isAuthorisedContent=false
+
     companion object {
         private const val EXTRA_IS_AUTH = "isAuth"
 

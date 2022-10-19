@@ -87,6 +87,14 @@ class NavDrawerPresenter @Inject constructor(
         rootRouter.toChangeAvatar()
     }
 
+    fun onAutoLockClick() {
+        rootRouter.toChangeAutoLock()
+    }
+
+    fun onAddressBookClick() {
+        rootRouter.toAddressBook()
+    }
+
     fun editName() {
         val tag = "NavDraverEditName"
         router.setResultListener(tag) {

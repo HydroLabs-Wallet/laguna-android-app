@@ -16,6 +16,7 @@ class SendReceivePresenter @Inject constructor(
         viewState.setSendEnabled(payload.sendEnabled)
     }
     fun onSendClick(){
+        router.back()
         router.toSendAssetChooser()
     }
     fun onReceiveClick() {

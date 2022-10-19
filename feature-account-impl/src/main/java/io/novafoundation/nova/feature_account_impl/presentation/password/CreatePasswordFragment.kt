@@ -23,6 +23,8 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class CreatePasswordFragment : BaseFragment<CreatePasswordPresenter>(), CreatePasswordView {
+    override val isAuthorisedContent=false
+
     companion object {
         private const val EXTRA_IS_AUTH = "isAuth"
         fun getNewInstance(data: AddAccountPayload): CreatePasswordFragment = CreatePasswordFragment().apply {

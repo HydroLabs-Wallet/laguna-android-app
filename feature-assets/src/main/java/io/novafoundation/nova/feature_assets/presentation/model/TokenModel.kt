@@ -7,6 +7,7 @@ import java.math.BigDecimal
 data class TokenModel(
     val configuration: Chain.Asset,
     val dollarRate: BigDecimal,
+    val dollarChange: String,
     val recentRateChange: String,
     @ColorRes val rateChangeColorRes: Int
 )

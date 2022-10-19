@@ -1,6 +1,6 @@
 package io.novafoundation.nova.feature_assets.presentation.send.address_choose
 
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiMarker
+import io.novafoundation.nova.common.data.model.ContactUiMarker
 import io.novafoundation.nova.common.base.BaseView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

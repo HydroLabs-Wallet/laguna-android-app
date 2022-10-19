@@ -38,4 +38,5 @@ interface Preferences {
     ): Flow<String?>
 
     fun observeBoolean(key: String, initialValue: Boolean): Flow<Boolean>
+    fun observeString(key: String, initialValue: String): Flow<String>
 }

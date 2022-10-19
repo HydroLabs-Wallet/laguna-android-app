@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_wallet_impl.data.repository
 
+import io.novafoundation.nova.common.data.model.Contact
 import io.novafoundation.nova.common.data.model.CursorPage
 import io.novafoundation.nova.common.data.network.HttpExceptionHandler
 import io.novafoundation.nova.common.data.network.coingecko.PriceInfo
@@ -22,7 +23,6 @@ import io.novafoundation.nova.feature_wallet_api.domain.interfaces.TransactionFi
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletConstants
 import io.novafoundation.nova.feature_wallet_api.domain.interfaces.WalletRepository
 import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
-import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 import io.novafoundation.nova.feature_wallet_api.domain.model.planksFromAmount
 import io.novafoundation.nova.feature_wallet_impl.data.mappers.mapAssetLocalToAsset
@@ -48,6 +48,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
+import java.util.*
 
 class WalletRepositoryImpl(
     private val substrateSource: SubstrateRemoteSource,
@@ -240,11 +241,12 @@ class WalletRepositoryImpl(
 
     override fun getContacts(): Flow<List<Contact>> {
         return contactsDao.getContacts()
-            .mapList { Contact(name = it.name, address = it.address) }
+            .mapList { Contact(name = it.name, address = it.address, memo = it.memo, id = it.id) }
     }
 
     override suspend fun createContact(data: Contact) {
-        contactsDao.insert(ContactLocal(address = data.address, name = data.name))
+        val id = data.id ?: UUID.randomUUID().toString()
+        contactsDao.insert(ContactLocal(address = data.address, name = data.name, memo = data.memo, id = id))
     }
 
     override suspend fun insertPendingTransfer(

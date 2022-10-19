@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.isDigitsOnly
 import androidx.recyclerview.widget.GridLayoutManager
-import coil.load
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.novafoundation.nova.common.base.BaseFragment
 import io.novafoundation.nova.common.di.FeatureUtils
-import io.novafoundation.nova.common.utils.hideKeyboard
 import io.novafoundation.nova.common.view.GridSpacingItemDecoration
 import io.novafoundation.nova.feature_account_api.di.AccountFeatureApi
 import io.novafoundation.nova.feature_account_impl.R
@@ -52,23 +51,17 @@ class ChangeAvatarFragment : BaseFragment<ChangeAvatarPresenter>(), ChangeAvatar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnBack.setOnClickListener { presenter.onBackCommandClick() }
-        binding.btnCancel.setOnClickListener { presenter.onBackCommandClick() }
+        binding.root.setOnClickListener { presenter.onBackCommandClick() }
         binding.btnNext.setOnClickListener { presenter.onNextClick() }
-        binding.rvList.layoutManager = GridLayoutManager(requireContext(), 5)
-        val spacing = resources.getDimensionPixelSize(R.dimen.margin_16)
-        binding.rvList.addItemDecoration(GridSpacingItemDecoration(5, spacing, false))
+        binding.rvList.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false )
         adapter = AvatarAdapter()
         binding.rvList.adapter = adapter
         adapter.onItemClick = { presenter.onAvatarClick(it) }
     }
 
     override fun setAvatar(data: String) {
-        if (data.isDigitsOnly()) {
-            binding.imAvatar.load(data.toInt())
-        } else {
-            binding.imAvatar.load(data)
-        }
+        adapter.selectedAvatar = data
+        adapter.notifyDataSetChanged()
     }
 
     override fun enableButton(enable: Boolean) {

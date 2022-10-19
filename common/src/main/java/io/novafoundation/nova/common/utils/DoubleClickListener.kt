@@ -10,7 +10,6 @@ abstract class DoubleClickListener : View.OnClickListener {
             onDoubleClick(v)
             lastClickTime = 0
         }
-        Log.e("mcheck","delta ${clickTime-lastClickTime}")
         lastClickTime = clickTime
     }
     abstract fun onDoubleClick(v: View)

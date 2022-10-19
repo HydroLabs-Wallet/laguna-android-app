@@ -54,7 +54,5 @@ class LoginPresenter @Inject constructor(
         viewState.showSupportSnack()
     }
 
-    fun onBackCommandClick() {
-        router.back()
-    }
+
 }

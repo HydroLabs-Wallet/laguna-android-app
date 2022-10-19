@@ -1,5 +1,6 @@
 package io.novafoundation.nova.feature_account_impl.data.repository
 
+import io.novafoundation.nova.common.data.model.Contact
 import io.novafoundation.nova.common.data.secrets.v2.SecretStoreV2
 import io.novafoundation.nova.common.data.secrets.v2.getAccountSecrets
 import io.novafoundation.nova.common.data.secrets.v2.seed
@@ -11,8 +12,10 @@ import io.novafoundation.nova.core.model.Language
 import io.novafoundation.nova.core.model.Network
 import io.novafoundation.nova.core.model.Node
 import io.novafoundation.nova.core_db.dao.AccountDao
+import io.novafoundation.nova.core_db.dao.ContactsDao
 import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.core_db.model.AccountLocal
+import io.novafoundation.nova.core_db.model.ContactLocal
 import io.novafoundation.nova.core_db.model.NodeLocal
 import io.novafoundation.nova.feature_account_api.data.secrets.keypair
 import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountRepository
@@ -34,10 +37,12 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class AccountRepositoryImpl(
     private val accountDataSource: AccountDataSource,
     private val accountDao: AccountDao,
+    private val contactsDao: ContactsDao,
     private val nodeDao: NodeDao,
     private val jsonSeedEncoder: JsonSeedEncoder,
     private val languagesHolder: LanguagesHolder,
@@ -104,6 +109,14 @@ class AccountRepositoryImpl(
 
     override fun selectedMetaAccountFlow(): Flow<MetaAccount> {
         return accountDataSource.selectedMetaAccountFlow()
+    }
+
+    override fun getAutoLockTimer(): Flow<String> {
+        return accountDataSource.getAutoLockTimer()
+    }
+
+    override suspend fun saveAutoLockTimer(data: String) {
+        accountDataSource.saveAutoLockTimer(data)
     }
 
     override suspend fun findMetaAccount(accountId: ByteArray): MetaAccount? {
@@ -302,5 +315,19 @@ class AccountRepositoryImpl(
 
     private fun getNetworkForType(networkType: Node.NetworkType): Network {
         return Network(networkType)
+    }
+
+    override fun getContacts(): Flow<List<Contact>> {
+        return contactsDao.getContacts()
+            .mapList { Contact(id = it.id, name = it.name, address = it.address, memo = it.memo) }
+    }
+
+    override suspend fun createContact(data: Contact) {
+        val id = data.id ?: UUID.randomUUID().toString()
+        contactsDao.insert(ContactLocal(id = id, address = data.address, name = data.name, memo = data.memo))
+    }
+
+    override suspend fun deleteContact(id: String) {
+        contactsDao.deleteContact(id)
     }
 }

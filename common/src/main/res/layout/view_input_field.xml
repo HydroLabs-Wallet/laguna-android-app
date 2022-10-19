@@ -19,6 +19,19 @@
             tools:text="New password" />
 
 
+        <TextView
+            android:id="@+id/tvTitleDesc"
+            style="@style/TextBodyBoldSmall"
+            android:layout_width="0dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/tvTitle"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+
+            android:textColor="@color/contentTertiary"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            tools:text="New password" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/holder_input"
             android:layout_width="match_parent"

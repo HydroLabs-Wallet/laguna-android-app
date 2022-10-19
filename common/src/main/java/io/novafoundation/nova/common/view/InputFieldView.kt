@@ -1,5 +1,6 @@
 package io.novafoundation.nova.common.view
 
+
 import android.content.Context
 import android.content.res.TypedArray
 import android.text.Editable
@@ -9,12 +10,11 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import io.novafoundation.nova.common.R
-
-
 import io.novafoundation.nova.common.databinding.ViewInputFieldBinding
 import io.novafoundation.nova.common.utils.compatColor
 import io.novafoundation.nova.common.utils.forceKeyboardPan
@@ -78,6 +78,8 @@ class InputFieldView @JvmOverloads constructor(
             showClearButton = a.getBoolean(R.styleable.InputFieldView_if_show_clear, true)
             showTitle = a.getBoolean(R.styleable.InputFieldView_if_show_title, true)
             binding.tvTitle.isVisible = showTitle
+            binding.tvTitleDesc.isVisible = showTitle
+            setTextFromAttributes(binding.tvTitleDesc, a, R.styleable.InputFieldView_if_title_desc)
             setTextFromAttributes(binding.tvTitle, a, R.styleable.InputFieldView_if_title)
             setTextFromAttributes(binding.tvText, a, R.styleable.InputFieldView_if_text)
             setHintFromAttributes(binding.tvText, a, R.styleable.InputFieldView_if_text_hint)
@@ -160,6 +162,10 @@ class InputFieldView @JvmOverloads constructor(
         }
     }
 
+    fun setIcEnd(@DrawableRes res: Int?) {
+        res?.let { binding.imEnd.setImageResource(it) } ?: binding.imEnd.setImageDrawable(null)
+    }
+
     private fun setHintFromAttributes(textView: TextView, typedArray: TypedArray, reference: Int) {
         val textId = typedArray.getResourceId(reference, 0)
         val text = typedArray.getText(reference)
@@ -187,17 +193,35 @@ class InputFieldView @JvmOverloads constructor(
     fun setText(@StringRes id: Int) {
         binding.tvText.setText(id)
     }
+
     fun setHint(@StringRes id: Int) {
         binding.tvText.setHint(id)
     }
+
     fun setHint(text: String?) {
         binding.tvText.setHint(text)
     }
+
     fun updateState(data: InputFieldData) {
         isError = data.isError
         isSuccess = data.isSuccess
         tempHintMessage = data.hint
         updateTextState()
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        with(binding) {
+            tvText.isClickable = enabled
+            tvText.isFocusable = enabled
+            tvText.isFocusableInTouchMode = enabled
+            holderInput.isClickable = enabled
+            val isTextEmpty = tvText.text.toString().trim().isEmpty()
+            if (enabled) {
+                imClear.isVisible = showClearButton && !isTextEmpty
+            } else {
+                imClear.isVisible = false
+            }
+        }
     }
 
     data class InputFieldData(

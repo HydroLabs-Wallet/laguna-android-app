@@ -5,19 +5,24 @@ import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.feature_assets.presentation.AssetPayload
 
 interface RootRouter {
-    fun setResult(key:String,data:Any)
-    fun setResultListener(key:String, listener: ResultListener)
+    fun setResult(key: String, data: Any)
+    fun setResultListener(key: String, listener: ResultListener)
     fun backToDashBoard()
     fun toMenu()
     fun toChangePassword()
     fun toChangeAvatar()
+    fun toChangeAutoLock()
+    fun toAddressBook()
     fun returnToWallet()
+    fun toLoginScreen()
 
     fun toDashboard()
     fun toChainsSettings()
     fun toSelectAccount(data: SelectAccountPayload)
 
+
     fun toAssetSelectionToReceive()
     fun toAssetReceive(assetPayload: AssetPayload)
     fun openAssetDetails(assetPayload: AssetPayload)
+    fun toAllActivities()
 }

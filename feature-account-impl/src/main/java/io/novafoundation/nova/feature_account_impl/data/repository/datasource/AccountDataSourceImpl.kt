@@ -19,6 +19,7 @@ import io.novafoundation.nova.core_db.dao.NodeDao
 import io.novafoundation.nova.core_db.model.chain.ChainAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountLocal
 import io.novafoundation.nova.core_db.model.chain.MetaAccountPositionUpdate
+import io.novafoundation.nova.feature_account_api.domain.interfaces.AccountAlreadyExistsException
 import io.novafoundation.nova.feature_account_api.domain.model.*
 import io.novafoundation.nova.feature_account_impl.data.mappers.*
 import io.novafoundation.nova.feature_account_impl.data.repository.datasource.migration.AccountDataMigration
@@ -37,6 +38,7 @@ import kotlinx.coroutines.withContext
 
 private const val PREFS_AUTH_TYPE = "auth_type"
 private const val PREFS_PIN_CODE = "pin_code"
+private const val PREFS_AUTOLOCK = "auto_lock"
 
 class AccountDataSourceImpl(
     private val preferences: Preferences,
@@ -212,6 +214,14 @@ class AccountDataSourceImpl(
         secretStoreV2.clearSecrets(metaId, chainAccountIds)
     }
 
+    override fun getAutoLockTimer(): Flow<String> {
+        return preferences.observeString(PREFS_AUTOLOCK, "15")
+    }
+
+    override suspend fun saveAutoLockTimer(data: String) {
+        preferences.putString(PREFS_AUTOLOCK, data)
+    }
+
     override suspend fun insertMetaAccount(
         name: String,
         substrateCryptoType: CryptoType,
@@ -220,6 +230,11 @@ class AccountDataSourceImpl(
         val substratePublicKey = secrets[MetaAccountSecrets.SubstrateKeypair][KeyPairSchema.PublicKey]
         val ethereumPublicKey = secrets[MetaAccountSecrets.EthereumKeypair]?.get(KeyPairSchema.PublicKey)
 
+        val isNew = metaAccountDao.getMetaAccounts().filter { it.substratePublicKey.contentEquals(substratePublicKey) }.isEmpty()
+
+        if (!isNew) {
+            throw AccountAlreadyExistsException()
+        }
         val metaAccountLocal = MetaAccountLocal(
             substratePublicKey = substratePublicKey,
             substrateCryptoType = substrateCryptoType,

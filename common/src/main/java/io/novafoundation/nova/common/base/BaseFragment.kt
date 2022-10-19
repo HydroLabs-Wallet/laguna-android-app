@@ -2,21 +2,17 @@ package io.novafoundation.nova.common.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import io.novafoundation.nova.common.view.CustomSnack
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
 import java.lang.ref.WeakReference
-import javax.inject.Inject
-import javax.inject.Provider
 
 abstract class BaseFragment<T : BasePresenter<*>> : MvpAppCompatFragment(), BackButtonListener, BaseView {
 
     abstract fun inject()
-
+    open val isAuthorisedContent = true
 //    @Inject
 //    lateinit var presenterProvider: Provider<T>
 //
@@ -39,7 +35,8 @@ abstract class BaseFragment<T : BasePresenter<*>> : MvpAppCompatFragment(), Back
 
         val activity = activity
         if (activity is ChainHolder) {
-            (activity as ChainHolder).chain.add(WeakReference<Fragment>(this))
+            activity.chain.add(WeakReference<Fragment>(this))
+        }else{
         }
     }
 

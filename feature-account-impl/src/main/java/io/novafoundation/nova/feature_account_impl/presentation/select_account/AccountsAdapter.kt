@@ -35,7 +35,6 @@ class AccountsAdapter() :
                         }
                     }
                     tvTitle.text = item.name
-                    imIcon.load(item.picture.value)
                     imCheck.isVisible = item.isSelected
                     tvAmount.text = "$0"
                     if (item.isSelected) {

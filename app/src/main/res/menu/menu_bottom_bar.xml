@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_active"
+        android:id="@+id/nav_dashboard"
         android:icon="@drawable/menu_icon_active_state"
-        android:title="Active" />
+        android:title="Dashboard" />
 
     <item
         android:id="@+id/nav_action"
@@ -14,9 +14,9 @@
         android:title="Action" />
 
     <item
-        android:id="@+id/nav_default"
+        android:id="@+id/nav_activities"
         android:icon="@drawable/menu_icon_state_default"
-        android:title="Default" />
+        android:title="Activities" />
 
 
 </menu>

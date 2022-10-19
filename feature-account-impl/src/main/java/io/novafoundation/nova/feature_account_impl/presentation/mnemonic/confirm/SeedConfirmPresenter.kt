@@ -24,7 +24,7 @@ import moxy.presenterScope
 import javax.inject.Inject
 
 @InjectViewState
-class SeedConfirmPresenter  @Inject constructor(
+class SeedConfirmPresenter @Inject constructor(
     private val router: AccountRouter,
     private val interactor: AccountInteractor,
     private val addAccountInteractor: AddAccountInteractor,
@@ -182,7 +182,7 @@ class SeedConfirmPresenter  @Inject constructor(
 
     private suspend fun continueBasedOnCodeStatus() {
         if (interactor.isCodeSet()) {
-            router.toDashboard()
+            router.toAddToExistingComplete(payload)
         } else {
             router.toCreatePassword(payload)
         }

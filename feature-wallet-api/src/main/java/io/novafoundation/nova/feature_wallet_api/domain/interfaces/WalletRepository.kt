@@ -3,13 +3,12 @@ package io.novafoundation.nova.feature_wallet_api.domain.interfaces
 import io.novafoundation.nova.common.data.model.CursorPage
 import io.novafoundation.nova.feature_wallet_api.data.network.blockhain.assets.tranfers.AssetTransfer
 import io.novafoundation.nova.feature_wallet_api.domain.model.Asset
-import io.novafoundation.nova.feature_wallet_api.domain.model.Contact
+import io.novafoundation.nova.common.data.model.Contact
 import io.novafoundation.nova.feature_wallet_api.domain.model.Operation
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.Chain
 import io.novafoundation.nova.runtime.multiNetwork.chain.model.ChainId
 import jp.co.soramitsu.fearless_utils.runtime.AccountId
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import java.math.BigInteger
 

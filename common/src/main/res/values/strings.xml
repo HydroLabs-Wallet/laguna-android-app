@@ -768,8 +768,8 @@
     <string name="send">Send</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="choose_asset">Choose asset</string>
-    <string name="search_asset">Search asset</string>
+    <string name="choose_asset">Choose Asset</string>
+    <string name="search_asset">Search Asset</string>
     <string name="paste">Paste</string>
     <string name="save">Save</string>
     <string name="enter_ens">Enter address, ENS</string>
@@ -806,7 +806,7 @@
     <string name="contacts">Contacts</string>
     <string name="send_to">Send to</string>
     <string name="transfer_to_my_account">Self transfer to my account</string>
-    <string name="new_contact">New contact</string>
+    <string name="new_contact">New Contact</string>
     <string name="save_to_contact">Save to contact</string>
     <string name="contact_name">Contact name</string>
     <string name="enter_name">Enter name</string>
@@ -831,7 +831,7 @@
     <string name="auto_lock_timer">Auto-Lock Timer</string>
     <string name="connected_sites">Connected Sites</string>
     <string name="address_book">Address Book</string>
-    <string name="log_out_skywalker">Log out \"%1$s\"</string>
+    <string name="log_out_skywalker">Remove \"%1$s\"</string>
     <string name="value_hidden">*******</string>
     <string name="new_password">New password</string>
     <string name="current_passoword">Current password</string>
@@ -839,5 +839,22 @@
     <string name="password_changed_successfully">Password changed successfully!</string>
     <string name="change_avatar">Change Avatar</string>
     <string name="avatar_changed">Avatar Changed!</string>
+    <string name="minutes">Minutes</string>
+    <string name="autolock_changed">Auto lock timer changed!</string>
+    <string name="error_auto_lock">You can’t add a timer for more than 24 hours</string>
+    <string name="import_complete">Import Complete!</string>
+    <string name="unlock_the_power_of_polkadot">Unlock the Power of Polkadot</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="import_account">Import Account</string>
+    <string name="filter_by_network">Filter by network</string>
+    <string name="add_new_contact">Add new contact</string>
+    <string name="address_book_is_empty">Address book is empty</string>
+    <string name="enter_public_address">Enter public address, ENS</string>
+    <string name="contact">Contact</string>
+    <string name="edit_contact">Edit Contact</string>
+    <string name="delete">Delete</string>
+    <string name="optional">Optional</string>
+    <string name="contact_saved">Contact Saved!</string>
+
 
 </resources>

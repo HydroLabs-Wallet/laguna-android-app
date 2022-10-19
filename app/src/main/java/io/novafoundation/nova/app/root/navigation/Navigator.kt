@@ -11,6 +11,7 @@ import io.novafoundation.nova.app.R
 import io.novafoundation.nova.app.root.navigation.screens.Screens
 import io.novafoundation.nova.app.root.presentation.RootRouter
 import io.novafoundation.nova.common.data.model.ConfirmPayload
+import io.novafoundation.nova.common.data.model.ContactPayload
 import io.novafoundation.nova.common.data.model.EditFieldPayload
 import io.novafoundation.nova.common.data.model.SelectAccountPayload
 import io.novafoundation.nova.common.navigation.DelayedNavigation
@@ -22,7 +23,6 @@ import io.novafoundation.nova.feature_assets.presentation.WalletRouter
 import io.novafoundation.nova.feature_assets.presentation.asset_receive_chooser.AssetReceivePayload
 import io.novafoundation.nova.feature_assets.presentation.model.OperationParcelizeModel
 import io.novafoundation.nova.feature_assets.presentation.receive.ReceiveFragment
-import io.novafoundation.nova.feature_assets.presentation.send.ContactPayload
 import io.novafoundation.nova.feature_assets.presentation.send.TransferDraft
 import io.novafoundation.nova.feature_assets.presentation.send_receive.SendReceivePayload
 import io.novafoundation.nova.feature_crowdloan_impl.presentation.CrowdloanRouter
@@ -80,6 +80,7 @@ class Navigator(
 
     private val navController: NavController?
         get() = navigationHolder.navController
+
 
     override fun setResult(key: String, data: Any) {
         router.sendResult(key, data)
@@ -143,12 +144,20 @@ class Navigator(
         router.navigateTo(Screens.toAccountCreatedScreen(payload))
     }
 
+    override fun toAddToExistingComplete(payload: AddAccountPayload) {
+        router.navigateTo(Screens.toAddToExistingCompletedScreen(payload))
+    }
+
     override fun toSeedConfirm(payload: AddAccountPayload) {
         router.navigateTo(Screens.toSeedConfirmScreen(payload))
     }
 
     override fun toOnboardingScreen() {
         router.navigateTo(Screens.toOnboardingScreen(AddAccountPayload.MetaAccount(true)))
+    }
+
+    override fun toAddExistingAccountScreen() {
+        router.navigateTo(Screens.toAddExistingAccountScreen(AddAccountPayload.MetaAccount(true)))
     }
 
     // Login
@@ -177,6 +186,14 @@ class Navigator(
         router.navigateTo(Screens.toChangeAvatar())
     }
 
+    override fun toChangeAutoLock() {
+        router.navigateTo(Screens.toChangeAutoLock())
+    }
+
+    override fun toAddressBook() {
+        router.navigateTo(Screens.toAddressBook())
+    }
+
     override fun toChainsSettings() {
         router.navigateTo(Screens.toChainSettings())
     }
@@ -189,6 +206,10 @@ class Navigator(
 
     override fun toAssetSelectionToReceive() {
         router.navigateTo(Screens.toAssetChooseScreen())
+    }
+
+    override fun toAllActivities() {
+        router.navigateTo(Screens.toAllTransactions())
     }
 
     override fun toAssetReceive(assetPayload: AssetPayload) {
@@ -235,6 +256,10 @@ class Navigator(
 
     override fun toCreateContact(data: ContactPayload) {
         router.navigateTo(Screens.toCreateContact(data))
+    }
+
+    override fun toAddressBookContact(data: ContactPayload) {
+        router.navigateTo(Screens.toAddressBookContact(data))
     }
 
     override fun openInitialCheckPincode() {

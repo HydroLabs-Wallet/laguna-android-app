@@ -155,7 +155,6 @@ class SendFillPresenter @Inject constructor(
     }
 
     private suspend fun calculateFee(data: AssetTransfer, assetModel: AssetModel) {
-        Log.e("mcheck", "calculate fee")
         val feePlanks =
             if (data.amount.stripTrailingZeros() == BigDecimal.ZERO) {
                 BigInteger.ZERO

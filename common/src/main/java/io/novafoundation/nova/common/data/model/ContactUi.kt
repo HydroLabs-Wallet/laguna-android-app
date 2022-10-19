@@ -1,4 +1,4 @@
-package io.novafoundation.nova.feature_assets.presentation.send
+package io.novafoundation.nova.common.data.model
 
 import android.os.Parcelable
 import io.novafoundation.nova.common.utils.DiffEquals
@@ -8,13 +8,13 @@ import kotlinx.android.parcel.Parcelize
 interface ContactUiMarker : DiffEquals
 
 @Parcelize
-data class ContactUi(val name: String, val address: String) : ContactUiMarker, Parcelable {
+data class ContactUi(val id: String?, val name: String, val address: String, val memo: String? = null) : ContactUiMarker, Parcelable {
     override fun isItemSame(other: Any?): Boolean {
-        return equalTo(other, { name }, { address })
+        return equalTo(other, { id })
     }
 
     override fun isContentSame(other: Any?): Boolean {
-        return true
+        return equalTo(other, { name }, { address }, { memo })
     }
 }
 

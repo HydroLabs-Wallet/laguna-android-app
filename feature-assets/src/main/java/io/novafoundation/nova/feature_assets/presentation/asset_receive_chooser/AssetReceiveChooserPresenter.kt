@@ -53,16 +53,15 @@ class AssetReceiveChooserPresenter @Inject constructor(
                 val nameSame = it.token.configuration.name.lowercase() == payload.priceId
                 val priceIdSame = payload.priceId != null && it.token.configuration.priceId == payload.priceId
                 val filtered = nameSame || priceIdSame
-                Log.e("mcheck", "name $filtered")
                 filtered
             }
             if (query.isEmpty()) {
                 viewState.submitList(filteredAssets)
             } else {
                 val filtered = filteredAssets.filter {
-                    it.token.configuration.symbol == query ||
-                        it.token.configuration.chainId == query ||
-                        it.token.configuration.name == query
+                    it.token.configuration.symbol.lowercase().contains(query.lowercase()) ||
+                        it.token.configuration.chainId.lowercase().contains(query.lowercase()) ||
+                        it.token.configuration.name.lowercase().contains(query.lowercase())
                 }
                 viewState.submitList(filtered)
             }

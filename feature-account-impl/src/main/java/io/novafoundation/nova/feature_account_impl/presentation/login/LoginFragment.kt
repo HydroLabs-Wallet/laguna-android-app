@@ -23,6 +23,8 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
+    override val isAuthorisedContent=false
+
     companion object {
         fun getNewInstance(): LoginFragment = LoginFragment()
     }
@@ -77,7 +79,6 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
     }
 
     override fun onBackPressed(): Boolean {
-        presenter.onBackCommandClick()
-        return true
+        return false
     }
 }

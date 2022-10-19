@@ -18,7 +18,7 @@ class AvatarUtils {
     ).map { it.toString() }
 
     fun randomAvatar(): String {
-        val index = (0..avatars.size).random()
+        val index = (avatars.indices).random()
         return avatars[index]
     }
 }

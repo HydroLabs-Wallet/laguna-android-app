@@ -24,6 +24,7 @@ import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 class EditFieldFragment : BaseFragment<EditFieldPresenter>(), EditFieldView {
+
     companion object {
 
         private const val EXTRA_RESULT = "EditFieldFragment.extra_result"

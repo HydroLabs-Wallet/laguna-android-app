@@ -1,19 +1,21 @@
 package io.novafoundation.nova.feature_assets.presentation.send.address_choose.adapter
 
+import androidx.core.view.isVisible
 import coil.load
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import io.novafoundation.nova.common.data.model.ContactUi
+import io.novafoundation.nova.common.data.model.ContactUiHeader
+import io.novafoundation.nova.common.data.model.ContactUiMarker
+import io.novafoundation.nova.common.databinding.ListitemContactBinding
+import io.novafoundation.nova.common.databinding.ListitemContactHeaderBinding
+import io.novafoundation.nova.common.utils.AvatarUtils
 import io.novafoundation.nova.common.utils.DefaultDiffUtilCallback
-import io.novafoundation.nova.feature_assets.R
-import io.novafoundation.nova.feature_assets.databinding.ListitemContactBinding
-import io.novafoundation.nova.feature_assets.databinding.ListitemContactHeaderBinding
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUi
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiHeader
-import io.novafoundation.nova.feature_assets.presentation.send.ContactUiMarker
 
 class SendAddressChooseAdapter() :
     AsyncListDifferDelegationAdapter<ContactUiMarker>(DefaultDiffUtilCallback()) {
     var onItemClick: ((ContactUi) -> Unit)? = null
+    private val avatarUtils = AvatarUtils()
 
     init {
         delegatesManager.addDelegate(contactDelegate())
@@ -29,7 +31,8 @@ class SendAddressChooseAdapter() :
         ) {
             bind {
                 with(binding) {
-                    imAvatar.load(R.drawable.bg_asset_primary)
+                    imAvatar.setImageResource(avatarUtils.randomAvatar().toInt())
+                    tvMemo.isVisible=false
                     tvName.text = item.name
                     root.setOnClickListener {
                         onItemClick?.invoke(item)

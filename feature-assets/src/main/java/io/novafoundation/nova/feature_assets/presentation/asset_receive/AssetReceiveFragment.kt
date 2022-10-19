@@ -105,7 +105,8 @@ class AssetReceiveFragment : BaseFragment<AssetReceivePresenter>(), AssetReceive
             binding.tvName.text = it.symbol
             val isNative = it.priceId == null || it.priceId == it.name.lowercase()
             binding.imNotNative.isVisible = !isNative
-            binding.tvToolbarTitle.text = getString(R.string.receive_toolbar, it.priceId.orEmpty().ifEmpty { it.name.lowercase() })
+
+            binding.tvToolbarTitle.text = getString(R.string.receive_toolbar, it.assetName)
 
             if (!isNative) {
                 binding.imNotNative.load(data.chain.icon, imageLoader)

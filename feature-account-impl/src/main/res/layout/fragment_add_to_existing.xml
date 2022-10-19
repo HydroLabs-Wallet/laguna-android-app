@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/white">
+
+        <io.novafoundation.nova.feature_account_impl.presentation.view.RegisterIndicatorView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pi_progress="1" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextHeadingsH3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:gravity="center"
+            android:text="@string/add_or_import_account"
+            android:textColor="@color/contentPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/progress" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/circle_black"
+            app:layout_constraintBottom_toBottomOf="@id/imCircle"
+
+            app:layout_constraintEnd_toEndOf="@id/imCircle"
+            app:layout_constraintStart_toStartOf="@id/imCircle"
+            app:layout_constraintTop_toTopOf="@id/imCircle"
+            app:tint="@color/neutral200"
+
+            />
+
+        <ImageView
+            android:id="@+id/imCircle"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/ic_add_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:tint="@color/neutral100" />
+
+
+
+
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnImport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rect_button_text="@string/create_new_wallet" />
+
+        <io.novafoundation.nova.common.view.RectButtonView
+            android:id="@+id/btnImport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rect_button_text="@string/i_have_wallet"
+            app:rect_button_type="tertiary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
